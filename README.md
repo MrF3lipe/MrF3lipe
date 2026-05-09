@@ -1,107 +1,47 @@
-# Felipe Hernández — Portfolio
+## Hola, soy Felipe Hernández 👋
 
-Sitio personal estático construido con **Vite + React + TypeScript**, listo para desplegar en **GitHub Pages** sin configuración de servidor.
+### 🧠 Sobre mí
 
-## Características
-
-- 100% estático (HTML/CSS/JS) — no requiere backend.
-- Routing con `HashRouter` (URLs tipo `/#/`) — sin errores 404 al refrescar.
-- Todos los assets con rutas relativas (`./assets/...`).
-- 5 estilos visuales conmutables: Glass, Neumorphic, Terminal, Minimal, Synthwave.
-- Modo claro/oscuro con persistencia (`localStorage`) y respeto a `prefers-color-scheme`.
-- Animaciones con `framer-motion`, mobile-first, totalmente responsive.
-
-## Desarrollo
-
-```bash
-npm install
-npm run dev
-```
-
-## Build
-
-```bash
-npm run build
-```
-
-Salida: carpeta `dist/` con todo lo necesario (incluye `.nojekyll`).
+Desarrollador obsesionado con los detalles. Disfruto crear **tiendas online**, **dashboards** y **herramientas útiles** que resuelven problemas reales.
+Trabajando siempre con la filosofía de que: *"Si funciona, se puede mejorar"*.  
 
 ---
 
-## Despliegue en GitHub Pages
 
-Existen dos métodos. Ambos funcionan porque `vite.config.ts` define `base: "./"`.
+### 🛠️ Habilidades Técnicas
 
-### Opción A — Carpeta `/docs` (la más simple)
+**Lenguajes:**  
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![GDScript](https://img.shields.io/badge/GDScript-478CBF?style=flat-square&logo=godot-engine&logoColor=white)
 
-1. `npm run build`
-2. Renombra/copia el `dist/` resultante a `docs/` en la raíz de tu repo:
-   ```bash
-   rm -rf docs && cp -r dist docs
-   ```
-3. Asegúrate de que `docs/.nojekyll` existe (ya viene incluido).
-4. Commit + push:
-   ```bash
-   git add docs && git commit -m "deploy" && git push
-   ```
-5. En GitHub: **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `/docs`**.
-6. Visita `https://<usuario>.github.io/<repo>/`.
+**Frontend:**  
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 
-### Opción B — Rama `gh-pages`
-
-1. `npm install -D gh-pages`
-2. Añade a `package.json`:
-   ```json
-   "scripts": {
-     "deploy": "npm run build && gh-pages -d dist -t true"
-   }
-   ```
-   El flag `-t true` incluye archivos ocultos como `.nojekyll`.
-3. `npm run deploy`
-4. En GitHub: **Settings → Pages → Branch: `gh-pages` / `/ (root)`**.
-
-### Opción C — Deploy manual rápido
-
-Sube el contenido de `dist/` (no la carpeta, sino su contenido) a la rama configurada para Pages.
+**Backend y Móvil:**  
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
+![Capacitor](https://img.shields.io/badge/Capacitor-119EFF?style=flat-square&logo=capacitor&logoColor=white)
 
 ---
 
-## ¿Por qué funciona en GitHub Pages?
+### 📌 Proyectos Destacados
 
-| Decisión | Razón |
-|---|---|
-| `base: "./"` en Vite | Todas las URLs en `index.html` son relativas, así funciona en cualquier subpath (`/repo-name/`). |
-| `HashRouter` | Las rutas viven en el fragmento `#/...`, que el navegador no envía al servidor → no hay 404. |
-| `.nojekyll` | Evita que GitHub procese archivos con `_` (Vite genera `_assets`). |
-| Sin `process.env`, sin SSR | Todo el código es cliente puro. |
+#### 🍳 [Kitchen Gabinet](https://github.com/MrF3lipe/kitchen-gabinet)
+- **Stack:** ![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![Capacitor](https://img.shields.io/badge/Capacitor-119EFF?style=flat-square&logo=capacitor&logoColor=white)
+- **Descripción:** Asistente de cocina todo en uno: recetario interactivo, planificador semanal y gestor de despensa. Desarrollado como aplicación móvil para Android.
 
----
-
-## Estructura
-
-```
-felipe-portfolio/
-  public/.nojekyll
-  src/
-    components/      # Navbar, Hero, About, TechStack, Projects, GitHubStats, Contact, Footer
-    themes/          # 5 archivos CSS, uno por estilo
-    context/         # ThemeContext (estilo + modo)
-    data/            # content.ts, projects.ts, techStack.ts (edita aquí)
-    hooks/Reveal.tsx # animación de aparición
-    App.tsx, main.tsx, index.css
-  vite.config.ts     # base: "./"
-```
-
-Más detalles en [`DOCUMENTATION.md`](./DOCUMENTATION.md).
-
-## Personalizar
-
-- **Texto:** `src/data/content.ts`
-- **Proyectos:** `src/data/projects.ts`
-- **Stack:** `src/data/techStack.ts`
-- **Estilos:** `src/themes/*.css` (modifica variables CSS)
-- **Formspree:** reemplaza `formspreeEndpoint` en `content.ts` por tu endpoint real.
+#### 💍 [DKY Jewelry](https://dkygold.com)
+- **Stack:** ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+- **Descripción:** Sitio web de comercio electrónico para tienda de joyería. Incluye catálogo de productos, carrito de compras funcional y panel de administración para gestionar el inventario.
 
 ---
 
-Hecho con ❤️ por Felipe Hernández.
+### 📬 Contacto
+
+- 📧 felipe.hdez.522@email.com
+- 🌐 *Open to work* – Disponible para proyectos y colaboraciones.
