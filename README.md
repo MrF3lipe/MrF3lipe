@@ -39,7 +39,7 @@ Trabajando siempre con la filosofía de que: *"Si funciona, se puede mejorar"*.
 - **Stack:** ![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![Capacitor](https://img.shields.io/badge/Capacitor-119EFF?style=flat-square&logo=capacitor&logoColor=white)
 - **Descripción:** Asistente de cocina todo en uno: recetario interactivo, planificador semanal y gestor de despensa. Desarrollado como aplicación móvil multiplataforma lista para Android.
 
-#### 💍 [DKY Jewelry](https://github.com/MrF3lipe/dky-jewelry)
+#### 💍 [DKY Jewelry](https://dkygold.com)
 - **Stack:** ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 - **Descripción:** Sitio web de comercio electrónico para tienda de joyería. Incluye catálogo de productos, carrito de compras funcional y panel de administración para gestionar el inventario.
 
