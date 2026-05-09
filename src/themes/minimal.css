@@ -1,0 +1,25 @@
+/* Minimal Mono — black/white editorial. */
+:root[data-theme="minimal"] {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --text: #0a0a0a;
+  --muted: #737373;
+  --accent: #0a0a0a;
+  --accent2: #525252;
+  --border: #e5e5e5;
+  --shadow-card: none;
+  --radius: 0px;
+  --backdrop: none;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+:root[data-theme="minimal"].dark {
+  --bg: #0a0a0a;
+  --surface: #171717;
+  --text: #fafafa;
+  --muted: #a3a3a3;
+  --accent: #fafafa;
+  --accent2: #d4d4d4;
+  --border: #262626;
+}

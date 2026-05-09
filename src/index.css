@@ -1,0 +1,59 @@
+/* Theme files — each defines CSS variables on :root[data-theme="..."]. Must come before any non-@import rule. */
+@import "./themes/glass.css";
+@import "./themes/neumorphic.css";
+@import "./themes/terminal.css";
+@import "./themes/minimal.css";
+@import "./themes/synthwave.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+* { box-sizing: border-box; }
+
+a { color: inherit; }
+
+/* Reusable card surface — each theme overrides --shadow-card and --surface */
+.surface-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius, 16px);
+  backdrop-filter: var(--backdrop, none);
+}
+
+/* Section padding helper */
+.section { padding: 5rem 1.25rem; max-width: 1100px; margin: 0 auto; }
+
+@media (min-width: 768px) {
+  .section { padding: 6rem 2rem; }
+}
+
+/* Terminal scanlines (only active under terminal theme via :root[data-theme]) */
+:root[data-theme="terminal"] body::before {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,255,0,0.04) 0px,
+    rgba(0,255,0,0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+:root[data-theme="synthwave"] body {
+  background-image:
+    linear-gradient(var(--bg), var(--bg)),
+    linear-gradient(transparent 95%, rgba(255,0,200,0.3) 95%),
+    linear-gradient(90deg, transparent 95%, rgba(0,255,255,0.3) 95%);
+  background-size: auto, 100% 40px, 40px 100%;
+}

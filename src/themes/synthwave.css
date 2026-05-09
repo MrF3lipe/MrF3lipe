@@ -1,0 +1,19 @@
+/* Sunset Synthwave — neon pink/cyan retro. */
+:root[data-theme="synthwave"] {
+  --bg: #160028;
+  --surface: rgba(255, 0, 200, 0.08);
+  --text: #ffeefc;
+  --muted: #c89bd6;
+  --accent: #ff2bd6;
+  --accent2: #00f6ff;
+  --border: rgba(255, 43, 214, 0.4);
+  --shadow-card: 0 0 30px rgba(255, 43, 214, 0.35), 0 0 60px rgba(0, 246, 255, 0.15);
+  --radius: 12px;
+  --backdrop: blur(8px);
+  --font-display: "Audiowide", "Orbitron", sans-serif;
+  --font-body: "Rajdhani", "Inter", sans-serif;
+}
+
+:root[data-theme="synthwave"].dark {
+  --bg: #0a0014;
+}

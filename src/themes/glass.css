@@ -1,0 +1,25 @@
+/* Modern Glass — default theme. Glassmorphism cards over a soft gradient. */
+:root,
+:root[data-theme="glass"] {
+  --bg: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 50%, #fdf2f8 100%);
+  --surface: rgba(255, 255, 255, 0.55);
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #6366f1;
+  --accent2: #ec4899;
+  --border: rgba(255, 255, 255, 0.6);
+  --shadow-card: 0 10px 40px -12px rgba(99, 102, 241, 0.25);
+  --radius: 20px;
+  --backdrop: blur(14px) saturate(140%);
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+:root[data-theme="glass"].dark {
+  --bg: linear-gradient(135deg, #0b1020 0%, #131530 50%, #1a0f2e 100%);
+  --surface: rgba(255, 255, 255, 0.06);
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
+  --shadow-card: 0 10px 40px -12px rgba(99, 102, 241, 0.45);
+}

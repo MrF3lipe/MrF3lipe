@@ -1,0 +1,23 @@
+/* Neumorphic Soft — pastel surfaces with inset/outset soft shadows. */
+:root[data-theme="neumorphic"] {
+  --bg: #e6e7ee;
+  --surface: #e6e7ee;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #5b8def;
+  --accent2: #f78da7;
+  --border: transparent;
+  --shadow-card: 8px 8px 20px #c8c9d0, -8px -8px 20px #ffffff;
+  --radius: 22px;
+  --backdrop: none;
+  --font-display: "Poppins", "Inter", sans-serif;
+  --font-body: "Poppins", "Inter", sans-serif;
+}
+
+:root[data-theme="neumorphic"].dark {
+  --bg: #2a2d3a;
+  --surface: #2a2d3a;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --shadow-card: 8px 8px 20px #1f2230, -8px -8px 20px #353847;
+}
