@@ -1,3 +1,5 @@
+import avatar from "../assets/avatar.jpg"
+
 export const content = {
   nav: {
     about: "Sobre mí",
@@ -11,7 +13,7 @@ export const content = {
     tagline: "Construir para ayudar y mejorar siempre.",
     ctaProjects: "Ver proyectos",
     ctaContact: "Contacto",
-    photo: "https://avatars.githubusercontent.com/u/185244250?s=400&u=7734258e23413bf93f05e59517a671b975ea5b62&v=4",
+    photo: avatar,
   },
   about: {
     title: "Sobre mí",
