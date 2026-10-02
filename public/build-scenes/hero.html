@@ -3,7 +3,7 @@
 <html lang="es"><head>
 <meta charset="utf-8"/>
 <!-- Relative favicon path: works on any GitHub Pages subpath -->
-<link href="/notebook-favicon.svg" rel="icon" type="image/svg+xml"/>
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="Felipe Hernández, desarrollador frontend en Camagüey, Cuba. Proyectos web y Android. Disponible para empleo y colaboraciones freelance." name="description"/>
 <meta content="#f9f7ef" name="theme-color"/>
@@ -18,23 +18,55 @@
 <meta content="El cuaderno de Felipe Hernández" name="twitter:title"/>
 <meta content="Portfolio frontend, proyectos web y Android. Empleo y freelance." name="twitter:description"/>
 <title>Felipe Hernández | Frontend, web y Android</title>
-<link href="hero.css" rel="stylesheet"/><style>html{scroll-behavior:auto!important}html[data-creation="1"] body *:not(style):not(script){background-image:none!important;background-color:transparent!important;box-shadow:none!important;color:transparent!important;border-color:#d9d9d2!important}html[data-creation="1"] body{background:#fffdf8!important}html[data-creation="1"] .creation-container{outline:1px dashed #c1c4bd!important;outline-offset:-2px;min-height:24px}html[data-creation="1"] .creation-container:empty{min-height:42px}html[data-creation="1"] .creation-container,html[data-creation="2"] .creation-container{animation:creation-block 650ms cubic-bezier(.23,1,.32,1) both}html[data-creation="2"] body *{background-image:none!important}html[data-creation="3"] body *{background-image:none!important}.creation-media-space{display:block;width:100%;min-height:50px;max-width:100%;background:#e9e9e2!important;border:1px dashed #c9c9c0!important}.creation-arrival{animation:creation-block 600ms cubic-bezier(.23,1,.32,1) both}@keyframes creation-block{from{opacity:.15;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style></head>
+<link href="hero.css" rel="stylesheet"/><!--assembly-css--><style>
+html{scroll-behavior:auto!important}
+html[data-creation]{--paper:#fffdf8;--wire:#d9d6cc;--wire-strong:#b9b4a6;background:var(--paper)!important}
+html[data-creation][data-scene-theme="dark"]{--paper:#262420;--wire:#4a463d;--wire-strong:#6d675a}
+/* 01 · Structure: an empty wireframe; each block appears when the pencil reaches it. */
+html[data-creation="1"] body *:not(style):not(script){background-image:none!important;background-color:transparent!important;box-shadow:none!important;color:transparent!important;border-color:var(--wire)!important;text-shadow:none!important}
+html[data-creation="1"] body{background:var(--paper)!important}
+html[data-creation="1"] .creation-container{outline:1.5px dashed var(--wire-strong)!important;outline-offset:-2px;min-height:24px}
+html[data-creation="1"] .creation-container:empty{min-height:42px}
+html[data-creation="1"] .creation-container:not(.is-sketched){opacity:0!important}
+html[data-creation="1"] .creation-container.is-sketched{animation:creation-block 520ms cubic-bezier(.23,1,.32,1) both}
+/* 02 · Colour flows down the page: every element waits for its own --d. */
+html.creation-paint body *:not(style):not(script){transition:background-color .75s ease var(--d,0s),color .75s ease var(--d,0s),border-color .75s ease var(--d,0s),box-shadow .75s ease var(--d,0s),outline-color .75s ease var(--d,0s)!important}
+html[data-creation="2"] .creation-container,html[data-creation="3"] .creation-container{outline:1.5px dashed transparent!important;outline-offset:-2px}
+html[data-creation="2"] body *,html[data-creation="3"] body *{background-image:none!important}
+/* 04 · Media: a grey sketch box first, then the photo develops like a print. */
+.creation-media-space{display:block;width:100%;min-height:50px;max-width:100%;background:var(--wire)!important;opacity:.55;border:0!important}
+.creation-arrival{animation:creation-develop 900ms cubic-bezier(.23,1,.32,1) both}
+@keyframes creation-block{from{opacity:0;translate:0 14px;scale:.985}to{opacity:1;translate:none;scale:none}}
+@keyframes creation-develop{0%{opacity:0;filter:grayscale(1) contrast(.55) brightness(1.25) blur(10px);scale:1.03}55%{opacity:1}100%{opacity:1;filter:none;scale:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style><!--/assembly-css--></head>
 <body><template id="creation-source"><div id="creation-root">
-<div id="root"><a class="skip-link" href="#main" rel="noopener noreferrer" target="_blank">Saltar al contenido</a><header class="site-header"><nav aria-label="Navegación principal" class="nav page-width"><a class="signature" href="#top" rel="noopener noreferrer" target="_blank"><span>el cuaderno de</span><strong>Felipe Hernández<span class="signature-dot">.</span></strong></a><button aria-controls="main-nav" aria-expanded="false" aria-label="Abrir menú" class="menu-toggle" type="button"><svg class="lucide lucide-menu" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><div class="nav-links" id="main-nav"><a class="" href="#projects" rel="noopener noreferrer" target="_blank">Proyectos</a><a class="" href="#about" rel="noopener noreferrer" target="_blank">Sobre mí</a><a class="" href="#tools" rel="noopener noreferrer" target="_blank">Herramientas</a><a class="nav-contact" href="#contact" rel="noopener noreferrer" target="_blank">Hablemos<svg class="lucide lucide-arrow-up-right" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a aria-label="Ver el perfil de Felipe en GitHub" class="nav-github" href="https://github.com/MrF3lipe" rel="noopener noreferrer" target="_blank"><svg class="lucide lucide-github" fill="none" height="19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="19" xmlns="http://www.w3.org/2000/svg"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></div></nav></header><main id="main"><section aria-labelledby="hero-title" class="hero page-width" id="top"><div class="hero-copy"><p class="availability" style="opacity: 1; transform: translateY(0px);"><span></span>Abierto a empleo y proyectos freelance</p><p class="handwritten hero-note" style="opacity: 1; transform: translateY(0px);">una nueva página empieza aquí</p><h1 id="hero-title" style="opacity: 1; transform: translateY(0px);">Una idea.<br/>Un boceto.<br/><span class="hand-underline">Algo que funciona.</span></h1><p class="hero-intro" style="opacity: 1; transform: translateY(0px);">Soy Felipe, desarrollador frontend. Convierto problemas cotidianos en herramientas digitales que ayudan a las personas.</p><div class="hero-actions" style="opacity: 1; transform: translateY(0px);"><a class="sketch-button" href="#projects" rel="noopener noreferrer" target="_blank">Ver mis proyectos <svg class="lucide lucide-arrow-right" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a class="text-link" href="#contact" rel="noopener noreferrer" target="_blank">Hablemos <svg class="lucide lucide-arrow-up-right" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></div><div class="hero-art" style="opacity: 1; transform: translateY(0px);"><svg aria-label="Boceto a lápiz de una página web y una aplicación móvil" class="sketch-art" role="img" viewbox="0 0 520 440"><g class="sketch-lines" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path class="pencil-draw" d="m64 76 350-8 5 223-356 9Z" pathlength="1"></path><path class="pencil-draw" d="m60 79 351-7 4 224-345 8Z" opacity=".3" pathlength="1"></path><path class="pencil-draw" d="m65 107 350-7M87 91h23m16-1h12m19 0h13m17-1h16M87 139h136v84H87Z" pathlength="1"></path><path class="pencil-draw" d="m98 212 35-40 28 27 22-29 28 39M244 143h140m-140 18h111m-111 17h132m-132 18h74M92 252h107m48-4h96m-98 17h72" pathlength="1"></path><path class="pencil-draw" d="m292 259 117 6-12 161-117-9Z" fill="var(--paper)" pathlength="1"></path><path class="pencil-draw" d="m298 273 104 7M293 303h105m-93 12h37m-40 26h78m-79 14h57m-59 32h71" pathlength="1"></path><path class="pencil-draw" d="m296 327 32 1v35h-35m56-34 35 1-1 35h-37M322 408h34" pathlength="1"></path><path class="pencil-draw" d="M429 138q68 47 37 155m-7-18 5 23 23-10M103 315q-37 50 78 76m-20-19 26 21-30 5" pathlength="1"></path><path class="pencil-draw" d="m63 354-17 8m11-23-5-14m29 25 12-6M410 333l17 3m-9-17 3-11M236 51l6-11 6 11-6 10Z" pathlength="1"></path></g><g class="sketch-labels" fill="var(--pencil)"><text transform="rotate(-4 57 43)" x="57" y="43">hacerlo claro ↓</text><text transform="rotate(-4 93 427)" x="93" y="427">de la idea a la pantalla</text></g></svg><span class="art-caption">de la idea a la pantalla</span><div class="sticky-note hero-sticky"><span class="note-pin"></span><small>recordatorio:</small><p>Si funciona,<br/>se puede mejorar.</p><span class="note-star">✳</span></div></div><div class="hero-foot"><a href="#projects" rel="noopener noreferrer" target="_blank"><svg class="lucide lucide-arrow-down" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg> seguir hojeando</a><span>Camagüey, Cuba <span class="tiny-star">✧</span> Diseño, código y curiosidad.</span></div></section><section aria-labelledby="projects-title" class="projects-section" id="projects"><div class="page-width"><header class="section-intro"><span class="page-index">01 / proyectos</span><h2 id="projects-title">Cosas que ya salieron<br/>del <span class="highlight-word">cuaderno.</span></h2><p>De una necesidad real a algo que puedes usar.<br/>Estos son algunos de mis proyectos.</p><span class="margin-note">menos promesas,<br/>más cosas hechas ↙</span></header><div class="featured-projects"><article class="featured-project project-dky"><div class="project-art-sheet" style="--project-wash: #e9dcca;"><span aria-hidden="true" class="sheet-tape"></span><svg aria-label="Esquema dibujado de una tienda de joyería" class="sketch-art" role="img" viewbox="0 0 520 440"><g class="sketch-lines" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path class="pencil-draw" d="m37 60 446 4-5 313-447-4Z" fill="var(--paper)" pathlength="1"></path><path class="pencil-draw" d="m34 57 451 6-4 316-451-5Z" opacity=".25" pathlength="1"></path><path class="pencil-draw" d="m39 97 440 4M57 77h76m204 5h30m17 0h35M61 126h159v135H61Z" fill="var(--project-wash)" pathlength="1"></path><path class="pencil-draw" d="M133 159q-39 9-39 42t43 40q37-9 37-42t-41-40Z" pathlength="1" stroke-width="4"></path><path class="pencil-draw" d="m132 157-15-17 15-18 16 18-16 17m-11-13h24m-13-21v31M250 134h187m-186 21h124m-124 20h167m-166 51h100m-100 20h81M64 291h114m28 0h112m24 0h112M64 307h86m61 0h82m49 0h90" pathlength="1"></path><path class="pencil-draw" d="m250 191 81 1 1 17-83-1Z" fill="var(--highlight)" pathlength="1"></path><path class="pencil-draw" d="M134 394q59 20 95-4m-14-7 19 5-9 17M474 190l15-3m-12-9 2-8" pathlength="1"></path></g><g class="sketch-labels" fill="var(--pencil)"><text x="64" y="39">una tienda que funciona</text><text transform="rotate(-3 243 408)" x="243" y="408">el producto, primero ↗</text></g></svg><span class="art-caption">de la idea a la pantalla</span></div><div class="project-copy"><div class="project-number"><span>01</span><span>comercio que funciona</span></div><h3>DKY Jewelry</h3><p>Una tienda de joyería con catálogo dinámico, carrito y gestión de inventario. Del producto a la compra, con una experiencia pensada para móvil.</p><ul aria-label="Tecnologías" class="project-tech"><li>JavaScript</li><li>HTML</li><li>CSS</li><li>Supabase</li></ul><div class="project-links"><a class="text-link" href="https://www.dkygold.com/" rel="noopener noreferrer" target="_blank">Ver proyecto <svg class="lucide lucide-arrow-up-right" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="text-link muted-link" href="https://github.com/MrF3lipe/dky-jewelry" rel="noopener noreferrer" target="_blank"><svg class="lucide lucide-github" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>Código <svg class="lucide lucide-arrow-up-right" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div><details class="project-notes"><summary>Ver notas del proyecto</summary><ul><li>Catálogo conectado a Supabase, con búsqueda y filtros.</li><li>Carrito y contacto por WhatsApp para consultas y ventas.</li><li>Panel de administración para gestionar el inventario.</li></ul></details><span class="project-hand-note">Una tienda real, un problema real.</span></div></article><article class="featured-project project-zofloridane"><div class="project-art-sheet" style="--project-wash: #e4dfef;"><span aria-hidden="true" class="sheet-tape"></span><svg aria-label="Boceto de la tienda ZoFloridane" class="sketch-art" role="img" viewbox="0 0 520 440"><g class="sketch-lines" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path class="pencil-draw" d="m37 60 446 4-5 313-447-4Z" fill="var(--paper)" pathlength="1"></path><path class="pencil-draw" d="m34 57 451 6-4 316-451-5Z" opacity=".25" pathlength="1"></path><path class="pencil-draw" d="m39 97 440 4M57 77h76m204 5h30m17 0h35M61 126h159v135H61Z" fill="var(--project-wash)" pathlength="1"></path><path class="pencil-draw" d="M133 159q-39 9-39 42t43 40q37-9 37-42t-41-40Z" pathlength="1" stroke-width="4"></path><path class="pencil-draw" d="m132 157-15-17 15-18 16 18-16 17m-11-13h24m-13-21v31M250 134h187m-186 21h124m-124 20h167m-166 51h100m-100 20h81M64 291h114m28 0h112m24 0h112M64 307h86m61 0h82m49 0h90" pathlength="1"></path><path class="pencil-draw" d="m250 191 81 1 1 17-83-1Z" fill="var(--highlight)" pathlength="1"></path><path class="pencil-draw" d="M134 394q59 20 95-4m-14-7 19 5-9 17M474 190l15-3m-12-9 2-8" pathlength="1"></path></g><g class="sketch-labels" fill="var(--pencil)"><text x="64" y="39">comprar desde lejos, entregar cerca</text><text transform="rotate(-3 243 408)" x="243" y="408">el producto, primero ↗</text></g></svg><span class="art-caption">de la idea a la pantalla</span></div><div class="project-copy"><div class="project-number"><span>02</span><span>comercio que funciona</span></div><h3>ZoFloridane</h3><p>Una tienda online para comprar desde cualquier parte del mundo y entregar productos a tu familia en Cuba. Catálogo, carrito y seguimiento del pedido, con disponibilidad según la zona de entrega.</p><ul aria-label="Tecnologías" class="project-tech"><li>Comercio electrónico</li><li>Catálogo</li><li>Pedidos</li></ul><div class="project-links"><a class="text-link" href="https://zofloridane.com/" rel="noopener noreferrer" target="_blank">Ver proyecto <svg class="lucide lucide-arrow-up-right" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div><details class="project-notes"><summary>Ver notas del proyecto</summary><ul><li>Catálogo de alimentos, bebidas, aseo y productos para el hogar.</li><li>Selección de localidad y disponibilidad para el destino.</li><li>Carrito, seguimiento de pedidos y atención por WhatsApp.</li></ul></details><span class="project-hand-note">Un puente para estar cerca, incluso desde lejos.</span></div></article><article class="featured-project project-kitchen"><div class="project-art-sheet" style="--project-wash: #dce4d4;"><span aria-hidden="true" class="sheet-tape"></span><img alt="Icono original de Kitchen Cabinet" class="kitchen-logo" height="48" loading="eager" src="kitchen.png" width="48"/><svg aria-label="Esquema dibujado de las pantallas de Kitchen Cabinet" class="sketch-art" role="img" viewbox="0 0 520 440"><g class="sketch-lines" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path class="pencil-draw" d="m78 72 150-3 4 286-154 5Z" fill="var(--paper)" pathlength="1"></path><path class="pencil-draw" d="m75 75 151-4 5 286-151 6Z" opacity=".35" pathlength="1"></path><path class="pencil-draw" d="m105 90 92-2M143 344h26M94 123h120m-119 20h67M96 163h114v57H96Z" fill="var(--project-wash)" pathlength="1"></path><path class="pencil-draw" d="M152 180q-24-11-28 8t29 19q31-2 30-16t-31-11M96 236h80m-79 15h110m-109 18h89M95 291h34m11 0h30m12 0h25" pathlength="1"></path><path class="pencil-draw" d="m287 92 150 4-3 286-152-4Z" fill="var(--paper)" pathlength="1"></path><path class="pencil-draw" d="m285 97 150 3-1 281-153-3Z" opacity=".3" pathlength="1"></path><path class="pencil-draw" d="M310 114h100M340 367h24M303 147h117m-117 18h58M306 190h12v13h-12Zm25 6h82M304 227h12v13h-12Zm26 6h75M304 264h12v13h-12Zm26 6h84M304 303h12v13h-12Zm26 6h69" pathlength="1"></path><path class="pencil-draw" d="m308 231 4 5 10-13m-17 84 6 5 10-13M244 193q25-30 40-35m-19 0 23-6-10 21" pathlength="1"></path></g><g class="sketch-labels" fill="var(--pencil)"><text x="64" y="43">recetas</text><text x="302" y="66">lista de la compra</text><text transform="rotate(-3 158 414)" x="158" y="414">un poco de orden para cocinar</text></g></svg><span class="art-caption">una aplicación Android, en un boceto</span></div><div class="project-copy"><div class="project-number"><span>03</span><span>una app para el día a día</span></div><h3>Kitchen Cabinet</h3><p>Recetas, despensa, compras y planificación semanal en una aplicación Android nativa. Una pequeña ayuda para organizar lo que pasa en la cocina.</p><ul aria-label="Tecnologías" class="project-tech"><li>Kotlin</li><li>Jetpack Compose</li><li>Room</li></ul><div class="project-links"><a class="text-link muted-link" href="https://github.com/MrF3lipe/KC-Kotlin" rel="noopener noreferrer" target="_blank"><svg class="lucide lucide-github" fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>Ver código Android <svg class="lucide lucide-arrow-up-right" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div><details class="project-notes"><summary>Ver notas del proyecto</summary><ul><li>Recetario con categorías, favoritos y búsqueda por ingredientes.</li><li>Despensa, lista de la compra y planificación semanal.</li><li>Modo cocina paso a paso, temporizador y ajustes de porciones.</li></ul></details><span class="project-hand-note">Menos «¿qué cocino hoy?», más organización.</span></div></article></div></div></section><section aria-labelledby="about-title" class="about-section page-width" id="about"><div class="about-photo"><figure class="portrait-sheet"><span aria-hidden="true" class="sheet-tape"></span><img alt="Felipe Hernández, fotografía del portfolio original" height="400" loading="eager" src="../social-profile.jpg" width="400"/><figcaption>Felipe, detrás del código.</figcaption></figure><span class="photo-note">este soy yo <svg aria-hidden="true" class="pencil-arrow" fill="none" viewbox="0 0 120 70"><path class="pencil-draw" d="M7 8q-7 46 96 37m-23-11 26 11-22 16" pathlength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path></svg></span><div class="location-stamp">CAMAGÜEY<br/><span>CUBA</span><span class="stamp-star">✧</span></div></div><div class="about-copy"><span class="page-index">02 / detrás de los bocetos</span><h2 id="about-title">Un poco de mí.<br/><span class="hand-parenthesis">(y de cómo trabajo)</span></h2><p>Me gusta crear cosas que sirven. Tiendas online, aplicaciones y herramientas que resuelven problemas reales, con interfaces claras y atención a los detalles.</p><p>Soy desarrollador frontend y disfruto el camino completo: entender qué hace falta, probar una idea, llevarla a código y mejorarla. Mi trabajo cruza la web, Android y, de vez en cuando, los juegos.</p><blockquote>«Si funciona,<br/>se puede mejorar.»<span>una idea que me acompaña</span></blockquote><a class="text-link" href="#contact" rel="noopener noreferrer" target="_blank">¿Construimos algo juntos? <svg class="lucide lucide-arrow-up-right" fill="none" height="17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="17" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></section><section aria-labelledby="tools-title" class="tools-section" id="tools"><div class="page-width"><header class="tools-heading"><div><span class="page-index">03 / herramientas</span><h2 id="tools-title">Mi caja de herramientas.</h2></div><p>No todas las ideas necesitan lo mismo.<br/>Elijo la herramienta según el problema.</p></header><div class="tool-groups"><div class="tool-group tool-group-0"><span class="tool-number">01.</span><h3>Lenguajes</h3><ul><li>JavaScript</li><li>TypeScript</li><li>Python</li><li>GDScript</li></ul></div><div class="tool-group tool-group-1"><span class="tool-number">02.</span><h3>En la web</h3><ul><li>React</li><li>Vue</li><li>HTML</li><li>CSS</li><li>Node.js</li><li>Express</li></ul></div><div class="tool-group tool-group-2"><span class="tool-number">03.</span><h3>En el bolsillo</h3><ul><li>Kotlin</li><li>Jetpack Compose</li><li>Room</li><li>Capacitor</li></ul></div><div class="tool-group tool-group-3"><span class="tool-number">04.</span><h3>Para construir</h3><ul><li>Git</li><li>GitHub</li><li>Supabase</li><li>Godot</li></ul></div></div><p class="tools-note handwritten">y siempre hay espacio para aprender algo nuevo. ✧</p></div></section><section aria-labelledby="process-title" class="process-section page-width"><header class="section-intro"><span class="page-index">04 / mi manera de trabajar</span><h2 id="process-title">Las buenas ideas<br/>se hacen <span class="highlight-word">paso a paso.</span></h2></header><div class="process-steps"><div class="process-step"><span class="step-circle">1</span><h3>Escuchar.</h3><strong>Primero, entender.</strong><p>Qué necesitas, quién lo va a usar y qué debería ser más sencillo. Las buenas preguntas ahorran vueltas.</p><svg aria-hidden="true" class="pencil-arrow step-arrow" fill="none" viewbox="0 0 120 70"><path class="pencil-draw" d="M7 8q-7 46 96 37m-23-11 26 11-22 16" pathlength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path></svg></div><div class="process-step"><span class="step-circle">2</span><h3>Dibujar.</h3><strong>Darle forma a la idea.</strong><p>Bocetos, estructura y una primera propuesta. Algo que podamos ver, conversar y mejorar juntos.</p><svg aria-hidden="true" class="pencil-arrow step-arrow" fill="none" viewbox="0 0 120 70"><path class="pencil-draw" d="M7 8q-7 46 96 37m-23-11 26 11-22 16" pathlength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path></svg></div><div class="process-step"><span class="step-circle">3</span><h3>Construir.</h3><strong>Hacerlo funcionar.</strong><p>Llevar la idea a código, cuidar los detalles y comprobar que la experiencia funciona de verdad.</p></div></div><div class="process-note"><span>¿Un equipo o un proyecto independiente?</span><p>Me interesa aportar en ambos. Podemos empezar por una conversación.</p></div></section><section aria-labelledby="contact-title" class="contact-section" id="contact"><div class="page-width contact-layout"><div class="contact-copy"><span class="page-index">05 / la próxima página</span><h2 id="contact-title">¿Y si lo<br/><span class="hand-underline">hacemos realidad?</span></h2><p>Si tienes una idea, un proyecto o un equipo al que pueda aportar, cuéntame. La próxima página empieza con un «hola».</p><div class="contact-address"><svg class="lucide lucide-mail" fill="none" height="19" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="19" xmlns="http://www.w3.org/2000/svg"><rect height="16" rx="2" width="20" x="2" y="4"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg><a href="mailto:felipe.hdez.522@email.com" rel="noopener noreferrer" target="_blank">felipe.hdez.522@email.com</a><button aria-label="Copiar correo" class="copy-email" type="button"><svg class="lucide lucide-copy" fill="none" height="17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="17" xmlns="http://www.w3.org/2000/svg"><rect height="14" rx="2" ry="2" width="14" x="8" y="8"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></div><p class="copy-status" role="status"></p><a class="text-link" href="https://github.com/MrF3lipe" rel="noopener noreferrer" target="_blank"><svg class="lucide lucide-github" fill="none" height="17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="17" xmlns="http://www.w3.org/2000/svg"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg> También estoy en GitHub <svg class="lucide lucide-arrow-up-right" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><div class="contact-scribble handwritten">No hace falta tener<br/>todo resuelto para empezar. <span>↗</span></div></div><form aria-label="Enviar un mensaje a Felipe" class="contact-form paper-sheet"><span aria-hidden="true" class="sheet-tape"></span><div class="form-heading"><span>un apunte para Felipe</span><svg class="lucide lucide-send" fill="none" height="23" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" viewbox="0 0 24 24" width="23" xmlns="http://www.w3.org/2000/svg"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg></div><fieldset class="opportunity-options"><legend>Te escribo por…</legend><label class="checked"><input checked="" name="opportunity" type="radio"/>Proyecto freelance</label><label class=""><input name="opportunity" type="radio"/>Oportunidad de empleo</label></fieldset><div class="form-row"><label for="contact-name">Tu nombre</label><input autocomplete="name" id="contact-name" maxlength="100" name="name" placeholder="¿Cómo te llamas?" required=""/></div><div class="form-row"><label for="contact-email">Tu correo</label><input autocomplete="email" id="contact-email" maxlength="254" name="email" placeholder="Para poder responderte" required="" type="email"/></div><div class="form-row"><label for="contact-message">Lo que tienes en mente</label><textarea id="contact-message" maxlength="5000" name="message" placeholder="Una idea, una oportunidad, una pregunta…" required="" rows="4"></textarea></div><div aria-hidden="true" class="honeypot"><label>No completar<input autocomplete="off" name="_gotcha" tabindex="-1"/></label></div><button class="sketch-button form-submit" type="submit">Enviar este apunte<svg class="lucide lucide-arrow-up-right" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></button><p class="form-footnote">Tu mensaje llega a mi correo. Así de sencillo.</p></form></div></section></main><footer class="site-footer page-width"><a class="footer-signature" href="#top" rel="noopener noreferrer" target="_blank">Felipe Hernández.</a><span>Hecho con código y curiosidad.<br/>© 2026 · Camagüey, Cuba</span><a class="text-link" href="#top" rel="noopener noreferrer" target="_blank">Volver al principio <svg class="lucide lucide-arrow-up" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg></a></footer></div>
-</div></template><script>(() => {
+<div id="root"><a href="#main" class="skip-link">Saltar al contenido</a><header class="site-header"><nav class="nav page-width" aria-label="Navegación principal"><a class="signature" href="#top"><span>el cuaderno de</span><strong>Felipe Hernández<span class="signature-dot">.</span></strong></a><div class="nav-tools"><button class="theme-toggle" type="button" aria-label="Cambiar a modo claro" title="Modo claro"><span class="theme-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></span></button><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button></div><div class="nav-links " id="main-nav"><a class="" href="#projects">Proyectos</a><a class="" href="#about">Sobre mí</a><a class="" href="#tools">Herramientas</a><a class="nav-contact" href="#contact">Hablemos<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="nav-github" href="https://github.com/MrF3lipe" target="_blank" rel="noopener noreferrer" aria-label="Ver el perfil de Felipe en GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg></a></div></nav></header><main id="main"><section class="hero page-width" id="top" aria-labelledby="hero-title"><div class="hero-copy"><p class="availability"><span></span>Abierto a empleo y proyectos freelance</p><p class="handwritten hero-note">una nueva página empieza aquí</p><h1 id="hero-title">Una idea.<br>Un boceto.<br><span class="hand-underline">Algo que funciona.</span></h1><p class="hero-intro">Soy Felipe, desarrollador frontend. Convierto problemas cotidianos en herramientas digitales que ayudan a las personas.</p><div class="hero-actions"><a class="sketch-button" href="#projects">Ver mis proyectos <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a class="text-link" href="#contact">Hablemos <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></div><div class="hero-art"><svg class="sketch-art " viewBox="0 0 520 440" role="img" aria-label="Boceto a lápiz de una página web y una aplicación móvil"><g class="sketch-lines" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="pencil-draw" pathLength="1" d="m64 76 350-8 5 223-356 9Z"></path><path class="pencil-draw" pathLength="1" d="m60 79 351-7 4 224-345 8Z" opacity=".3"></path><path class="pencil-draw" pathLength="1" d="m65 107 350-7M87 91h23m16-1h12m19 0h13m17-1h16M87 139h136v84H87Z"></path><path class="pencil-draw" pathLength="1" d="m98 212 35-40 28 27 22-29 28 39M244 143h140m-140 18h111m-111 17h132m-132 18h74M92 252h107m48-4h96m-98 17h72"></path><path class="pencil-draw" pathLength="1" d="m292 259 117 6-12 161-117-9Z" fill="var(--paper)"></path><path class="pencil-draw" pathLength="1" d="m298 273 104 7M293 303h105m-93 12h37m-40 26h78m-79 14h57m-59 32h71"></path><path class="pencil-draw" pathLength="1" d="m296 327 32 1v35h-35m56-34 35 1-1 35h-37M322 408h34"></path><path class="pencil-draw" pathLength="1" d="M429 138q68 47 37 155m-7-18 5 23 23-10M103 315q-37 50 78 76m-20-19 26 21-30 5"></path><path class="pencil-draw" pathLength="1" d="m63 354-17 8m11-23-5-14m29 25 12-6M410 333l17 3m-9-17 3-11M236 51l6-11 6 11-6 10Z"></path></g><g class="sketch-labels" fill="var(--pencil)"><text x="57" y="43" transform="rotate(-4 57 43)">hacerlo claro ↓</text><text x="93" y="427" transform="rotate(-4 93 427)">de la idea a la pantalla</text></g></svg><span class="art-caption">de la idea a la pantalla</span><div class="sticky-note hero-sticky"><span class="note-pin"></span><small>recordatorio:</small><p>Si funciona,<br>se puede mejorar.</p><span class="note-star">✳</span></div></div><div class="hero-foot"><a href="#projects"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg> seguir hojeando</a><span>Camagüey, Cuba <span class="tiny-star">✧</span> Diseño, código y curiosidad.</span></div></section><section class="projects-section" id="projects" aria-labelledby="projects-title"><div class="page-width"><header class="section-intro"><span class="page-index">01 / proyectos</span><h2 id="projects-title">Cosas que ya salieron<br>del <span class="highlight-word">cuaderno.</span></h2><p>De una necesidad real a algo que puedes usar.<br>Estos son algunos de mis proyectos.</p><span class="margin-note">menos promesas,<br>más cosas hechas ↙</span></header><div class="featured-projects"><article class="featured-project project-dky"><div class="project-art-sheet" style="--project-wash: var(--wash-dky);"><span class="sheet-tape" aria-hidden="true"></span><svg class="sketch-art" viewBox="0 0 520 440" role="img" aria-label="Esquema dibujado de una tienda de joyería"><g class="sketch-lines" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="pencil-draw" pathLength="1" d="m37 60 446 4-5 313-447-4Z" fill="var(--paper)"></path><path class="pencil-draw" pathLength="1" d="m34 57 451 6-4 316-451-5Z" opacity=".25"></path><path class="pencil-draw" pathLength="1" d="m39 97 440 4M57 77h76m204 5h30m17 0h35M61 126h159v135H61Z" fill="var(--project-wash)"></path><path class="pencil-draw" pathLength="1" d="M133 159q-39 9-39 42t43 40q37-9 37-42t-41-40Z" stroke-width="4"></path><path class="pencil-draw" pathLength="1" d="m132 157-15-17 15-18 16 18-16 17m-11-13h24m-13-21v31M250 134h187m-186 21h124m-124 20h167m-166 51h100m-100 20h81M64 291h114m28 0h112m24 0h112M64 307h86m61 0h82m49 0h90"></path><path class="pencil-draw" pathLength="1" d="m250 191 81 1 1 17-83-1Z" fill="var(--highlight)"></path><path class="pencil-draw" pathLength="1" d="M134 394q59 20 95-4m-14-7 19 5-9 17M474 190l15-3m-12-9 2-8"></path></g><g class="sketch-labels" fill="var(--pencil)"><text x="64" y="39">una tienda que funciona</text><text x="243" y="408" transform="rotate(-3 243 408)">el producto, primero ↗</text></g></svg><span class="art-caption">de la idea a la pantalla</span></div><div class="project-copy"><div class="project-number"><span>01</span><span>comercio que funciona</span></div><h3>DKY Jewelry</h3><p>Una tienda de joyería con catálogo dinámico, carrito y gestión de inventario. Del producto a la compra, con una experiencia pensada para móvil.</p><ul class="project-tech" aria-label="Tecnologías"><li>JavaScript</li><li>HTML</li><li>CSS</li><li>Supabase</li></ul><div class="project-links"><a class="text-link" href="https://www.dkygold.com/" target="_blank" rel="noopener noreferrer">Ver proyecto <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><a class="text-link muted-link" href="https://github.com/MrF3lipe/dky-jewelry" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>Código <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div><details class="project-notes"><summary>Ver notas del proyecto</summary><ul><li>Catálogo conectado a Supabase, con búsqueda y filtros.</li><li>Carrito y contacto por WhatsApp para consultas y ventas.</li><li>Panel de administración para gestionar el inventario.</li></ul></details><span class="project-hand-note">Una tienda real, un problema real.</span></div></article><article class="featured-project project-zofloridane project-flip"><div class="project-art-sheet" style="--project-wash: var(--wash-zofloridane);"><span class="sheet-tape" aria-hidden="true"></span><svg class="sketch-art" viewBox="0 0 520 440" role="img" aria-label="Boceto de la tienda ZoFloridane"><g class="sketch-lines" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="pencil-draw" pathLength="1" d="m37 60 446 4-5 313-447-4Z" fill="var(--paper)"></path><path class="pencil-draw" pathLength="1" d="m34 57 451 6-4 316-451-5Z" opacity=".25"></path><path class="pencil-draw" pathLength="1" d="m39 97 440 4M57 77h76m204 5h30m17 0h35M61 126h159v135H61Z" fill="var(--project-wash)"></path><path class="pencil-draw" pathLength="1" d="M133 159q-39 9-39 42t43 40q37-9 37-42t-41-40Z" stroke-width="4"></path><path class="pencil-draw" pathLength="1" d="m132 157-15-17 15-18 16 18-16 17m-11-13h24m-13-21v31M250 134h187m-186 21h124m-124 20h167m-166 51h100m-100 20h81M64 291h114m28 0h112m24 0h112M64 307h86m61 0h82m49 0h90"></path><path class="pencil-draw" pathLength="1" d="m250 191 81 1 1 17-83-1Z" fill="var(--highlight)"></path><path class="pencil-draw" pathLength="1" d="M134 394q59 20 95-4m-14-7 19 5-9 17M474 190l15-3m-12-9 2-8"></path></g><g class="sketch-labels" fill="var(--pencil)"><text x="64" y="39">comprar desde lejos, entregar cerca</text><text x="243" y="408" transform="rotate(-3 243 408)">el producto, primero ↗</text></g></svg><span class="art-caption">de la idea a la pantalla</span></div><div class="project-copy"><div class="project-number"><span>02</span><span>comercio que funciona</span></div><h3>ZoFloridane</h3><p>Una tienda online para comprar desde cualquier parte del mundo y entregar productos a tu familia en Cuba. Catálogo, carrito y seguimiento del pedido, con disponibilidad según la zona de entrega.</p><ul class="project-tech" aria-label="Tecnologías"><li>Comercio electrónico</li><li>Catálogo</li><li>Pedidos</li></ul><div class="project-links"><a class="text-link" href="https://zofloridane.com/" target="_blank" rel="noopener noreferrer">Ver proyecto <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div><details class="project-notes"><summary>Ver notas del proyecto</summary><ul><li>Catálogo de alimentos, bebidas, aseo y productos para el hogar.</li><li>Selección de localidad y disponibilidad para el destino.</li><li>Carrito, seguimiento de pedidos y atención por WhatsApp.</li></ul></details><span class="project-hand-note">Un puente para estar cerca, incluso desde lejos.</span></div></article><article class="featured-project project-kitchen"><div class="project-art-sheet" style="--project-wash: var(--wash-kitchen);"><span class="sheet-tape" aria-hidden="true"></span><img class="kitchen-logo" src="../assets/kitchen-gabinet-BdKuZ-6b.png" width="48" height="48" alt="Icono original de Kitchen Cabinet" loading="lazy"><svg class="sketch-art" viewBox="0 0 520 440" role="img" aria-label="Esquema dibujado de las pantallas de Kitchen Cabinet"><g class="sketch-lines" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path class="pencil-draw" pathLength="1" d="m78 72 150-3 4 286-154 5Z" fill="var(--paper)"></path><path class="pencil-draw" pathLength="1" d="m75 75 151-4 5 286-151 6Z" opacity=".35"></path><path class="pencil-draw" pathLength="1" d="m105 90 92-2M143 344h26M94 123h120m-119 20h67M96 163h114v57H96Z" fill="var(--project-wash)"></path><path class="pencil-draw" pathLength="1" d="M152 180q-24-11-28 8t29 19q31-2 30-16t-31-11M96 236h80m-79 15h110m-109 18h89M95 291h34m11 0h30m12 0h25"></path><path class="pencil-draw" pathLength="1" d="m287 92 150 4-3 286-152-4Z" fill="var(--paper)"></path><path class="pencil-draw" pathLength="1" d="m285 97 150 3-1 281-153-3Z" opacity=".3"></path><path class="pencil-draw" pathLength="1" d="M310 114h100M340 367h24M303 147h117m-117 18h58M306 190h12v13h-12Zm25 6h82M304 227h12v13h-12Zm26 6h75M304 264h12v13h-12Zm26 6h84M304 303h12v13h-12Zm26 6h69"></path><path class="pencil-draw" pathLength="1" d="m308 231 4 5 10-13m-17 84 6 5 10-13M244 193q25-30 40-35m-19 0 23-6-10 21"></path></g><g class="sketch-labels" fill="var(--pencil)"><text x="64" y="43">recetas</text><text x="302" y="66">lista de la compra</text><text x="158" y="414" transform="rotate(-3 158 414)">un poco de orden para cocinar</text></g></svg><span class="art-caption">una aplicación Android, en un boceto</span></div><div class="project-copy"><div class="project-number"><span>03</span><span>una app para el día a día</span></div><h3>Kitchen Cabinet</h3><p>Recetas, despensa, compras y planificación semanal en una aplicación Android nativa. Una pequeña ayuda para organizar lo que pasa en la cocina.</p><ul class="project-tech" aria-label="Tecnologías"><li>Kotlin</li><li>Jetpack Compose</li><li>Room</li></ul><div class="project-links"><a class="text-link muted-link" href="https://github.com/MrF3lipe/KC-Kotlin" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>Ver código Android <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div><details class="project-notes"><summary>Ver notas del proyecto</summary><ul><li>Recetario con categorías, favoritos y búsqueda por ingredientes.</li><li>Despensa, lista de la compra y planificación semanal.</li><li>Modo cocina paso a paso, temporizador y ajustes de porciones.</li></ul></details><span class="project-hand-note">Menos «¿qué cocino hoy?», más organización.</span></div></article></div></div></section><section id="about" class="about-section page-width" aria-labelledby="about-title"><div class="about-photo"><figure class="portrait-sheet"><span class="sheet-tape" aria-hidden="true"></span><img src="../assets/avatar-B5T-yswR.jpg" width="400" height="400" alt="Felipe Hernández, fotografía del portfolio original" loading="lazy"><figcaption>Felipe, detrás del código.</figcaption></figure><span class="photo-note">este soy yo <svg class="pencil-arrow" viewBox="0 0 120 70" fill="none" aria-hidden="true"><path class="pencil-draw" pathLength="1" d="M7 8q-7 46 96 37m-23-11 26 11-22 16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div class="location-stamp">CAMAGÜEY<br><span>CUBA</span><span class="stamp-star">✧</span></div></div><div class="about-copy"><span class="page-index">02 / detrás de los bocetos</span><h2 id="about-title">Un poco de mí.<br><span class="hand-parenthesis">(y de cómo trabajo)</span></h2><p>Me gusta crear cosas que sirven. Tiendas online, aplicaciones y herramientas que resuelven problemas reales, con interfaces claras y atención a los detalles.</p><p>Soy desarrollador frontend y disfruto el camino completo: entender qué hace falta, probar una idea, llevarla a código y mejorarla. Mi trabajo cruza la web, Android y, de vez en cuando, los juegos.</p><blockquote>«Si funciona,<br>se puede mejorar.»<span>una idea que me acompaña</span></blockquote><a class="text-link" href="#contact">¿Construimos algo juntos? <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div></section><section class="tools-section" id="tools" aria-labelledby="tools-title"><div class="page-width"><header class="tools-heading"><div><span class="page-index">03 / herramientas</span><h2 id="tools-title">Mi caja de herramientas.</h2></div><p>No todas las ideas necesitan lo mismo.<br>Elijo la herramienta según el problema.</p></header><div class="tool-groups"><div class="tool-group tool-group-0"><span class="tool-number">01.</span><h3>Lenguajes</h3><ul><li>JavaScript</li><li>TypeScript</li><li>Python</li><li>GDScript</li></ul></div><div class="tool-group tool-group-1"><span class="tool-number">02.</span><h3>En la web</h3><ul><li>React</li><li>Vue</li><li>HTML</li><li>CSS</li><li>Node.js</li><li>Express</li></ul></div><div class="tool-group tool-group-2"><span class="tool-number">03.</span><h3>En el bolsillo</h3><ul><li>Kotlin</li><li>Jetpack Compose</li><li>Room</li><li>Capacitor</li></ul></div><div class="tool-group tool-group-3"><span class="tool-number">04.</span><h3>Para construir</h3><ul><li>Git</li><li>GitHub</li><li>Supabase</li><li>Godot</li></ul></div></div><p class="tools-note handwritten">y siempre hay espacio para aprender algo nuevo. ✧</p></div></section><section class="process-section page-width" aria-labelledby="process-title"><header class="section-intro"><span class="page-index">04 / mi manera de trabajar</span><h2 id="process-title">Las buenas ideas<br>se hacen <span class="highlight-word">paso a paso.</span></h2></header><div class="process-steps"><div class="process-step"><span class="step-circle">1</span><h3>Escuchar.</h3><strong>Primero, entender.</strong><p>Qué necesitas, quién lo va a usar y qué debería ser más sencillo. Las buenas preguntas ahorran vueltas.</p><svg class="pencil-arrow step-arrow" viewBox="0 0 120 70" fill="none" aria-hidden="true"><path class="pencil-draw" pathLength="1" d="M7 8q-7 46 96 37m-23-11 26 11-22 16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div class="process-step"><span class="step-circle">2</span><h3>Dibujar.</h3><strong>Darle forma a la idea.</strong><p>Bocetos, estructura y una primera propuesta. Algo que podamos ver, conversar y mejorar juntos.</p><svg class="pencil-arrow step-arrow" viewBox="0 0 120 70" fill="none" aria-hidden="true"><path class="pencil-draw" pathLength="1" d="M7 8q-7 46 96 37m-23-11 26 11-22 16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div class="process-step"><span class="step-circle">3</span><h3>Construir.</h3><strong>Hacerlo funcionar.</strong><p>Llevar la idea a código, cuidar los detalles y comprobar que la experiencia funciona de verdad.</p></div></div><div class="process-note"><span>¿Un equipo o un proyecto independiente?</span><p>Me interesa aportar en ambos. Podemos empezar por una conversación.</p></div></section><section class="contact-section" id="contact" aria-labelledby="contact-title"><div class="page-width contact-layout"><div class="contact-copy"><span class="page-index">05 / la próxima página</span><h2 id="contact-title">¿Y si lo<br><span class="hand-underline">hacemos realidad?</span></h2><p>Si tienes una idea, un proyecto o un equipo al que pueda aportar, cuéntame. La próxima página empieza con un «hola».</p><div class="contact-address"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg><a href="mailto:felipe.hdez.522@email.com">felipe.hdez.522@email.com</a><button type="button" class="copy-email" aria-label="Copiar correo"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></div><p class="copy-status" role="status"></p><a class="text-link" href="https://github.com/MrF3lipe" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg> También estoy en GitHub <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a><div class="contact-scribble handwritten">No hace falta tener<br>todo resuelto para empezar. <span>↗</span></div></div><form class="contact-form paper-sheet" aria-label="Enviar un mensaje a Felipe"><span class="sheet-tape" aria-hidden="true"></span><div class="form-heading"><span>un apunte para Felipe</span><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg></div><fieldset class="opportunity-options"><legend>Te escribo por…</legend><label class="checked"><input type="radio" name="opportunity" value="Proyecto freelance" checked="">Proyecto freelance</label><label class=""><input type="radio" name="opportunity" value="Oportunidad de empleo">Oportunidad de empleo</label></fieldset><div class="form-row"><label for="contact-name">Tu nombre</label><input id="contact-name" name="name" autocomplete="name" placeholder="¿Cómo te llamas?" required="" maxlength="100"></div><div class="form-row"><label for="contact-email">Tu correo</label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Para poder responderte" required="" maxlength="254"></div><div class="form-row"><label for="contact-message">Lo que tienes en mente</label><textarea id="contact-message" name="message" rows="4" placeholder="Una idea, una oportunidad, una pregunta…" required="" maxlength="5000"></textarea></div><div class="honeypot" aria-hidden="true"><label>No completar<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><button class="sketch-button form-submit" type="submit">Enviar este apunte<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></button><p class="form-footnote">Tu mensaje llega a mi correo. Así de sencillo.</p></form></div></section></main><footer class="site-footer page-width"><a class="footer-signature" href="#top">Felipe Hernández.</a><span>Hecho con código y curiosidad.<br>© 2026 · Camagüey, Cuba</span><a class="text-link" href="#top">Volver al principio <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg></a></footer></div>
+</div></template><!--assembly-js--><script>
+// Builds a page in front of the visitor, in the notebook's pencil style:
+// 01 sketch the blocks · 02 paint the colours · 03 write the texts · 04 develop the images.
+// Inlined into every scene by scripts/scenes.mjs; reports progress to the parent page.
+(() => {
   const template = document.getElementById('creation-source');
-  const source = template.content.querySelector('#creation-root');
-  const fragment = document.createDocumentFragment();
-  const textParts = [], mediaParts = [];
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let timers = [];
-  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+  const source = template && template.content.querySelector('#creation-root');
+  if (!source) return;
+  const params = new URLSearchParams(location.search);
+  const dark = params.get('theme') === 'dark';
+  const instant = params.has('final') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  const timers = [];
+  let cancelled = false;
+  const wait = ms => new Promise(resolve => timers.push(setTimeout(resolve, ms)));
   const emit = stage => {
-    document.documentElement.dataset.creation = String(stage);
+    root.dataset.creation = String(stage);
     parent.postMessage({ type: 'notebook-creation', stage }, '*');
   };
-  // Rebuild actual containers first; reserve media dimensions to keep the layout stable.
+  addEventListener('pagehide', () => { cancelled = true; timers.forEach(clearTimeout); }, { once: true });
+  // data-theme lets the notebook's own stylesheet (hero scene) follow the visitor's theme too.
+  if (dark) { root.dataset.sceneTheme = 'dark'; root.dataset.theme = 'dark'; }
+
+  // Rebuild the real containers with empty texts and reserved media boxes.
+  const textParts = [], mediaParts = [];
   const copy = node => {
     if (node.nodeType === Node.TEXT_NODE) {
       const placeholder = document.createTextNode('');
@@ -43,13 +75,11 @@
       return placeholder;
     }
     if (node.nodeType !== Node.ELEMENT_NODE) return document.createTextNode('');
-    if (['IMG','SVG','VIDEO','PICTURE','CANVAS'].includes(node.tagName)) {
+    if (['IMG', 'VIDEO', 'PICTURE', 'CANVAS'].includes(node.tagName)) {
       const placeholder = node.cloneNode(false);
       placeholder.classList.add('creation-media-space');
       if (placeholder.tagName === 'IMG') {
-        placeholder.removeAttribute('srcset');
-        placeholder.removeAttribute('data-src');
-        placeholder.removeAttribute('data-srcset');
+        ['srcset', 'data-src', 'data-srcset'].forEach(name => placeholder.removeAttribute(name));
         placeholder.alt = '';
         placeholder.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
       }
@@ -57,34 +87,292 @@
       return placeholder;
     }
     const element = node.cloneNode(false);
-    if (element.tagName === 'STYLE') { element.textContent = node.textContent; return element; }
+    if (element.tagName === 'STYLE' || element.tagName === 'SCRIPT') { element.textContent = node.textContent; return element; }
     node.childNodes.forEach(child => element.append(copy(child)));
     return element;
   };
-  if (!source) return;
-  // Restore body classes used by the site's own stylesheet.
-  for (const attribute of source.attributes) document.body.setAttribute(attribute.name, attribute.value);
+  for (const attribute of source.attributes) if (attribute.name !== 'id') document.body.setAttribute(attribute.name, attribute.value);
+  const interactive = document.body.hasAttribute('data-interactive');
   document.body.style.pointerEvents = 'none';
+  const fragment = document.createDocumentFragment();
   source.childNodes.forEach(child => fragment.append(copy(child)));
   template.remove();
   document.body.prepend(fragment);
-  document.querySelectorAll('header,nav,main,section,article,[class*="hero"],[class*="card"]').forEach(element => element.classList.add('creation-container'));
-  emit(1);
-  const insertTexts = () => textParts.forEach(([node, value], i) => later(() => { node.textContent = value; }, Math.min(i * 14, 1100)));
-  const insertMedia = () => mediaParts.forEach(([placeholder, media], i) => later(() => {
-    media.classList.add('creation-arrival');
-    placeholder.replaceWith(media);
-  }, Math.min(i * 90, 1400)));
-  if (reduced) {
-    textParts.forEach(([node,value]) => node.textContent = value);
-    mediaParts.forEach(([node,media]) => node.replaceWith(media));
+  const containers = [...document.querySelectorAll('header,nav,main,section,article,footer,aside,[class*="hero"],[class*="card"],[data-sketch]')];
+  containers.forEach(element => element.classList.add('creation-container'));
+
+  const finish = () => {
+    textParts.forEach(([node, value]) => { node.textContent = value; });
+    mediaParts.forEach(([placeholder, media]) => placeholder.replaceWith(media));
+    containers.forEach(element => element.classList.add('is-sketched'));
+    root.classList.remove('creation-paint');
+    if (interactive) document.body.style.pointerEvents = '';
     emit(5);
-  } else {
-    later(() => emit(2), 1100);
-    later(() => { emit(3); insertTexts(); }, 3400);
-    later(() => { emit(4); insertMedia(); }, 5400);
-    later(() => emit(5), 6000);
-  }
-  addEventListener('pagehide', () => timers.forEach(clearTimeout), { once:true });
+  };
+  if (instant) { finish(); return; }
+
+  // ---- Measuring (before the wireframe hides colours) ----
+  const W = innerWidth, H = innerHeight;
+  const onScreen = rect => rect.bottom > 0 && rect.top < H && rect.right > 0 && rect.left < W;
+  const box = element => element.getBoundingClientRect();
+  const visible = containers
+    .map(element => ({ element, rect: box(element) }))
+    .filter(({ rect }) => onScreen(rect) && rect.width > 30 && rect.height > 16)
+    .sort((a, b) => a.rect.top - b.rect.top || a.rect.left - b.rect.left);
+  // Colour starts at the top of the page and flows down.
+  // Read every position first, then write, so the page is laid out only once.
+  const delays = [...document.querySelectorAll('body *')].map(element => [element, box(element)]).filter(([, rect]) => onScreen(rect));
+  delays.forEach(([element, rect]) => element.style.setProperty('--d', `${(Math.max(rect.top, 0) / H * 0.85).toFixed(2)}s`));
+  // The page's own palette, weighted by painted area.
+  const palette = (() => {
+    const areas = new Map();
+    const add = (color, weight) => {
+      const match = color.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?/);
+      if (!match || (match[4] !== undefined && +match[4] < 0.6)) return;
+      const key = `rgb(${match[1]}, ${match[2]}, ${match[3]})`;
+      areas.set(key, (areas.get(key) || 0) + weight);
+    };
+    add(getComputedStyle(document.body).backgroundColor, W * H);
+    add(getComputedStyle(root).backgroundColor, W * H * 0.5);
+    document.querySelectorAll('body *').forEach(element => {
+      const rect = box(element);
+      if (!onScreen(rect)) return;
+      const style = getComputedStyle(element);
+      add(style.backgroundColor, rect.width * rect.height);
+      if (/^H[1-3]$|^A$|^BUTTON$/.test(element.tagName)) add(style.color, 40000);
+    });
+    const rgb = key => key.match(/[\d.]+/g).map(Number);
+    const distinct = [];
+    [...areas.entries()].sort((a, b) => b[1] - a[1]).forEach(([key]) => {
+      const [r, g, b] = rgb(key);
+      if (distinct.length < 5 && distinct.every(other => { const [r2, g2, b2] = rgb(other); return Math.hypot(r - r2, g - g2, b - b2) > 48; })) distinct.push(key);
+    });
+    return distinct;
+  })();
+
+  // ---- The pencil layer, isolated from the page's own CSS ----
+  const host = document.createElement('div');
+  host.id = 'sketch-layer';
+  host.style.cssText = 'position:fixed;inset:0;z-index:2147483647;pointer-events:none;';
+  const shadow = host.attachShadow({ mode: 'open' });
+  const ink = dark ? '#e8c9a6' : '#8a5a3c';
+  const fontUrl = new URL('fonts/caveat-latin-wght-normal.woff2', location.href).href;
+  shadow.innerHTML = `<style>
+    @font-face{font-family:SceneHand;src:url(${fontUrl}) format('woff2');font-weight:400 700}
+    :host{all:initial}
+    *{box-sizing:border-box}
+    svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .rough{fill:none;stroke:${ink};stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 2;stroke-dashoffset:1.02;animation:draw var(--t,.42s) cubic-bezier(.5,0,.3,1) forwards}
+    .rough.faint{stroke-width:1.6;opacity:.45}
+    .rough.ghost{opacity:.35;stroke-width:1.8}
+    .fade{transition:opacity .6s ease}
+    .label{position:absolute;font:600 34px/1 SceneHand,'Comic Sans MS',cursive;color:${ink};transform:rotate(-3deg);white-space:nowrap;opacity:0;animation:pop .35s cubic-bezier(.23,1,.32,1) forwards}
+    .label::after{content:'';position:absolute;left:2px;right:-6px;bottom:-4px;height:2px;background:currentColor;opacity:.5;border-radius:2px}
+    .pencil{position:absolute;left:0;top:0;width:86px;height:86px;transform:translate(-200px,-200px);will-change:transform;filter:drop-shadow(3px 6px 5px rgba(0,0,0,.18))}
+    .pencil svg{position:static;width:86px;height:86px}
+    .sweep{position:absolute;left:-5%;right:-5%;height:210px;top:-230px;background:linear-gradient(180deg,transparent,rgba(255,214,92,.28) 35%,rgba(255,214,92,.42) 70%,rgba(255,214,92,0));transform:rotate(-2deg);mix-blend-mode:multiply}
+    .note{position:absolute;right:36px;bottom:40px;padding:22px 26px 20px;background:${dark ? '#5b4f2c' : '#f6e7a3'};color:${dark ? '#f3ead2' : '#3d3628'};font:600 36px/1 SceneHand,'Comic Sans MS',cursive;transform:rotate(3deg) translateY(30px);opacity:0;box-shadow:4px 8px 14px rgba(0,0,0,.16);transition:transform .5s cubic-bezier(.23,1,.32,1),opacity .4s ease}
+    .note.show{transform:rotate(3deg);opacity:1}
+    .note .swatches{display:flex;gap:12px;margin-top:14px}
+    .note i{width:42px;height:42px;border-radius:47% 53% 45% 55%;border:2px solid ${dark ? '#f3ead2' : '#3d3628'};transform:scale(0);animation:swatch .45s cubic-bezier(.34,1.56,.64,1) forwards}
+    .caret{position:absolute;width:3px;height:30px;background:${ink};border-radius:2px;animation:blink .7s steps(1) infinite;visibility:hidden;transition:transform .09s linear}
+    .done{position:absolute;font:700 64px/1 SceneHand,'Comic Sans MS',cursive;color:${ink};transform:rotate(-6deg);opacity:0;animation:pop .45s cubic-bezier(.34,1.56,.64,1) forwards}
+    @keyframes draw{to{stroke-dashoffset:0}}
+    @keyframes pop{from{opacity:0;transform:rotate(-3deg) translateY(8px) scale(.9)}to{opacity:1}}
+    @keyframes swatch{to{transform:scale(1)}}
+    @keyframes blink{50%{opacity:0}}
+  </style>
+  <svg class="sketches" viewBox="0 0 ${W} ${H}"></svg>
+  <div class="sweep"></div>
+  <div class="caret"></div>
+  <div class="pencil"><svg viewBox="0 0 86 86" fill="none" stroke="${dark ? '#f3ead2' : '#2f2a22'}" stroke-width="2" stroke-linejoin="round">
+    <path d="M6 80 14 58 64 8a7 7 0 0 1 10 0l4 4a7 7 0 0 1 0 10L28 72Z" fill="${dark ? '#c9a24a' : '#f2c94c'}"/>
+    <path d="M58 14l14 14" /><path d="M64 8a7 7 0 0 1 10 0l4 4a7 7 0 0 1 0 10l-6 6-14-14Z" fill="#e8a0a0"/>
+    <path d="M6 80 14 58l14 14Z" fill="#f4dcb4"/><path d="M6 80l4-11 7 7Z" fill="#2f2a22"/>
+  </svg></div>`;
+  root.append(host);
+  const sketches = shadow.querySelector('.sketches');
+  const pencil = shadow.querySelector('.pencil');
+  const caret = shadow.querySelector('.caret');
+  const svgNS = 'http://www.w3.org/2000/svg';
+  // The pencil's tip sits at the bottom-left corner of its drawing.
+  const tip = (x, y) => `translate(${x - 6}px, ${y - 80}px) rotate(${-4 + Math.sin(x / 90) * 4}deg)`;
+  const movePencil = (x, y, ms = 260) => pencil.animate([{ transform: getComputedStyle(pencil).transform }, { transform: tip(x, y) }], { duration: ms, easing: 'cubic-bezier(.45,0,.25,1)', fill: 'forwards' });
+  const jitter = (amount = 2.5) => (Math.random() - 0.5) * amount * 2;
+  const roughRect = (rect, className = '', duration = 420) => {
+    const x1 = Math.max(rect.left, 4), y1 = Math.max(rect.top, 4), x2 = Math.min(rect.right, W - 4), y2 = Math.min(rect.bottom, H - 4);
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', `M${x1 + jitter()} ${y1 + jitter()} L${x2 + jitter()} ${y1 + jitter()} L${x2 + jitter()} ${y2 + jitter()} L${x1 + jitter()} ${y2 + jitter()} Z M${x1 - 5} ${y1 + 3} L${x1 + 22} ${y1 + jitter(1)}`);
+    path.setAttribute('pathLength', '1');
+    path.setAttribute('class', `rough fade ${className}`);
+    path.style.setProperty('--t', `${duration}ms`);
+    sketches.append(path);
+    return { path, corners: [[x1, y1], [x2, y1], [x2, y2], [x1, y2], [x1, y1]] };
+  };
+  const tracePencil = (corners, duration) => pencil.animate(corners.map(([x, y]) => ({ transform: tip(x, y) })), { duration, easing: 'linear', fill: 'forwards' });
+  const label = (text, x, y) => {
+    const element = document.createElement('div');
+    element.className = 'label fade';
+    element.textContent = text;
+    element.style.left = `${Math.min(Math.max(x, 10), W - 220)}px`;
+    element.style.top = `${Math.min(Math.max(y - 40, 6), H - 50)}px`;
+    // Once it has popped in, hand opacity back to the fade transition.
+    element.addEventListener('animationend', () => { element.style.opacity = '1'; element.style.animation = 'none'; }, { once: true });
+    shadow.append(element);
+    return element;
+  };
+  const nameFor = element => {
+    if (element.dataset.sketch) return element.dataset.sketch;
+    const tag = element.tagName.toLowerCase(), cls = String(element.className);
+    if (tag === 'nav') return 'menú';
+    if (tag === 'header') return 'cabecera';
+    if (tag === 'footer') return 'pie';
+    if (/hero/i.test(cls)) return 'portada';
+    if (/card/i.test(cls) || tag === 'article') return 'tarjeta';
+    if (tag === 'section' || tag === 'main') return 'sección';
+    return '';
+  };
+  const reveal = element => { for (let node = element; node && node !== document.body; node = node.parentElement) if (node.classList.contains('creation-container')) node.classList.add('is-sketched'); };
+
+  const run = async () => {
+    // ---- 01 · Sketching the structure ----
+    emit(1);
+    containers.forEach(element => { if (!onScreen(box(element))) element.classList.add('is-sketched'); });
+    pencil.style.transform = tip(W * 0.62, H + 60);
+    // The biggest visible blocks get the pencil and a name; the rest just appear in reading order.
+    const featured = new Set([...visible].sort((a, b) => b.rect.width * b.rect.height - a.rect.width * a.rect.height).slice(0, 6).map(item => item.element));
+    const started = performance.now();
+    const named = new Map();
+    const placed = [];
+    let quiet = 0;
+    for (const { element, rect } of visible) {
+      if (cancelled) return;
+      if (!featured.has(element)) {
+        timers.push(setTimeout(() => { reveal(element); roughRect(rect, 'faint', 320); }, 120 + quiet++ * 45));
+        continue;
+      }
+      await movePencil(rect.left, rect.top, 170).finished.catch(() => {});
+      const { corners } = roughRect(rect, '', 380);
+      tracePencil(corners, 380);
+      reveal(element);
+      const name = nameFor(element);
+      const crowded = placed.some(([x, y]) => Math.abs(x - rect.left) < 170 && Math.abs(y - rect.top) < 60);
+      if (name && !crowded && (named.get(name) || 0) < 2) {
+        named.set(name, (named.get(name) || 0) + 1);
+        placed.push([rect.left, rect.top]);
+        label(name, rect.left + 14, rect.top + 4);
+      }
+      await wait(280);
+    }
+    await wait(Math.max(0, started + 120 + quiet * 45 + 320 - performance.now()));
+    containers.forEach(element => element.classList.add('is-sketched'));
+    await wait(250);
+
+    // ---- 02 · Painting with CSS ----
+    root.classList.add('creation-paint');
+    emit(2);
+    shadow.querySelectorAll('.fade').forEach(element => { element.style.opacity = element.classList.contains('label') ? '0' : '.28'; });
+    shadow.querySelector('.sweep').animate([{ top: '-230px' }, { top: `${H + 40}px` }], { duration: 1150, easing: 'cubic-bezier(.45,0,.4,1)', fill: 'forwards' });
+    pencil.animate([{ transform: tip(W - 120, -40) }, { transform: tip(W - 150, H * 0.55) }, { transform: tip(W - 110, H + 90) }], { duration: 1150, easing: 'ease-in-out', fill: 'forwards' });
+    if (palette.length) {
+      const note = document.createElement('div');
+      note.className = 'note';
+      note.innerHTML = `paleta<div class="swatches">${palette.map((color, i) => `<i style="background:${color};animation-delay:${250 + i * 110}ms"></i>`).join('')}</div>`;
+      shadow.append(note);
+      await wait(380);
+      note.classList.add('show');
+      await wait(1250);
+    } else await wait(1300);
+
+    // ---- 03 · Writing the texts ----
+    emit(3);
+    const positioned = textParts.map(([node, value]) => ({ node, value, rect: node.parentElement ? box(node.parentElement) : { top: H + 1 } }));
+    const typed = positioned.filter(item => onScreen(item.rect) && item.rect.width > 0).sort((a, b) => a.rect.top - b.rect.top || a.rect.left - b.rect.left).slice(0, 16);
+    const typedSet = new Set(typed);
+    positioned.forEach(item => { if (!typedSet.has(item)) item.node.textContent = item.value; });
+    caret.style.visibility = 'visible';
+    let latest = null;
+    const typing = typed.map((item, index) => (async () => {
+      await wait(index * 85);
+      const total = Math.min(item.value.length, 70);
+      const step = Math.max(10, Math.min(24, 900 / total));
+      for (let shown = 1; shown <= total && !cancelled; shown++) {
+        item.node.textContent = item.value.slice(0, shown);
+        latest = item;
+        await wait(step);
+      }
+      item.node.textContent = item.value;
+    })());
+    // Caret and pencil follow whatever is being written right now.
+    const follow = setInterval(() => {
+      if (!latest || !latest.node.isConnected || !latest.node.length) return;
+      const range = document.createRange();
+      range.setStart(latest.node, Math.max(latest.node.length - 1, 0));
+      range.setEnd(latest.node, latest.node.length);
+      const rect = range.getBoundingClientRect();
+      if (!rect.height) return;
+      caret.style.height = `${Math.min(Math.max(rect.height, 18), 70)}px`;
+      caret.style.transform = `translate(${rect.right + 2}px, ${rect.top}px)`;
+      pencil.style.transform = tip(rect.right + 10, rect.bottom);
+      pencil.getAnimations().forEach(animation => animation.cancel());
+    }, 40);
+    await Promise.all(typing);
+    clearInterval(follow);
+    caret.style.visibility = 'hidden';
+    await wait(250);
+
+    // ---- 04 · Placing the images ----
+    emit(4);
+    shadow.querySelector('.note')?.classList.remove('show');
+    const media = mediaParts.map(([placeholder, element]) => ({ placeholder, element, rect: box(placeholder) }));
+    const shown = media.filter(item => onScreen(item.rect) && item.rect.width > 12 && item.rect.height > 12).slice(0, 8);
+    const shownSet = new Set(shown);
+    media.forEach(item => { if (!shownSet.has(item)) item.placeholder.replaceWith(item.element); });
+    for (const [index, item] of shown.entries()) {
+      if (cancelled) return;
+      const { rect } = item;
+      const { path, corners } = roughRect(rect, '', 300);
+      const cross = document.createElementNS(svgNS, 'path');
+      const mx = rect.left + rect.width * 0.35, my = rect.top + rect.height * 0.7;
+      cross.setAttribute('d', `M${rect.left + 8} ${rect.bottom - 8} L${mx} ${my - rect.height * 0.25} L${mx + rect.width * 0.15} ${my - rect.height * 0.08} L${rect.left + rect.width * 0.7} ${rect.top + rect.height * 0.35} L${rect.right - 8} ${rect.bottom - 8} M${rect.right - rect.width * 0.22} ${rect.top + rect.height * 0.25} m-14 0 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0`);
+      cross.setAttribute('pathLength', '1');
+      cross.setAttribute('class', 'rough fade');
+      cross.style.setProperty('--t', '420ms');
+      cross.style.animationDelay = '200ms';
+      sketches.append(cross);
+      if (index < 4) { await movePencil(rect.left, rect.top, 160).finished.catch(() => {}); tracePencil(corners, 300); }
+      timers.push(setTimeout(() => {
+        item.element.classList.add('creation-arrival');
+        item.placeholder.replaceWith(item.element);
+        path.style.opacity = '0';
+        cross.style.opacity = '0';
+      }, 650));
+      await wait(index < 4 ? 320 : 90);
+    }
+    await wait(shown.length ? 900 : 300);
+
+    // ---- Done: a checkmark and a signature ----
+    shadow.querySelectorAll('.fade').forEach(element => { element.style.opacity = '0'; });
+    const check = document.createElementNS(svgNS, 'path');
+    check.setAttribute('d', `M${W - 250} ${H - 150} l34 40 l78 -100`);
+    check.setAttribute('pathLength', '1');
+    check.setAttribute('class', 'rough');
+    check.style.strokeWidth = '7';
+    check.style.setProperty('--t', '420ms');
+    sketches.append(check);
+    tracePencil([[W - 250, H - 150], [W - 216, H - 110], [W - 138, H - 210]], 420);
+    const done = document.createElement('div');
+    done.className = 'done';
+    done.textContent = interactive ? '¡lista!' : '¡listo!';
+    done.style.left = `${W - 300}px`;
+    done.style.top = `${H - 100}px`;
+    shadow.append(done);
+    await wait(520);
+    pencil.animate([{ transform: getComputedStyle(pencil).transform }, { transform: tip(W + 120, H + 120) }], { duration: 500, easing: 'ease-in', fill: 'forwards' });
+    finish();
+    await wait(1400);
+    host.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: 'forwards' });
+  };
+  run();
 })();
-</script></body><div id="codex-browser-sidebar-comments-root" style="position: fixed; inset: 0px; pointer-events: none; z-index: 2147483647;"></div></html>
+</script><!--/assembly-js--></body></html>

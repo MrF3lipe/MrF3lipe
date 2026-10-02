@@ -7,6 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Felipe Hernández, desarrollador frontend en Camagüey, Cuba. Proyectos web y Android. Disponible para empleo y colaboraciones freelance." />
     <meta name="theme-color" content="#f9f7ef" />
+    <script>
+      // Pick the theme before the first paint: saved choice, else the system setting.
+      (function () {
+        var theme;
+        try { theme = localStorage.getItem('notebook-theme'); } catch (e) {}
+        if (theme !== 'dark' && theme !== 'light') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+        if (theme === 'dark') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#1d1b17');
+      })();
+    </script>
     <link rel="canonical" href="https://mrf3lipe.github.io/MrF3lipe/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
@@ -18,10 +28,10 @@
     <meta name="twitter:title" content="El cuaderno de Felipe Hernández" />
     <meta name="twitter:description" content="Portfolio frontend, proyectos web y Android. Empleo y freelance." />
     <title>Felipe Hernández | Frontend, web y Android</title>
-    <script type="module" crossorigin src="./assets/index-CvwwNhb7.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DwCFLdCe.css">
+    <script type="module" crossorigin src="./assets/index-zR6vYLOt.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DASnrYct.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
   </body>
 </html>

@@ -1,5 +1,6 @@
-import { useEffect, useState, type CSSProperties } from 'react';
-import { ArrowDown, ArrowRight, ArrowUp, ArrowUpRight, Github, Menu, X } from 'lucide-react';
+import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from 'react';
+import { flushSync } from 'react-dom';
+import { ArrowDown, ArrowRight, ArrowUp, ArrowUpRight, Github, Menu, Moon, Sun, X } from 'lucide-react';
 import avatar from '../assets/avatar.jpg';
 import kitchenLogo from '../assets/kitchen-gabinet.png';
 import { projects } from './projects';
@@ -8,17 +9,80 @@ import Contact from './Contact';
 import useNotebookMotion from './useNotebookMotion';
 import SketchBuild from './SketchBuild';
 
+type Theme = 'light' | 'dark';
+const THEME_KEY = 'notebook-theme';
+/** The initial theme is set by an inline script in index.html, before the first paint. */
+function useTheme() {
+  const [theme, setTheme] = useState<Theme>(() => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#1d1b17' : '#f9f7ef');
+  }, [theme]);
+  useEffect(() => {
+    // Follow the system until the visitor picks a theme themselves.
+    const query = window.matchMedia('(prefers-color-scheme: dark)');
+    const follow = () => { try { if (localStorage.getItem(THEME_KEY)) return; } catch { /* storage blocked */ } setTheme(query.matches ? 'dark' : 'light'); };
+    // Embedded previews of this page pick up a theme chosen in the parent window.
+    const sync = (event: StorageEvent) => { if (event.key === THEME_KEY && (event.newValue === 'dark' || event.newValue === 'light')) setTheme(event.newValue); };
+    query.addEventListener('change', follow);
+    window.addEventListener('storage', sync);
+    return () => { query.removeEventListener('change', follow); window.removeEventListener('storage', sync); };
+  }, []);
+  // A circle of the new theme grows from the button; plain swap where View Transitions are missing.
+  const toggle = (event: MouseEvent<HTMLButtonElement>) => {
+    const next: Theme = theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem(THEME_KEY, next); } catch { /* storage blocked */ }
+    const root = document.documentElement;
+    const apply = () => { root.dataset.theme = next; flushSync(() => setTheme(next)); };
+    const start = (document as Document & { startViewTransition?: (update: () => void) => { finished: Promise<void> } }).startViewTransition;
+    if (!start || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { apply(); return; }
+    const { left, top, width, height } = event.currentTarget.getBoundingClientRect();
+    const x = left + width / 2, y = top + height / 2;
+    root.style.setProperty('--theme-x', `${x}px`);
+    root.style.setProperty('--theme-y', `${y}px`);
+    root.style.setProperty('--theme-r', `${Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))}px`);
+    root.classList.add('theme-switching');
+    start.call(document, apply).finished.finally(() => root.classList.remove('theme-switching'));
+  };
+  return [theme, toggle] as const;
+}
+/** Hides the header while reading down the page and brings it back on any upward scroll. */
+function useHeaderTucked(locked: boolean) {
+  const [tucked, setTucked] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const last = useRef(0);
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = Math.max(window.scrollY, 0);
+      const delta = y - last.current;
+      setScrolled(y > 8);
+      if (y < 120) setTucked(false);
+      else if (delta > 6) setTucked(true);
+      else if (delta < -6) setTucked(false);
+      if (Math.abs(delta) > 6 || y < 120) last.current = y;
+    };
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(frame); };
+  }, []);
+  return { tucked: tucked && !locked, scrolled };
+}
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [theme, toggleTheme] = useTheme();
+  const { tucked, scrolled } = useHeaderTucked(open || focused);
   useEffect(() => { const escape = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); }; if (open) document.addEventListener('keydown', escape); return () => document.removeEventListener('keydown', escape); }, [open]);
-  return <header className="site-header"><nav className="nav page-width" aria-label="Navegación principal"><a className="signature" href="#top" onClick={() => setOpen(false)}><span>el cuaderno de</span><strong>Felipe Hernández<span className="signature-dot">.</span></strong></a><button className="menu-toggle" type="button" aria-expanded={open} aria-controls="main-nav" aria-label={open ? 'Cerrar menú' : 'Abrir menú'} onClick={() => setOpen(!open)}>{open ? <X size={22} /> : <Menu size={22} />}</button><div className={`nav-links ${open ? 'is-open' : ''}`} id="main-nav">{[['projects', 'Proyectos'], ['about', 'Sobre mí'], ['tools', 'Herramientas'], ['contact', 'Hablemos']].map(([id, label]) => <a key={id} className={id === 'contact' ? 'nav-contact' : ''} href={`#${id}`} onClick={() => setOpen(false)}>{label}{id === 'contact' && <ArrowUpRight size={15} />}</a>)}<a className="nav-github" href="https://github.com/MrF3lipe" target="_blank" rel="noopener noreferrer" aria-label="Ver el perfil de Felipe en GitHub"><Github size={19} /></a></div></nav></header>;
+  return <header className={`site-header${tucked ? ' is-tucked' : ''}${scrolled ? ' is-scrolled' : ''}`} onFocus={() => setFocused(true)} onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setFocused(false); }}><nav className="nav page-width" aria-label="Navegación principal"><a className="signature" href="#top" onClick={() => setOpen(false)}><span>el cuaderno de</span><strong>Felipe Hernández<span className="signature-dot">.</span></strong></a><div className="nav-tools"><button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'} title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}><span className="theme-icon" key={theme}>{theme === 'dark' ? <Sun size={19} /> : <Moon size={19} />}</span></button><button className="menu-toggle" type="button" aria-expanded={open} aria-controls="main-nav" aria-label={open ? 'Cerrar menú' : 'Abrir menú'} onClick={() => setOpen(!open)}>{open ? <X size={22} /> : <Menu size={22} />}</button></div><div className={`nav-links ${open ? 'is-open' : ''}`} id="main-nav">{[['projects', 'Proyectos'], ['about', 'Sobre mí'], ['tools', 'Herramientas'], ['contact', 'Hablemos']].map(([id, label]) => <a key={id} className={id === 'contact' ? 'nav-contact' : ''} href={`#${id}`} onClick={() => setOpen(false)}>{label}{id === 'contact' && <ArrowUpRight size={15} />}</a>)}<a className="nav-github" href="https://github.com/MrF3lipe" target="_blank" rel="noopener noreferrer" aria-label="Ver el perfil de Felipe en GitHub"><Github size={19} /></a></div></nav></header>;
 }
 function Hero() {
   return <section className="hero page-width" id="top" aria-labelledby="hero-title"><div className="hero-copy"><p className="availability"><span />Abierto a empleo y proyectos freelance</p><p className="handwritten hero-note">una nueva página empieza aquí</p><h1 id="hero-title">Una idea.<br />Un boceto.<br /><span className="hand-underline">Algo que funciona.</span></h1><p className="hero-intro">Soy Felipe, desarrollador frontend. Convierto problemas cotidianos en herramientas digitales que ayudan a las personas.</p><div className="hero-actions"><a className="sketch-button" href="#projects">Ver mis proyectos <ArrowRight size={18} /></a><a className="text-link" href="#contact">Hablemos <ArrowUpRight size={16} /></a></div></div><div className="hero-art"><SketchBuild kind="hero" title="Una idea que cobra vida" /><div className="sticky-note hero-sticky"><span className="note-pin" /><small>recordatorio:</small><p>Si funciona,<br />se puede mejorar.</p><span className="note-star">✳</span></div></div><div className="hero-foot"><a href="#projects"><ArrowDown size={15} /> seguir hojeando</a><span>Camagüey, Cuba <span className="tiny-star">✧</span> Diseño, código y curiosidad.</span></div></section>;
 }
 function Projects() {
   return <section className="projects-section" id="projects" aria-labelledby="projects-title"><div className="page-width"><header className="section-intro"><span className="page-index">01 / proyectos</span><h2 id="projects-title">Cosas que ya salieron<br />del <span className="highlight-word">cuaderno.</span></h2><p>De una necesidad real a algo que puedes usar.<br />Estos son algunos de mis proyectos.</p><span className="margin-note">menos promesas,<br />más cosas hechas ↙</span></header>
-    <div className="featured-projects">{projects.filter(p => p.featured).map((p, index) => <article className={`featured-project project-${p.id}`} key={p.id}><div className="project-art-sheet" style={{ '--project-wash': p.id === 'dky' ? '#e9dcca' : p.id === 'kitchen' ? '#dce4d4' : '#e4dfef' } as CSSProperties}><span className="sheet-tape" aria-hidden="true" />{p.id === 'kitchen' && <img className="kitchen-logo" src={kitchenLogo} width="48" height="48" alt="Icono original de Kitchen Cabinet" loading="lazy" />}<SketchBuild kind={p.id as 'dky' | 'kitchen' | 'kanban' | 'zofloridane'} title={p.title} href={p.page} /></div><div className="project-copy"><div className="project-number"><span>{String(index + 1).padStart(2, '0')}</span><span>{p.category === 'Android' ? 'una app para el día a día' : p.category === 'Web' && p.id !== 'kanban' ? 'comercio que funciona' : 'un poco de organización'}</span></div><h3>{p.title}</h3><p>{p.description}</p><ul className="project-tech" aria-label="Tecnologías">{p.tech.map(t => <li key={t}>{t}</li>)}</ul><div className="project-links">{p.page && <a className="text-link" href={p.page} target="_blank" rel="noopener noreferrer">Ver proyecto <ArrowUpRight size={16} /></a>}{p.repo && <a className="text-link muted-link" href={p.repo} target="_blank" rel="noopener noreferrer"><Github size={15} />{p.category === 'Android' ? 'Ver código Android' : 'Código'} <ArrowUpRight size={14} /></a>}</div><details className="project-notes"><summary>Ver notas del proyecto</summary><ul>{p.features?.map(feature => <li key={feature}>{feature}</li>)}</ul></details><span className="project-hand-note">{p.note}</span></div></article>)}</div>
+    <div className="featured-projects">{projects.filter(p => p.featured).map((p, index) => <article className={`featured-project project-${p.id}${index % 2 ? ' project-flip' : ''}`} key={p.id}><div className="project-art-sheet" style={{ '--project-wash': `var(--wash-${p.id})` } as CSSProperties}><span className="sheet-tape" aria-hidden="true" />{p.id === 'kitchen' && <img className="kitchen-logo" src={kitchenLogo} width="48" height="48" alt="Icono original de Kitchen Cabinet" loading="lazy" />}<SketchBuild kind={p.id as 'dky' | 'kitchen' | 'kanban' | 'zofloridane'} title={p.title} href={p.page} repo={p.repo} /></div><div className="project-copy"><div className="project-number"><span>{String(index + 1).padStart(2, '0')}</span><span>{p.category === 'Android' ? 'una app para el día a día' : p.category === 'Web' && p.id !== 'kanban' ? 'comercio que funciona' : 'un poco de organización'}</span></div><h3>{p.title}</h3><p>{p.description}</p><ul className="project-tech" aria-label="Tecnologías">{p.tech.map(t => <li key={t}>{t}</li>)}</ul><div className="project-links">{p.page && <a className="text-link" href={p.page} target="_blank" rel="noopener noreferrer">Ver proyecto <ArrowUpRight size={16} /></a>}{p.repo && <a className="text-link muted-link" href={p.repo} target="_blank" rel="noopener noreferrer"><Github size={15} />{p.category === 'Android' ? 'Ver código Android' : 'Código'} <ArrowUpRight size={14} /></a>}</div><details className="project-notes"><summary>Ver notas del proyecto</summary><ul>{p.features?.map(feature => <li key={feature}>{feature}</li>)}</ul></details><span className="project-hand-note">{p.note}</span></div></article>)}</div>
   </div></section>;
 }
 function About() {
