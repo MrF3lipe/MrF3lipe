@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>ZoFloridane · construcción de la app</title>
+<style>
+@font-face{font-family:Roboto;src:url('zofloridane-app/roboto-400.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:Roboto;src:url('zofloridane-app/roboto-500.woff2') format('woff2');font-weight:500 600;font-display:block}
+@font-face{font-family:Roboto;src:url('zofloridane-app/roboto-700.woff2') format('woff2');font-weight:700 800;font-display:block}
+@font-face{font-family:Hand;src:url('fonts/caveat-latin-wght-normal.woff2') format('woff2');font-weight:400 700;font-display:block}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden}
+body{--ink:#5d4632;--pencil:#9a5a38;background:#fffdf8;color:var(--ink);font-family:Roboto,system-ui,sans-serif}
+html[data-scene-theme="dark"] body{--ink:#eadfcc;--pencil:#e8b58f;background:#262420}
+.desk{position:relative;width:100%;height:100%;min-height:948px}
+.title{position:absolute;left:56px;top:40px;display:flex;align-items:center;gap:18px}
+.title img{height:54px;width:auto}
+.title p{margin:0;font:600 30px/1 Hand,cursive;color:var(--pencil)}
+.note{position:absolute;font:600 31px/1.05 Hand,cursive;color:var(--pencil);width:260px}
+.note.left{left:60px;bottom:70px;transform:rotate(-4deg)}
+.note.right{right:300px;bottom:40px;transform:rotate(3deg);text-align:right}
+.note.top{right:60px;top:52px;transform:rotate(2deg);text-align:right;width:330px}
+/* Three phones on the desk; the one in front is the screen being built. */
+.phone{position:absolute;top:150px;left:50%;width:270px;height:561px;padding:10px;border-radius:42px;background:#1f1d1a;box-shadow:0 22px 40px rgba(40,30,20,.22),inset 0 0 0 2px #3a3631;transition:transform .7s cubic-bezier(.23,1,.32,1),filter .5s ease;cursor:pointer}
+.phone>.screen{position:relative;width:100%;height:100%;border-radius:33px;overflow:hidden;background:#fff}
+.phone>.screen>img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.pos-center{transform:translateX(-50%) scale(1.08);z-index:3}
+.pos-left{transform:translateX(-50%) translateX(-290px) translateY(30px) rotate(-7deg) scale(.92);z-index:2;filter:saturate(.9)}
+.pos-right{transform:translateX(-50%) translateX(290px) translateY(30px) rotate(7deg) scale(.92);z-index:1;filter:saturate(.9)}
+/* Inicio, rebuilt at 390×844 with the app's own palette (lib/theme.dart). */
+.app{--bg:#fff;--bar:#fff;--ink2:#111827;--muted:#6b7280;--surface:#f3f4f6;--border:#e5e7eb;--soft:#fffbe6;--yellow:#ffcc00;position:relative;width:390px;height:844px;transform:scale(.641);transform-origin:top left;background:var(--bg);color:var(--ink2);font-family:Roboto,system-ui,sans-serif;overflow:hidden}
+html[data-scene-theme="dark"] .app{--bg:#0d1613;--bar:#0a2a23;--ink2:#f1f5f3;--muted:#a3b1ac;--surface:#1c2925;--border:#2c3b36;--soft:#2e2a12}
+.app svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bar{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 16px;background:var(--bar)}
+.bar img{height:34px;width:auto}
+.bar span{display:flex;gap:22px}
+.chips{display:flex;gap:8px;padding:2px 12px 0}
+.chips b{display:flex;align-items:center;gap:6px;height:36px;padding:0 12px;border:1.5px solid #e9c64a;border-radius:999px;background:var(--soft);font-size:14px;font-weight:600}
+.chips svg{width:17px;height:17px}
+.search{margin:10px 12px 0;height:52px;border-radius:14px;background:var(--surface);display:flex;align-items:center;gap:14px;padding:0 18px;color:var(--muted);font-size:16px}
+.banner{position:relative;margin:12px 12px 0;height:212px;border-radius:20px;overflow:hidden;background:#2f4a3c}
+.banner>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% center}
+.banner>i{position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,38,31,.88) 0%,rgba(6,38,31,.6) 50%,rgba(6,38,31,.05) 100%)}
+.banner>div{position:relative;padding:22px 18px;color:#fff;max-width:300px}
+.banner small{color:var(--yellow);font-weight:700;font-size:13px}
+.banner strong{display:block;margin:4px 0 6px;font-size:20px;line-height:1.18;font-weight:700}
+.banner p{margin:0;font-size:12.5px;line-height:1.35;opacity:.9}
+.banner em{display:inline-block;margin-top:14px;padding:9px 16px;border-radius:999px;background:var(--yellow);color:#111827;font-style:normal;font-weight:700;font-size:13px}
+.dots{display:flex;justify-content:center;gap:5px;margin:9px 0 0}
+.dots i{width:6px;height:6px;border-radius:50%;background:var(--border)}
+.dots i:first-child{width:18px;border-radius:4px;background:var(--yellow)}
+.app h3{display:flex;justify-content:space-between;align-items:baseline;margin:18px 12px 10px;font-size:19px;font-weight:600}
+.app h3 a{font-size:14px;font-weight:500;color:#c79a00}
+.pay{display:flex;gap:10px;padding:0 12px}
+.pay div{flex:none;width:150px;display:flex;align-items:center;gap:10px;padding:14px 12px;border:1px solid var(--border);border-radius:14px}
+.pay i{width:34px;height:34px;border-radius:50%;background:var(--soft);display:grid;place-items:center;flex:none}
+.pay i svg{width:18px;height:18px}
+.pay strong{display:block;font-size:15px}
+.pay small{display:block;font-size:11.5px;color:var(--muted);line-height:1.25}
+.cats{display:flex;gap:14px;padding:0 12px}
+.cats div{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:13px;font-weight:500}
+.cats img{width:70px;height:70px;padding:6px;border:1.5px solid #ffe08a;border-radius:18px;background:var(--soft);object-fit:cover}
+.tabs{position:absolute;left:0;right:0;bottom:0;height:72px;background:var(--bar);border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;font-size:12px;color:var(--ink2)}
+.tabs a{display:flex;flex-direction:column;align-items:center;gap:5px}
+.tabs a:first-child svg{background:var(--yellow);color:#111827;border-radius:999px;padding:4px 18px;width:62px;height:32px}
+</style>
+<!--assembly-css--><style>
+html{scroll-behavior:auto!important}
+html[data-creation]{--paper:#fffdf8;--wire:#d9d6cc;--wire-strong:#b9b4a6;background:var(--paper)!important}
+html[data-creation][data-scene-theme="dark"]{--paper:#262420;--wire:#4a463d;--wire-strong:#6d675a}
+/* 01 · Structure: an empty wireframe; each block appears when the pencil reaches it. */
+html[data-creation="1"] body *:not(style):not(script){background-image:none!important;background-color:transparent!important;box-shadow:none!important;color:transparent!important;border-color:var(--wire)!important;text-shadow:none!important}
+html[data-creation="1"] body{background:var(--paper)!important}
+html[data-creation="1"] body *::before,html[data-creation="1"] body *::after{background:none!important;box-shadow:none!important;color:transparent!important;border-color:var(--wire)!important}
+/* Placeholders are text too: they arrive with the other texts in step 03. */
+html[data-creation="1"] ::placeholder,html[data-creation="2"] ::placeholder{color:transparent!important}
+html[data-creation="1"] .creation-container{outline:1.5px dashed var(--wire-strong)!important;outline-offset:-2px;min-height:24px}
+html[data-creation="1"] .creation-container:empty{min-height:42px}
+html[data-creation="1"] .creation-container:not(.is-sketched){opacity:0!important}
+html[data-creation="1"] .creation-container.is-sketched{animation:creation-block 520ms cubic-bezier(.23,1,.32,1) both}
+/* 02 · Colour flows down the page: every element waits for its own --d. */
+html.creation-paint body *:not(style):not(script){transition:background-color .75s ease var(--d,0s),color .75s ease var(--d,0s),border-color .75s ease var(--d,0s),box-shadow .75s ease var(--d,0s),outline-color .75s ease var(--d,0s)!important}
+html[data-creation="2"] .creation-container,html[data-creation="3"] .creation-container{outline:1.5px dashed transparent!important;outline-offset:-2px}
+html[data-creation="2"] body *,html[data-creation="3"] body *{background-image:none!important}
+/* 04 · Media: a grey sketch box first, then the photo develops like a print. */
+.creation-media-space{display:block;width:100%;min-height:50px;max-width:100%;background:var(--wire)!important;opacity:.55;border:0!important}
+.creation-arrival{animation:creation-develop 900ms cubic-bezier(.23,1,.32,1) both}
+@keyframes creation-block{from{opacity:0;translate:0 14px;scale:.985}to{opacity:1;translate:none;scale:none}}
+@keyframes creation-develop{0%{opacity:0;filter:grayscale(1) contrast(.55) brightness(1.25) blur(10px);scale:1.03}55%{opacity:1}100%{opacity:1;filter:none;scale:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style><!--/assembly-css-->
+</head>
+<body><template id="creation-source"><div id="creation-root" data-interactive="">
+<div class="desk">
+  <header class="title" data-sketch="título"><img src="zofloridane-app/logo.png" data-dark="zofloridane-app/logo_dark.png" alt="ZoFloridane" width="162" height="54"><p>la tienda, en el bolsillo · Android e iOS</p></header>
+  <p class="note top">toca un teléfono para verlo de cerca ↓</p>
+  <div class="phone pos-left" data-sketch="catálogo"><div class="screen"><img src="zofloridane-app/alimentos-light.jpg" data-dark="zofloridane-app/alimentos-dark.jpg" alt="Catálogo de alimentos en la app" width="390" height="844"></div></div>
+  <div class="phone pos-right" data-sketch="producto"><div class="screen"><img src="zofloridane-app/producto-light.jpg" data-dark="zofloridane-app/producto-dark.jpg" alt="Ficha de producto en la app" width="390" height="844"></div></div>
+  <div class="phone pos-center" data-sketch="inicio"><div class="screen"><div class="app">
+    <header class="bar" data-sketch="barra"><img src="zofloridane-app/logo.png" data-dark="zofloridane-app/logo_dark.png" alt="ZoFloridane" width="102" height="34"><span><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><svg viewBox="0 0 24 24"><path d="M6 7h12l1 14H5Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></span></header>
+    <nav class="chips" data-sketch="zona y moneda"><b><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Entrega: Florida ▾</b><b><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg>USD ▾</b></nav>
+    <section class="search" data-sketch="buscador"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Buscar productos</section>
+    <section class="banner" data-sketch="banner"><img src="zofloridane-app/hero.jpg" alt="" width="720" height="240"><i></i><div><small>ZoFloridane</small><strong>Compra desde cualquier parte del mundo y entrégalo en Cuba.</strong><p>Productos esenciales y acompañamiento durante todo el pedido.</p><em>Ver productos</em></div></section>
+    <div class="dots"><i></i><i></i><i></i></div>
+    <h3>Paga como prefieras</h3>
+    <section class="pay" data-sketch="pagos"><div><i><svg viewBox="0 0 24 24"><path d="M3 10h18M5 10v8M9 10v8M15 10v8M19 10v8M3 21h18M12 3l9 5H3Z"/></svg></i><span><strong>Zelle</strong><small>Rápido, fácil y confiable.</small></span></div><div><i><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></i><span><strong>Tarjeta</strong><small>Pago seguro con tarjeta.</small></span></div></section>
+    <h3>Explora por categoría <a>Ver todas</a></h3>
+    <section class="cats" data-sketch="categorías"><div><img src="zofloridane-app/cat-alimentos.jpg" alt="" width="112" height="112">Alimentos</div><div><img src="zofloridane-app/cat-aseo.jpg" alt="" width="112" height="112">Aseo</div><div><img src="zofloridane-app/cat-bebidas.jpg" alt="" width="112" height="112">Bebidas</div><div><img src="zofloridane-app/cat-carnes.jpg" alt="" width="112" height="112">Carnes</div></section>
+    <footer class="tabs" data-sketch="navegación"><a><svg viewBox="0 0 24 24"><path d="M4 10 6 4h12l2 6M4 10v10h16V10M4 10h16M9 20v-5h6v5"/></svg>Inicio</a><a><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>Categorías</a><a><svg viewBox="0 0 24 24"><path d="M6 7h12l1 14H5Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>Carrito</a><a><svg viewBox="0 0 24 24"><path d="M2 7h11v9H2ZM13 10h4l4 4v2h-8"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Pedidos</a><a><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Más</a></footer>
+  </div></div></div>
+  <p class="note left">lo que hay en tu zona, con foto y precio</p>
+  <p class="note right">y al carrito en un toque</p>
+</div>
+</div></template>
+<script>
+// Like the real app, the screens follow the theme: swap in the dark captures before the build starts.
+if (new URLSearchParams(location.search).get('theme') === 'dark') {
+  document.getElementById('creation-source').content.querySelectorAll('img[data-dark]').forEach(img => { img.src = img.dataset.dark; });
+}
+// Once built, a tapped phone moves to the front; the others take its place.
+document.addEventListener('click', event => {
+  const phone = event.target.closest && event.target.closest('.phone');
+  if (!phone || phone.classList.contains('pos-center')) return;
+  const center = document.querySelector('.phone.pos-center');
+  const side = phone.classList.contains('pos-left') ? 'pos-left' : 'pos-right';
+  phone.classList.replace(side, 'pos-center');
+  center.classList.replace('pos-center', side);
+});
+</script>
+<!--assembly-js--><script>
+// Builds a page in front of the visitor, in the notebook's pencil style:
+// 01 sketch the blocks · 02 paint the colours · 03 write the texts · 04 develop the images.
+// Inlined into every scene by scripts/scenes.mjs; reports progress to the parent page.
+(() => {
+  const template = document.getElementById('creation-source');
+  const source = template && template.content.querySelector('#creation-root');
+  if (!source) return;
+  const params = new URLSearchParams(location.search);
+  const dark = params.get('theme') === 'dark';
+  const instant = params.has('final') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  const timers = [];
+  let cancelled = false;
+  const wait = ms => new Promise(resolve => timers.push(setTimeout(resolve, ms)));
+  const emit = stage => {
+    root.dataset.creation = String(stage);
+    parent.postMessage({ type: 'notebook-creation', stage }, '*');
+  };
+  addEventListener('pagehide', () => { cancelled = true; timers.forEach(clearTimeout); }, { once: true });
+  // data-theme lets the notebook's own stylesheet (hero scene) follow the visitor's theme too.
+  if (dark) { root.dataset.sceneTheme = 'dark'; root.dataset.theme = 'dark'; }
+
+  // Rebuild the real containers with empty texts and reserved media boxes.
+  const textParts = [], mediaParts = [];
+  const copy = node => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const placeholder = document.createTextNode('');
+      if (node.textContent.trim()) textParts.push([placeholder, node.textContent]);
+      else placeholder.textContent = node.textContent;
+      return placeholder;
+    }
+    if (node.nodeType !== Node.ELEMENT_NODE) return document.createTextNode('');
+    if (['IMG', 'VIDEO', 'PICTURE', 'CANVAS'].includes(node.tagName)) {
+      const placeholder = node.cloneNode(false);
+      placeholder.classList.add('creation-media-space');
+      if (placeholder.tagName === 'IMG') {
+        ['srcset', 'data-src', 'data-srcset'].forEach(name => placeholder.removeAttribute(name));
+        placeholder.alt = '';
+        placeholder.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+      }
+      mediaParts.push([placeholder, node.cloneNode(true)]);
+      return placeholder;
+    }
+    const element = node.cloneNode(false);
+    if (element.tagName === 'STYLE' || element.tagName === 'SCRIPT') { element.textContent = node.textContent; return element; }
+    node.childNodes.forEach(child => element.append(copy(child)));
+    return element;
+  };
+  for (const attribute of source.attributes) if (attribute.name !== 'id') document.body.setAttribute(attribute.name, attribute.value);
+  const interactive = document.body.hasAttribute('data-interactive');
+  document.body.style.pointerEvents = 'none';
+  const fragment = document.createDocumentFragment();
+  source.childNodes.forEach(child => fragment.append(copy(child)));
+  template.remove();
+  document.body.prepend(fragment);
+  const containers = [...document.querySelectorAll('header,nav,main,section,article,footer,aside,[class*="hero"],[class*="card"],[data-sketch]')];
+  containers.forEach(element => element.classList.add('creation-container'));
+
+  const finish = () => {
+    textParts.forEach(([node, value]) => { node.textContent = value; });
+    mediaParts.forEach(([placeholder, media]) => placeholder.replaceWith(media));
+    containers.forEach(element => element.classList.add('is-sketched'));
+    root.classList.remove('creation-paint');
+    if (interactive) document.body.style.pointerEvents = '';
+    emit(5);
+  };
+  if (instant) { finish(); return; }
+
+  // ---- Measuring (before the wireframe hides colours) ----
+  const W = innerWidth, H = innerHeight;
+  const onScreen = rect => rect.width > 0 && rect.bottom > 0 && rect.top < H && rect.right > 0 && rect.left < W;
+  // What can actually be seen of an element: clipped by every ancestor that hides its overflow.
+  const box = element => {
+    const rect = element.getBoundingClientRect();
+    let { left, top, right, bottom } = rect;
+    for (let node = element.parentElement; node && node !== document.body; node = node.parentElement) {
+      const style = getComputedStyle(node);
+      if (style.overflowX === 'visible' && style.overflowY === 'visible') continue;
+      const clip = node.getBoundingClientRect();
+      left = Math.max(left, clip.left); top = Math.max(top, clip.top);
+      right = Math.min(right, clip.right); bottom = Math.min(bottom, clip.bottom);
+    }
+    if (right <= left || bottom <= top) return { left, top, right: left, bottom: top, width: 0, height: 0 };
+    return { left, top, right, bottom, width: right - left, height: bottom - top };
+  };
+  const visible = containers
+    .map(element => ({ element, rect: box(element) }))
+    .filter(({ rect }) => onScreen(rect) && rect.width > 30 && rect.height > 16)
+    .sort((a, b) => a.rect.top - b.rect.top || a.rect.left - b.rect.left);
+  // Colour starts at the top of the page and flows down.
+  // Read every position first, then write, so the page is laid out only once.
+  // Raw rects are enough for colour timing and the palette, and much cheaper on big pages.
+  const raw = element => element.getBoundingClientRect();
+  const delays = [...document.querySelectorAll('body *')].map(element => [element, raw(element)]).filter(([, rect]) => onScreen(rect));
+  delays.forEach(([element, rect]) => element.style.setProperty('--d', `${(Math.max(rect.top, 0) / H * 0.85).toFixed(2)}s`));
+  // The page's own palette, weighted by painted area.
+  const palette = (() => {
+    const areas = new Map();
+    const add = (color, weight) => {
+      const match = color.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?/);
+      if (!match || (match[4] !== undefined && +match[4] < 0.6)) return;
+      const key = `rgb(${match[1]}, ${match[2]}, ${match[3]})`;
+      areas.set(key, (areas.get(key) || 0) + weight);
+    };
+    add(getComputedStyle(document.body).backgroundColor, W * H);
+    add(getComputedStyle(root).backgroundColor, W * H * 0.5);
+    document.querySelectorAll('body *').forEach(element => {
+      const rect = raw(element);
+      if (!onScreen(rect)) return;
+      const style = getComputedStyle(element);
+      add(style.backgroundColor, rect.width * rect.height);
+      if (/^H[1-3]$|^A$|^BUTTON$/.test(element.tagName)) add(style.color, 40000);
+    });
+    const rgb = key => key.match(/[\d.]+/g).map(Number);
+    const distinct = [];
+    [...areas.entries()].sort((a, b) => b[1] - a[1]).forEach(([key]) => {
+      const [r, g, b] = rgb(key);
+      if (distinct.length < 5 && distinct.every(other => { const [r2, g2, b2] = rgb(other); return Math.hypot(r - r2, g - g2, b - b2) > 48; })) distinct.push(key);
+    });
+    return distinct;
+  })();
+
+  // ---- The pencil layer, isolated from the page's own CSS ----
+  const host = document.createElement('div');
+  host.id = 'sketch-layer';
+  host.style.cssText = 'position:fixed;inset:0;z-index:2147483647;pointer-events:none;';
+  const shadow = host.attachShadow({ mode: 'open' });
+  const ink = dark ? '#e8c9a6' : '#8a5a3c';
+  const fontUrl = new URL('fonts/caveat-latin-wght-normal.woff2', location.href).href;
+  shadow.innerHTML = `<style>
+    @font-face{font-family:SceneHand;src:url(${fontUrl}) format('woff2');font-weight:400 700}
+    :host{all:initial}
+    *{box-sizing:border-box}
+    svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .rough{fill:none;stroke:${ink};stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 2;stroke-dashoffset:1.02;animation:draw var(--t,.42s) cubic-bezier(.5,0,.3,1) forwards}
+    .rough.faint{stroke-width:1.6;opacity:.45}
+    .rough.ghost{opacity:.35;stroke-width:1.8}
+    .fade{transition:opacity .6s ease}
+    .label{position:absolute;font:600 34px/1 SceneHand,'Comic Sans MS',cursive;color:${ink};transform:rotate(-3deg);white-space:nowrap;opacity:0;animation:pop .35s cubic-bezier(.23,1,.32,1) forwards}
+    .label::after{content:'';position:absolute;left:2px;right:-6px;bottom:-4px;height:2px;background:currentColor;opacity:.5;border-radius:2px}
+    .pencil{position:absolute;left:0;top:0;width:86px;height:86px;transform:translate(-200px,-200px);will-change:transform;filter:drop-shadow(3px 6px 5px rgba(0,0,0,.18))}
+    .pencil svg{position:static;width:86px;height:86px}
+    .sweep{position:absolute;left:-5%;right:-5%;height:210px;top:-230px;background:linear-gradient(180deg,transparent,rgba(255,214,92,.28) 35%,rgba(255,214,92,.42) 70%,rgba(255,214,92,0));transform:rotate(-2deg);mix-blend-mode:multiply}
+    .note{position:absolute;right:36px;bottom:40px;padding:22px 26px 20px;background:${dark ? '#5b4f2c' : '#f6e7a3'};color:${dark ? '#f3ead2' : '#3d3628'};font:600 36px/1 SceneHand,'Comic Sans MS',cursive;transform:rotate(3deg) translateY(30px);opacity:0;box-shadow:4px 8px 14px rgba(0,0,0,.16);transition:transform .5s cubic-bezier(.23,1,.32,1),opacity .4s ease}
+    .note.show{transform:rotate(3deg);opacity:1}
+    .note .swatches{display:flex;gap:12px;margin-top:14px}
+    .note i{width:42px;height:42px;border-radius:47% 53% 45% 55%;border:2px solid ${dark ? '#f3ead2' : '#3d3628'};transform:scale(0);animation:swatch .45s cubic-bezier(.34,1.56,.64,1) forwards}
+    .caret{position:absolute;width:3px;height:30px;background:${ink};border-radius:2px;animation:blink .7s steps(1) infinite;visibility:hidden;transition:transform .09s linear}
+    .done{position:absolute;font:700 64px/1 SceneHand,'Comic Sans MS',cursive;color:${ink};transform:rotate(-6deg);opacity:0;animation:pop .45s cubic-bezier(.34,1.56,.64,1) forwards}
+    @keyframes draw{to{stroke-dashoffset:0}}
+    @keyframes pop{from{opacity:0;transform:rotate(-3deg) translateY(8px) scale(.9)}to{opacity:1}}
+    @keyframes swatch{to{transform:scale(1)}}
+    @keyframes blink{50%{opacity:0}}
+  </style>
+  <svg class="sketches" viewBox="0 0 ${W} ${H}"></svg>
+  <div class="sweep"></div>
+  <div class="caret"></div>
+  <div class="pencil"><svg viewBox="0 0 86 86" fill="none" stroke="${dark ? '#f3ead2' : '#2f2a22'}" stroke-width="2" stroke-linejoin="round">
+    <path d="M6 80 14 58 64 8a7 7 0 0 1 10 0l4 4a7 7 0 0 1 0 10L28 72Z" fill="${dark ? '#c9a24a' : '#f2c94c'}"/>
+    <path d="M58 14l14 14" /><path d="M64 8a7 7 0 0 1 10 0l4 4a7 7 0 0 1 0 10l-6 6-14-14Z" fill="#e8a0a0"/>
+    <path d="M6 80 14 58l14 14Z" fill="#f4dcb4"/><path d="M6 80l4-11 7 7Z" fill="#2f2a22"/>
+  </svg></div>`;
+  root.append(host);
+  const sketches = shadow.querySelector('.sketches');
+  const pencil = shadow.querySelector('.pencil');
+  const caret = shadow.querySelector('.caret');
+  const svgNS = 'http://www.w3.org/2000/svg';
+  // The pencil's tip sits at the bottom-left corner of its drawing.
+  const tip = (x, y) => `translate(${x - 6}px, ${y - 80}px) rotate(${-4 + Math.sin(x / 90) * 4}deg)`;
+  const movePencil = (x, y, ms = 260) => pencil.animate([{ transform: getComputedStyle(pencil).transform }, { transform: tip(x, y) }], { duration: ms, easing: 'cubic-bezier(.45,0,.25,1)', fill: 'forwards' });
+  const jitter = (amount = 2.5) => (Math.random() - 0.5) * amount * 2;
+  const roughRect = (rect, className = '', duration = 420) => {
+    const x1 = Math.max(rect.left, 4), y1 = Math.max(rect.top, 4), x2 = Math.min(rect.right, W - 4), y2 = Math.min(rect.bottom, H - 4);
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', `M${x1 + jitter()} ${y1 + jitter()} L${x2 + jitter()} ${y1 + jitter()} L${x2 + jitter()} ${y2 + jitter()} L${x1 + jitter()} ${y2 + jitter()} Z M${x1 - 5} ${y1 + 3} L${x1 + 22} ${y1 + jitter(1)}`);
+    path.setAttribute('pathLength', '1');
+    path.setAttribute('class', `rough fade ${className}`);
+    path.style.setProperty('--t', `${duration}ms`);
+    sketches.append(path);
+    return { path, corners: [[x1, y1], [x2, y1], [x2, y2], [x1, y2], [x1, y1]] };
+  };
+  const tracePencil = (corners, duration) => pencil.animate(corners.map(([x, y]) => ({ transform: tip(x, y) })), { duration, easing: 'linear', fill: 'forwards' });
+  const label = (text, x, y) => {
+    const element = document.createElement('div');
+    element.className = 'label fade';
+    element.textContent = text;
+    element.style.left = `${Math.min(Math.max(x, 10), W - 220)}px`;
+    element.style.top = `${Math.min(Math.max(y - 40, 6), H - 50)}px`;
+    // Once it has popped in, hand opacity back to the fade transition.
+    element.addEventListener('animationend', () => { element.style.opacity = '1'; element.style.animation = 'none'; }, { once: true });
+    shadow.append(element);
+    return element;
+  };
+  const nameFor = element => {
+    if (element.dataset.sketch) return element.dataset.sketch;
+    const tag = element.tagName.toLowerCase(), cls = String(element.className);
+    if (tag === 'nav') return 'menú';
+    if (tag === 'header') return 'cabecera';
+    if (tag === 'footer') return 'pie';
+    if (/hero/i.test(cls)) return 'portada';
+    if (/card/i.test(cls) || tag === 'article') return 'tarjeta';
+    if (tag === 'section' || tag === 'main') return 'sección';
+    return '';
+  };
+  const reveal = element => { for (let node = element; node && node !== document.body; node = node.parentElement) if (node.classList.contains('creation-container')) node.classList.add('is-sketched'); };
+
+  const run = async () => {
+    // ---- 01 · Sketching the structure ----
+    emit(1);
+    containers.forEach(element => { if (!onScreen(box(element))) element.classList.add('is-sketched'); });
+    pencil.style.transform = tip(W * 0.62, H + 60);
+    // The biggest visible blocks get the pencil and a name; the rest just appear in reading order.
+    // Big pages repaint slowly, so the pencil visits fewer blocks there.
+    const heavy = document.getElementsByTagName('*').length > 2500;
+    // Blocks the scene names itself come first, then the largest ones.
+    const area = ({ rect }) => rect.width * rect.height;
+    const named = ({ element }) => (element.dataset.sketch ? 1 : 0);
+    const featured = new Set([...visible].sort((a, b) => named(b) - named(a) || area(b) - area(a)).slice(0, heavy ? 5 : 7).map(item => item.element));
+    const started = performance.now();
+    // Secondary blocks share at most 1.6 s, however many a page has.
+    const quietCount = visible.filter(({ element }) => !featured.has(element)).length;
+    const quietStep = Math.min(45, 1600 / Math.max(quietCount, 1));
+    const labelled = new Map();
+    const placed = [];
+    let quiet = 0;
+    for (const { element, rect } of visible) {
+      if (cancelled) return;
+      if (!featured.has(element)) {
+        timers.push(setTimeout(() => { reveal(element); roughRect(rect, 'faint', 320); }, 120 + quiet++ * quietStep));
+        continue;
+      }
+      // Wait on timers, not on animation promises: an off-screen iframe pauses its animations.
+      movePencil(rect.left, rect.top, 170);
+      await wait(170);
+      const { corners } = roughRect(rect, '', 380);
+      tracePencil(corners, 380);
+      reveal(element);
+      const name = nameFor(element);
+      const crowded = placed.some(([x, y]) => Math.abs(x - rect.left) < 170 && Math.abs(y - rect.top) < 60);
+      // Page-wide wrappers are obvious; their names would only crowd the corner.
+      const wrapper = rect.width * rect.height > W * H * 0.6;
+      if (name && !crowded && !wrapper && (labelled.get(name) || 0) < 2) {
+        labelled.set(name, (labelled.get(name) || 0) + 1);
+        placed.push([rect.left, rect.top]);
+        label(name, rect.left + 14, rect.top + 4);
+      }
+      await wait(280);
+    }
+    await wait(Math.max(0, started + 120 + quiet * quietStep + 320 - performance.now()));
+    containers.forEach(element => element.classList.add('is-sketched'));
+    await wait(250);
+
+    // ---- 02 · Painting with CSS ----
+    root.classList.add('creation-paint');
+    emit(2);
+    shadow.querySelectorAll('.fade').forEach(element => { element.style.opacity = element.classList.contains('label') ? '0' : '.28'; });
+    shadow.querySelector('.sweep').animate([{ top: '-230px' }, { top: `${H + 40}px` }], { duration: 1150, easing: 'cubic-bezier(.45,0,.4,1)', fill: 'forwards' });
+    pencil.animate([{ transform: tip(W - 120, -40) }, { transform: tip(W - 150, H * 0.55) }, { transform: tip(W - 110, H + 90) }], { duration: 1150, easing: 'ease-in-out', fill: 'forwards' });
+    if (palette.length) {
+      const note = document.createElement('div');
+      note.className = 'note';
+      note.innerHTML = `paleta<div class="swatches">${palette.map((color, i) => `<i style="background:${color};animation-delay:${250 + i * 110}ms"></i>`).join('')}</div>`;
+      shadow.append(note);
+      await wait(380);
+      note.classList.add('show');
+      await wait(1250);
+    } else await wait(1300);
+
+    // ---- 03 · Writing the texts ----
+    emit(3);
+    const positioned = textParts.map(([node, value]) => ({ node, value, rect: node.parentElement ? box(node.parentElement) : { top: H + 1 } }));
+    const typed = positioned.filter(item => onScreen(item.rect) && item.rect.width > 0).sort((a, b) => a.rect.top - b.rect.top || a.rect.left - b.rect.left).slice(0, 16);
+    const typedSet = new Set(typed);
+    positioned.forEach(item => { if (!typedSet.has(item)) item.node.textContent = item.value; });
+    caret.style.visibility = 'visible';
+    let latest = null;
+    const typing = typed.map((item, index) => (async () => {
+      await wait(index * 85);
+      const total = Math.min(item.value.length, 70);
+      const step = Math.max(10, Math.min(24, 900 / total));
+      for (let shown = 1; shown <= total && !cancelled; shown++) {
+        item.node.textContent = item.value.slice(0, shown);
+        latest = item;
+        await wait(step);
+      }
+      item.node.textContent = item.value;
+    })());
+    // Caret and pencil follow whatever is being written right now.
+    const follow = setInterval(() => {
+      if (!latest || !latest.node.isConnected || !latest.node.length) return;
+      const range = document.createRange();
+      range.setStart(latest.node, Math.max(latest.node.length - 1, 0));
+      range.setEnd(latest.node, latest.node.length);
+      const rect = range.getBoundingClientRect();
+      if (!rect.height) return;
+      caret.style.height = `${Math.min(Math.max(rect.height, 18), 70)}px`;
+      caret.style.transform = `translate(${rect.right + 2}px, ${rect.top}px)`;
+      pencil.style.transform = tip(rect.right + 10, rect.bottom);
+      pencil.getAnimations().forEach(animation => animation.cancel());
+    }, 40);
+    await Promise.all(typing);
+    clearInterval(follow);
+    caret.style.visibility = 'hidden';
+    await wait(250);
+
+    // ---- 04 · Placing the images ----
+    emit(4);
+    shadow.querySelector('.note')?.classList.remove('show');
+    const media = mediaParts.map(([placeholder, element]) => ({ placeholder, element, rect: box(placeholder) }));
+    const shown = media.filter(item => onScreen(item.rect) && item.rect.width > 12 && item.rect.height > 12).slice(0, 8);
+    const shownSet = new Set(shown);
+    media.forEach(item => { if (!shownSet.has(item)) item.placeholder.replaceWith(item.element); });
+    for (const [index, item] of shown.entries()) {
+      if (cancelled) return;
+      const { rect } = item;
+      const { path, corners } = roughRect(rect, '', 300);
+      const cross = document.createElementNS(svgNS, 'path');
+      const mx = rect.left + rect.width * 0.35, my = rect.top + rect.height * 0.7;
+      cross.setAttribute('d', `M${rect.left + 8} ${rect.bottom - 8} L${mx} ${my - rect.height * 0.25} L${mx + rect.width * 0.15} ${my - rect.height * 0.08} L${rect.left + rect.width * 0.7} ${rect.top + rect.height * 0.35} L${rect.right - 8} ${rect.bottom - 8} M${rect.right - rect.width * 0.22} ${rect.top + rect.height * 0.25} m-14 0 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0`);
+      cross.setAttribute('pathLength', '1');
+      cross.setAttribute('class', 'rough fade');
+      cross.style.setProperty('--t', '420ms');
+      cross.style.animationDelay = '200ms';
+      sketches.append(cross);
+      if (index < 4) { movePencil(rect.left, rect.top, 160); await wait(160); tracePencil(corners, 300); }
+      timers.push(setTimeout(() => {
+        item.element.classList.add('creation-arrival');
+        item.placeholder.replaceWith(item.element);
+        path.style.opacity = '0';
+        cross.style.opacity = '0';
+      }, 650));
+      await wait(index < 4 ? 320 : 90);
+    }
+    await wait(shown.length ? 900 : 300);
+
+    // ---- Done: a checkmark and a signature ----
+    shadow.querySelectorAll('.fade').forEach(element => { element.style.opacity = '0'; });
+    const check = document.createElementNS(svgNS, 'path');
+    check.setAttribute('d', `M${W - 250} ${H - 150} l34 40 l78 -100`);
+    check.setAttribute('pathLength', '1');
+    check.setAttribute('class', 'rough');
+    check.style.strokeWidth = '7';
+    check.style.setProperty('--t', '420ms');
+    sketches.append(check);
+    tracePencil([[W - 250, H - 150], [W - 216, H - 110], [W - 138, H - 210]], 420);
+    const done = document.createElement('div');
+    done.className = 'done';
+    done.textContent = interactive ? '¡lista!' : '¡listo!';
+    done.style.left = `${W - 300}px`;
+    done.style.top = `${H - 100}px`;
+    shadow.append(done);
+    await wait(520);
+    pencil.animate([{ transform: getComputedStyle(pencil).transform }, { transform: tip(W + 120, H + 120) }], { duration: 500, easing: 'ease-in', fill: 'forwards' });
+    finish();
+    await wait(1400);
+    host.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, fill: 'forwards' });
+  };
+  run();
+})();
+</script><!--/assembly-js-->
+</body>
+</html>
