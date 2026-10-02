@@ -1,46 +1,52 @@
 import { useEffect } from 'react';
-import { animate, inView } from 'framer-motion';
 
-/** One-time, progressively enhanced motion. Content remains readable without JS. */
+const REVEAL = '.section-intro, .project-copy, .project-art-sheet, .about-copy, .about-photo, .tools-heading, .tool-group, .tools-note, .process-step, .process-note, .contact-copy, .contact-form';
+const INK = '.sketch-art, .pencil-arrow';
+const EASE = 'cubic-bezier(.23,1,.32,1)';
+
+/**
+ * One-time, progressively enhanced motion. Content remains readable without JS.
+ * Only elements still below the fold get hidden, so nothing visible flashes out.
+ * Animates the individual `translate` property, so each sheet keeps its CSS rotation.
+ */
 export default function useNotebookMotion() {
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const animations: ReturnType<typeof animate>[] = [];
-    const stops: (() => void)[] = [];
-    const touched = new Set<Element>();
-    const clear = () => {
-      stops.splice(0).forEach(stop => stop());
-      animations.splice(0).forEach(animation => animation.stop());
-      touched.forEach(element => {
-        (element as HTMLElement).style.removeProperty('opacity');
-        (element as HTMLElement).style.removeProperty('transform');
-        element.classList.remove('ink-revealed');
-      });
-      touched.clear();
-    };
-    const start = () => {
-      clear();
-      if (preference.matches) return;
-      const ease = [0.23, 1, 0.32, 1] as const;
-      const selectors = '.hero-copy > *, .hero-art, .section-intro, .project-copy, .project-art-sheet, .archive-heading, .about-copy, .about-photo, .tools-heading, .tool-group, .process-step, .process-note, .contact-copy, .contact-form';
-      document.querySelectorAll(selectors).forEach(element => {
-        stops.push(inView(element, () => {
-          touched.add(element);
-          animations.push(animate(element, {
-            opacity: [0.25, 1],
-            transform: ['translateY(14px)', 'translateY(0px)'],
-          }, { duration: 0.55, ease: [...ease], onComplete: () => {
-            (element as HTMLElement).style.removeProperty('transform');
-            (element as HTMLElement).style.removeProperty('opacity');
-          } }));
-          // No exit animation: reading and returning to content stays immediate.
-        }, { amount: 0.12 }));
-      });
+    if (preference.matches) return;
+    const animations: Animation[] = [];
+    const below = (element: Element) => element.getBoundingClientRect().top > window.innerHeight * 0.92;
+    const reveal = [...document.querySelectorAll<HTMLElement>(REVEAL)].filter(below);
+    // The hero sketch draws itself on load through CSS.
+    const ink = [...document.querySelectorAll(INK)].filter(element => !element.closest('.hero') && below(element));
+    reveal.forEach(element => element.classList.add('reveal-pending'));
+    ink.forEach(element => element.classList.add('ink-pending'));
 
+    const observer = new IntersectionObserver(entries => {
+      let order = 0;
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const element = entry.target as HTMLElement;
+        observer.unobserve(element);
+        if (element.classList.contains('ink-pending')) element.classList.replace('ink-pending', 'ink-revealed');
+        if (!element.classList.contains('reveal-pending')) return;
+        // Siblings entering together (tool groups, process steps) arrive one after another.
+        animations.push(element.animate(
+          [{ opacity: 0, translate: '0 18px' }, { opacity: 1, translate: '0 0' }],
+          { duration: 650, delay: order++ * 90, easing: EASE, fill: 'backwards' },
+        ));
+        element.classList.remove('reveal-pending');
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    [...reveal, ...ink].forEach(element => observer.observe(element));
+
+    const showAll = () => {
+      observer.disconnect();
+      animations.splice(0).forEach(animation => animation.finish());
+      reveal.forEach(element => element.classList.remove('reveal-pending'));
+      ink.forEach(element => element.classList.remove('ink-pending', 'ink-revealed'));
     };
-    start();
-    preference.addEventListener('change', start);
-    return () => { clear(); preference.removeEventListener('change', start); };
+    const onChange = () => { if (preference.matches) showAll(); };
+    preference.addEventListener('change', onChange);
+    return () => { showAll(); preference.removeEventListener('change', onChange); };
   }, []);
 }
-

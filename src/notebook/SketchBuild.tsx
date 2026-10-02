@@ -10,6 +10,7 @@ export default function SketchBuild({ kind, title, href }: Props) {
   const [loaded, setLoaded] = useState(false);
   const [slow, setSlow] = useState(false);
   const [scale, setScale] = useState(0.4);
+  const [zoomed, setZoomed] = useState(false);
   const canvas = useRef<HTMLDivElement>(null);
   const scene = useRef<HTMLIFrameElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -41,7 +42,7 @@ export default function SketchBuild({ kind, title, href }: Props) {
       {stage === 0 && <button type="button" className="real-start" onClick={start} aria-label={`Construir el sitio real de ${title}`}><span className="build-invitation"><Pencil size={17} />Tócame. Construyamos la web real.</span></button>}
     </div>
     <div className="build-caption"><span role="status" aria-live="polite">{slow ? 'La web tarda en responder. Puedes abrirla directamente.' : steps[stage]}</span><div className="build-steps" aria-hidden="true">{[1,2,3,4,5].map(step => <i key={step} className={stage >= step ? 'done' : ''} />)}</div></div>
-    {run > 0 && <div className="real-controls">{stage === 5 && <><button className="text-link" type="button" onClick={start}><RotateCcw size={14} /> Repetir construcción</button><button className="text-link" type="button" onClick={() => dialog.current?.showModal()}><Maximize2 size={14} /> Ampliar</button></>}<a className="text-link" href={kind === 'hero' ? '#projects' : source} target={kind === 'hero' ? undefined : '_blank'} rel="noopener noreferrer">{kind === 'hero' ? 'Explorar portfolio' : 'Abrir sitio real'} <ArrowUpRight size={14} /></a></div>}
-    <dialog className="real-site-dialog" ref={dialog}><div className="real-dialog-bar"><strong>{title} · sitio real</strong><button type="button" autoFocus aria-label="Cerrar sitio ampliado" onClick={() => dialog.current?.close()}><X size={21} /></button></div>{run > 0 && <iframe title={`${title}, sitio ampliado`} src={source} loading="lazy" />}<p>Si el sitio no se muestra, <a href={source} target="_blank" rel="noopener noreferrer">ábrelo en su propia pestaña ↗</a>.</p></dialog>
+    {run > 0 && <div className="real-controls">{stage === 5 && <><button className="text-link" type="button" onClick={start}><RotateCcw size={14} /> Repetir construcción</button><button className="text-link" type="button" onClick={() => { setZoomed(true); dialog.current?.showModal(); }}><Maximize2 size={14} /> Ampliar</button></>}<a className="text-link" href={kind === 'hero' ? '#projects' : source} target={kind === 'hero' ? undefined : '_blank'} rel="noopener noreferrer">{kind === 'hero' ? 'Explorar portfolio' : 'Abrir sitio real'} <ArrowUpRight size={14} /></a></div>}
+    <dialog className="real-site-dialog" ref={dialog} onClose={() => setZoomed(false)} onClick={e => { if (e.target === e.currentTarget) e.currentTarget.close(); }}><div className="real-dialog-bar"><strong>{title} · sitio real</strong><button type="button" autoFocus aria-label="Cerrar sitio ampliado" onClick={() => dialog.current?.close()}><X size={21} /></button></div>{zoomed && <iframe title={`${title}, sitio ampliado`} src={source} />}<p>Si el sitio no se muestra, <a href={source} target="_blank" rel="noopener noreferrer">ábrelo en su propia pestaña ↗</a>.</p></dialog>
   </div>;
 }
