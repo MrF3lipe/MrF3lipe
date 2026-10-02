@@ -23,7 +23,7 @@ La compilación queda en `dist/`. `docs/` contiene la misma versión preparada p
 
 El formulario conserva el servicio existente e incluye validación, tiempo límite y estados de éxito/error. La entrega real del correo requiere que ese endpoint siga activo; no se han enviado mensajes de prueba.
 
-Kitchen Cabinet enlaza al repositorio KC-Kotlin. No se muestran descargas de APK porque los repositorios revisados no tienen APK publicadas en Releases. Actualizar o firmar las APK sigue siendo un trabajo separado.
+Kitchen Cabinet no enlaza a ningún repositorio: el código (kitchen-gabinet) es privado. En la tarjeta se ve su construcción con capturas reales de la app. No se muestran descargas de APK porque los repositorios revisados no tienen APK publicadas en Releases. Actualizar o firmar las APK sigue siendo un trabajo separado.
 
 Los bocetos son ilustraciones, no capturas de aplicaciones. No se incluyen métricas, clientes ni resultados inventados.
 

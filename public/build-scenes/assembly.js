@@ -206,7 +206,9 @@
         timers.push(setTimeout(() => { reveal(element); roughRect(rect, 'faint', 320); }, 120 + quiet++ * 45));
         continue;
       }
-      await movePencil(rect.left, rect.top, 170).finished.catch(() => {});
+      // Wait on timers, not on animation promises: an off-screen iframe pauses its animations.
+      movePencil(rect.left, rect.top, 170);
+      await wait(170);
       const { corners } = roughRect(rect, '', 380);
       tracePencil(corners, 380);
       reveal(element);
@@ -295,7 +297,7 @@
       cross.style.setProperty('--t', '420ms');
       cross.style.animationDelay = '200ms';
       sketches.append(cross);
-      if (index < 4) { await movePencil(rect.left, rect.top, 160).finished.catch(() => {}); tracePencil(corners, 300); }
+      if (index < 4) { movePencil(rect.left, rect.top, 160); await wait(160); tracePencil(corners, 300); }
       timers.push(setTimeout(() => {
         item.element.classList.add('creation-arrival');
         item.placeholder.replaceWith(item.element);
