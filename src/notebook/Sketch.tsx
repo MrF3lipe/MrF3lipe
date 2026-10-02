@@ -1,6 +1,6 @@
 type Props = { kind?: 'hero' | 'dky' | 'kitchen' | 'kanban' | 'zofloridane'; className?: string };
 export default function Sketch({ kind = 'hero', className = '' }: Props) {
-  const label = { hero: 'Boceto a lápiz de una página web y una aplicación móvil', dky: 'Esquema dibujado de una tienda de joyería', kitchen: 'Esquema dibujado de las pantallas de Kitchen Cabinet', zofloridane: 'Boceto de la tienda ZoFloridane', kanban: 'Tablero Kanban dibujado con notas de tareas' }[kind];
+  const label = { hero: 'Boceto a lápiz de una página web y una aplicación móvil', dky: 'Esquema dibujado de una tienda de joyería', kitchen: 'Esquema dibujado de las pantallas de Kitchen Cabinet', zofloridane: 'Boceto de una tienda de comestibles con entrega a domicilio en Cuba', kanban: 'Tablero Kanban dibujado con notas de tareas' }[kind];
   return <svg className={`sketch-art ${className}`} viewBox="0 0 520 440" role="img" aria-label={label}>
     <g className="sketch-lines" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
       {kind === 'hero' && <>
@@ -12,13 +12,22 @@ export default function Sketch({ kind = 'hero', className = '' }: Props) {
         <path className="pencil-draw" pathLength="1" d="M429 138q68 47 37 155m-7-18 5 23 23-10M103 315q-37 50 78 76m-20-19 26 21-30 5" />
         <path className="pencil-draw" pathLength="1" d="m63 354-17 8m11-23-5-14m29 25 12-6M410 333l17 3m-9-17 3-11M236 51l6-11 6 11-6 10Z" />
       </>}
-      {(kind === 'dky' || kind === 'zofloridane') && <>
+      {kind === 'dky' && <>
         <path className="pencil-draw" pathLength="1" d="m37 60 446 4-5 313-447-4Z" fill="var(--paper)" /><path className="pencil-draw" pathLength="1" d="m34 57 451 6-4 316-451-5Z" opacity=".25" />
         <path className="pencil-draw" pathLength="1" d="m39 97 440 4M57 77h76m204 5h30m17 0h35M61 126h159v135H61Z" fill="var(--project-wash)" />
         <path className="pencil-draw" pathLength="1" d="M133 159q-39 9-39 42t43 40q37-9 37-42t-41-40Z" strokeWidth="4" />
         <path className="pencil-draw" pathLength="1" d="m132 157-15-17 15-18 16 18-16 17m-11-13h24m-13-21v31M250 134h187m-186 21h124m-124 20h167m-166 51h100m-100 20h81M64 291h114m28 0h112m24 0h112M64 307h86m61 0h82m49 0h90" />
         <path className="pencil-draw" pathLength="1" d="m250 191 81 1 1 17-83-1Z" fill="var(--highlight)" />
         <path className="pencil-draw" pathLength="1" d="M134 394q59 20 95-4m-14-7 19 5-9 17M474 190l15-3m-12-9 2-8" />
+      </>}
+      {kind === 'zofloridane' && <>
+        <path className="pencil-draw" pathLength="1" d="m37 60 446 4-5 313-447-4Z" fill="var(--paper)" /><path className="pencil-draw" pathLength="1" d="m34 57 451 6-4 316-451-5Z" opacity=".25" />
+        <path className="pencil-draw" pathLength="1" d="m39 97 440 4M57 79h62M152 70h118q9 0 9 9t-9 9H152q-9 0-9-9t9-9ZM160 75q0-5 5-5t5 5q0 4-5 9-5-5-5-9ZM182 79h70M412 72h9l7 17h24l6-13h-33M431 96a2.5 2.5 0 1 0 .1 0M449 96a2.5 2.5 0 1 0 .1 0" />
+        <path className="pencil-draw" pathLength="1" d="m57 114 406 2-1 72-405-2Z" fill="var(--project-wash)" />
+        <path className="pencil-draw" pathLength="1" d="M75 134h178M75 151h122m-121 15 72 1-1 14-72-1Z" fill="var(--highlight)" />
+        <path className="pencil-draw" pathLength="1" d="m57 204 85 1-1 95-84-1ZM158 205h85l1 95-86-1ZM259 204l85 2-1 94-84-1ZM360 205h85v95l-86-1Z" />
+        <path className="pencil-draw" pathLength="1" d="M93 222h12v6l6 7v39H87v-39l6-7ZM87 248h24M181 240q20-9 42 0l-4 36h-34ZM187 240q15 7 30 0M285 230h34v44h-34ZM285 239h34M285 265h34M381 236h45l-4 38h-37ZM392 236v-8h23v8M66 289h38m56 0h40m61 0h38m62 0h40" />
+        <path className="pencil-draw" pathLength="1" d="M48 401a13 13 0 1 0 26 0a13 13 0 1 0-26 0M48 401h26M61 388q-8 13 0 26q8-13 0-26M78 400q92 15 190 2t178-4M449 414v-17l14-11 14 11v17ZM459 414v-9h8v9M463 380q-5-6-9-2t1 9l8 6 8-6q5-5 1-9t-9 2Z" />
       </>}
       {kind === 'kitchen' && <>
         <path className="pencil-draw" pathLength="1" d="m78 72 150-3 4 286-154 5Z" fill="var(--paper)" /><path className="pencil-draw" pathLength="1" d="m75 75 151-4 5 286-151 6Z" opacity=".35" />
@@ -38,7 +47,8 @@ export default function Sketch({ kind = 'hero', className = '' }: Props) {
     </g>
     <g className="sketch-labels" fill="var(--pencil)">
       {kind === 'hero' && <><text x="57" y="43" transform="rotate(-4 57 43)">hacerlo claro ↓</text><text x="93" y="427" transform="rotate(-4 93 427)">de la idea a la pantalla</text></>}
-      {(kind === 'dky' || kind === 'zofloridane') && <><text x="64" y="39">{kind === 'zofloridane' ? 'comprar desde lejos, entregar cerca' : 'una tienda que funciona'}</text><text x="243" y="408" transform="rotate(-3 243 408)">el producto, primero ↗</text></>}
+      {kind === 'dky' && <><text x="64" y="39">una tienda que funciona</text><text x="243" y="408" transform="rotate(-3 243 408)">el producto, primero ↗</text></>}
+      {kind === 'zofloridane' && <><text x="64" y="39">comprar desde lejos, entregar cerca</text><text x="128" y="433" transform="rotate(-2 128 433)">del carrito a su puerta ↗</text></>}
       {kind === 'kitchen' && <><text x="64" y="43">recetas</text><text x="302" y="66">lista de la compra</text><text x="158" y="414" transform="rotate(-3 158 414)">un poco de orden para cocinar</text></>}
       {kind === 'kanban' && <><text x="45" y="40">Por hacer</text><text x="201" y="39">En marcha</text><text x="369" y="37">¡Hecho!</text><text x="70" y="412" transform="rotate(-3 70 412)">cada idea tiene su lugar.</text></>}
     </g>
