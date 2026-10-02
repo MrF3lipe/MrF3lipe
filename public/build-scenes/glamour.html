@@ -3,60 +3,54 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Kitchen Cabinet · construcción de la app</title>
+<title>The Glamour · construcción de la web de reservas</title>
 <style>
-@font-face{font-family:Newsreader;src:url('kitchen/newsreader-600.woff2') format('woff2');font-weight:600;font-display:block}
-@font-face{font-family:Jakarta;src:url('kitchen/jakarta-500.woff2') format('woff2');font-weight:400 500;font-display:block}
-@font-face{font-family:Jakarta;src:url('kitchen/jakarta-700.woff2') format('woff2');font-weight:600 800;font-display:block}
+@font-face{font-family:Instrument;src:url('glamour/serif.woff2') format('woff2');font-style:normal;font-display:block}
+@font-face{font-family:Instrument;src:url('glamour/serif-italic.woff2') format('woff2');font-style:italic;font-display:block}
+@font-face{font-family:Inter;src:url('glamour/inter-400.woff2') format('woff2');font-weight:400 500;font-display:block}
+@font-face{font-family:Inter;src:url('glamour/inter-600.woff2') format('woff2');font-weight:600 700;font-display:block}
 @font-face{font-family:Hand;src:url('fonts/caveat-latin-wght-normal.woff2') format('woff2');font-weight:400 700;font-display:block}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden}
-body{--ink:#5d4632;--pencil:#9a5a38;background:#fffdf8;color:var(--ink);font-family:Jakarta,system-ui,sans-serif}
+body{--ink:#5d4632;--pencil:#9a5a38;background:#fffdf8;color:var(--ink);font-family:Inter,system-ui,sans-serif}
 html[data-scene-theme="dark"] body{--ink:#eadfcc;--pencil:#e8b58f;background:#262420}
 .desk{position:relative;width:100%;height:100%;min-height:948px}
 .title{position:absolute;left:56px;top:38px;display:flex;align-items:center;gap:18px}
 .title img{width:72px;height:72px;border-radius:50%}
-.title h1{margin:0;font:600 46px/1 Newsreader,Georgia,serif;color:var(--ink)}
-.title p{margin:6px 0 0;font:600 30px/1 Hand,cursive;color:var(--pencil)}
-.note{position:absolute;font:600 31px/1.05 Hand,cursive;color:var(--pencil);width:230px}
+.title h1{margin:0;font:400 52px/1 Instrument,Georgia,serif;letter-spacing:-.5px;color:var(--ink)}
+.title p{margin:4px 0 0;font:600 30px/1 Hand,cursive;color:var(--pencil)}
+.note{position:absolute;font:600 31px/1.05 Hand,cursive;color:var(--pencil);width:250px}
 .note.left{left:70px;bottom:70px;transform:rotate(-4deg)}
-.note.right{right:330px;bottom:46px;transform:rotate(3deg);text-align:right;width:260px}
+.note.right{right:300px;bottom:40px;transform:rotate(3deg);text-align:right;width:280px}
 .note.top{right:60px;top:52px;transform:rotate(2deg);text-align:right;width:330px}
-/* Three phones on the desk; the one in front is the screen being built. */
-.phone{position:absolute;top:150px;left:50%;width:300px;height:518px;padding:10px;border-radius:44px;background:#1f1d1a;box-shadow:0 22px 40px rgba(40,30,20,.22),inset 0 0 0 2px #3a3631;transition:transform .7s cubic-bezier(.23,1,.32,1),filter .5s ease;cursor:pointer}
-.phone>.screen{position:relative;width:100%;height:100%;border-radius:35px;overflow:hidden;background:#fbf9f8}
-.phone>.screen>img{display:block;width:100%;height:100%;object-fit:cover}
-.pos-center{transform:translateX(-50%) scale(1.06);z-index:3}
-.pos-left{transform:translateX(-50%) translateX(-310px) translateY(30px) rotate(-7deg) scale(.9);z-index:2;filter:saturate(.9)}
-.pos-right{transform:translateX(-50%) translateX(310px) translateY(30px) rotate(7deg) scale(.9);z-index:1;filter:saturate(.9)}
-/* The Explorador screen, rebuilt at 540×960 and scaled into the phone. */
-.app{width:540px;height:960px;transform:scale(.5185);transform-origin:top left;background:#fbf9f8;color:#1b1c1c;position:relative;font-family:Jakarta,system-ui,sans-serif}
-.app svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.bar{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid #e4e2e1;color:#9a4028}
-.bar strong{font:600 22px Newsreader,Georgia,serif;letter-spacing:-.01em}
-.bar span{display:flex;gap:28px}
-.app h2{margin:16px 20px 0;font:600 46px/1.1 Newsreader,Georgia,serif;letter-spacing:-.02em}
-.search{margin:26px 20px 0;height:66px;border:1.5px solid #dcc0ba;border-radius:999px;display:flex;align-items:center;gap:14px;padding:0 22px;color:#56423d;font-size:17px;background:#fff}
-.search svg{color:#9a4028;width:22px;height:22px}
-.chips{display:flex;gap:10px;margin:26px 0 0 20px;white-space:nowrap}
-.chips b{padding:15px 19px;border-radius:999px;background:#efebe8;color:#56423d;font-size:15px;letter-spacing:.06em;font-weight:700}
-.chips b:first-child{background:#9a4028;color:#fff}
-.community{margin:30px 20px 0;padding:16px 18px;border-radius:26px;background:#e3efc6;display:flex;align-items:center;gap:16px}
-.community i{width:50px;height:50px;border-radius:50%;background:#fff;display:grid;place-items:center;color:#9a4028;flex:none}
-.community div{flex:1;min-width:0}
-.community strong{display:block;font-size:17px}
-.community small{display:block;font-size:15px;color:#56423d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
-.recipe{margin:26px 20px 0;border-radius:26px;overflow:hidden;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05);position:relative}
-.recipe>img{display:block;width:100%;height:310px;object-fit:cover}
-.recipe .fav{position:absolute;right:12px;top:14px;width:54px;height:54px;border-radius:50%;background:#fff;display:grid;place-items:center;color:#1b1c1c}
-.recipe .body{padding:22px 20px 26px}
-.recipe em{font-style:normal;background:#d6e7a1;color:#56642b;padding:5px 13px;border-radius:999px;font-size:15px}
-.recipe h3{margin:14px 0 8px;font:600 27px Newsreader,Georgia,serif}
-.recipe p{margin:0;font-size:16px;color:#56423d}
-.tabs{position:absolute;left:0;right:0;bottom:0;height:78px;background:#fbf9f8;border-top:1px solid #e4e2e1;display:flex;justify-content:space-around;align-items:center;font-size:14px;color:#56423d}
-.tabs a{display:flex;flex-direction:column;align-items:center;gap:5px}
-.tabs a:first-child{color:#9a4028;font-weight:700}
-.tabs a:first-child svg{background:#f2ddd5;border-radius:999px;padding:3px 14px;width:58px;height:32px}
+/* Three phones on the desk; the one in front is the page being built. */
+.phone{position:absolute;top:150px;left:50%;width:270px;height:561px;padding:10px;border-radius:42px;background:#1f1d1a;box-shadow:0 22px 40px rgba(40,30,20,.22),inset 0 0 0 2px #3a3631;transition:transform .7s cubic-bezier(.23,1,.32,1),filter .5s ease;cursor:pointer}
+.phone>.screen{position:relative;width:100%;height:100%;border-radius:33px;overflow:hidden;background:#fcf7f1}
+.phone>.screen>img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.pos-center{transform:translateX(-50%) scale(1.08);z-index:3}
+.pos-left{transform:translateX(-50%) translateX(-290px) translateY(30px) rotate(-7deg) scale(.92);z-index:2;filter:saturate(.9)}
+.pos-right{transform:translateX(-50%) translateX(290px) translateY(30px) rotate(7deg) scale(.92);z-index:1;filter:saturate(.9)}
+/* The booking page's first screen, rebuilt at 390×844 and scaled into the phone. */
+.site{width:390px;height:844px;transform:scale(.641);transform-origin:top left;background:#fcf7f1;color:#2a211e;font-family:Inter,system-ui,sans-serif;letter-spacing:-.2px}
+.cover{position:relative;height:520px;display:flex;align-items:flex-end;overflow:hidden;background:#c9a189}
+.cover>.cover-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover>.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(42,28,22,.45) 100%)}
+.cover-text{position:relative;z-index:1;width:100%;padding:0 24px 26px;text-align:center;color:#fff}
+.cover-text img{width:72%;height:auto;filter:drop-shadow(0 2px 10px rgba(0,0,0,.25))}
+.cover-text p{margin:12px 0 0;font:italic 400 19px/1.25 Instrument,Georgia,serif}
+.info{background:#fff;padding:18px 20px 24px;display:flex;flex-direction:column;gap:16px}
+.intro{margin:6px 0 -4px;font:400 40px/1 Instrument,Georgia,serif;letter-spacing:-.5px}
+.intro i,.gal-head i{color:#8c6450}
+.status{margin:0;font-size:14px;color:#7b6d6f}
+.status b{color:#2a211e;font-weight:600}
+.pills{display:flex}
+.pill{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border:1px solid #efe5dc;border-radius:999px;font-size:15px;color:#2a211e}
+.pill svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8}
+.gal-head{display:flex;align-items:center;justify-content:space-between;margin:6px 0 -6px}
+.gal-head h3{margin:0;font:400 26px/1 Instrument,Georgia,serif}
+.gal-head span{font-size:22px;letter-spacing:18px}
+.strip{display:flex;gap:8px;overflow:hidden}
+.strip img{flex:none;width:42%;aspect-ratio:4/5;object-fit:cover;border-radius:20px}
 </style>
 <!--assembly-css--><style>
 html{scroll-behavior:auto!important}
@@ -85,21 +79,22 @@ html[data-creation="2"] body *,html[data-creation="3"] body *{background-image:n
 </head>
 <body><template id="creation-source"><div id="creation-root" data-interactive="">
 <div class="desk">
-  <header class="title" data-sketch="título"><img src="kitchen/icon.png" alt="" width="72" height="72"><div><h1>Kitchen Cabinet</h1><p>recetas cubanas, despensa y modo cocina</p></div></header>
+  <header class="title" data-sketch="título"><img src="glamour/icon.jpg" alt="" width="72" height="72"><div><h1>The Glamour</h1><p>reservas online para un salón de uñas</p></div></header>
   <p class="note top">toca un teléfono para verlo de cerca ↓</p>
-  <div class="phone pos-left" data-sketch="receta" data-screen="receta"><div class="screen"><img src="kitchen/02-receta.jpg" alt="Pantalla de receta de Kitchen Cabinet" width="540" height="960"></div></div>
-  <div class="phone pos-right" data-sketch="despensa" data-screen="despensa"><div class="screen"><img src="kitchen/04-despensa.jpg" alt="Pantalla de despensa de Kitchen Cabinet" width="540" height="960"></div></div>
-  <div class="phone pos-center" data-sketch="explorador" data-screen="explorador"><div class="screen"><div class="app">
-    <header class="bar" data-sketch="barra"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg><strong>Kitchen Cabinet</strong><span><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><svg viewBox="0 0 24 24"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 2h3l2.7 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg></span></header>
-    <h2>¿Qué cocinamos hoy?</h2>
-    <section class="search" data-sketch="buscador"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Buscar por nombre, ingredientes o utensilios</section>
-    <nav class="chips" data-sketch="categorías"><b>TODO</b><b>ALMUERZOS</b><b>CENAS</b><b>POSTRES</b></nav>
-    <section class="community" data-sketch="comunidad"><i><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg></i><div><strong>Recetas de la comunidad</strong><small>Recetas que publicó gente como tú. Guarda las que te gusten.</small></div><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></section>
-    <article class="recipe" data-sketch="receta"><img src="kitchen/ropa-vieja.jpg" alt="Ropa vieja con arroz y maduros" width="500" height="310"><span class="fav"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></svg></span><div class="body"><em>Destacado</em><h3>Ropa Vieja</h3><p>Falda de res hervida y deshebrada, guisada despacio</p></div></article>
-    <footer class="tabs" data-sketch="navegación"><a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3Z"/></svg>Explorador</a><a><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Buscar</a><a><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>Nueva Receta</a><a><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Planificar</a><a><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M5 10h14M15 5v2M15 13v3"/></svg>Despensa</a></footer>
+  <div class="phone pos-left" data-sketch="horario"><div class="screen"><img src="glamour/momento.jpg" alt="Elegir día y hora de la cita" width="390" height="844"></div></div>
+  <div class="phone pos-right" data-sketch="servicios"><div class="screen"><img src="glamour/services.jpg" alt="Lista de servicios con foto, precio y depósito" width="390" height="844"></div></div>
+  <div class="phone pos-center" data-sketch="reservas"><div class="screen"><div class="site">
+    <header class="cover" data-sketch="portada"><img class="cover-photo" src="glamour/cover.jpg" alt="" width="780" height="710"><div class="shade"></div><div class="cover-text"><img src="glamour/logo-blanco.png" alt="The Glamour · Nail Artist · Yanisbel" width="360" height="333"><p>Arte en cada detalle · Sarasota, FL</p></div></header>
+    <section class="info" data-sketch="reserva">
+      <h2 class="intro">Reserva tu <i>cita</i></h2>
+      <p class="status"><b>Abierto ahora</b> · Dom–Vie 9 am–5 pm · Sáb cerrado</p>
+      <nav class="pills" data-sketch="contacto"><a class="pill"><svg viewBox="0 0 24 24"><path d="M3 21l1.6-4.6A8.5 8.5 0 1 1 8 19.6Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.3-2-1-.9.8a4 4 0 0 1-2.3-2.3l.8-.9-1-2Z"/></svg>WhatsApp</a></nav>
+      <div class="gal-head"><h3>Nuestro <i>trabajo</i></h3><span>‹›</span></div>
+      <section class="strip" data-sketch="galería"><img src="glamour/g1.jpg" alt="Uñas decoradas" width="320" height="533"><img src="glamour/g2.jpg" alt="Uñas con flores" width="320" height="416"><img src="glamour/g3.jpg" alt="Manicura" width="320" height="427"></section>
+    </section>
   </div></div></div>
-  <p class="note left">porciones que se ajustan solas</p>
-  <p class="note right">la despensa se descuenta al cocinar</p>
+  <p class="note left">elige día y hora, sin llamadas</p>
+  <p class="note right">cada servicio con foto, precio y depósito</p>
 </div>
 </div></template>
 <script>

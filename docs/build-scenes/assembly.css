@@ -4,6 +4,8 @@ html[data-creation][data-scene-theme="dark"]{--paper:#262420;--wire:#4a463d;--wi
 /* 01 · Structure: an empty wireframe; each block appears when the pencil reaches it. */
 html[data-creation="1"] body *:not(style):not(script){background-image:none!important;background-color:transparent!important;box-shadow:none!important;color:transparent!important;border-color:var(--wire)!important;text-shadow:none!important}
 html[data-creation="1"] body{background:var(--paper)!important}
+/* Placeholders are text too: they arrive with the other texts in step 03. */
+html[data-creation="1"] ::placeholder,html[data-creation="2"] ::placeholder{color:transparent!important}
 html[data-creation="1"] .creation-container{outline:1.5px dashed var(--wire-strong)!important;outline-offset:-2px;min-height:24px}
 html[data-creation="1"] .creation-container:empty{min-height:42px}
 html[data-creation="1"] .creation-container:not(.is-sketched){opacity:0!important}

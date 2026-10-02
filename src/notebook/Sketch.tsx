@@ -1,6 +1,6 @@
-type Props = { kind?: 'hero' | 'dky' | 'kitchen' | 'kanban' | 'zofloridane'; className?: string };
+type Props = { kind?: 'hero' | 'dky' | 'kitchen' | 'kanban' | 'zofloridane' | 'glamour'; className?: string };
 export default function Sketch({ kind = 'hero', className = '' }: Props) {
-  const label = { hero: 'Boceto a lápiz de una página web y una aplicación móvil', dky: 'Esquema dibujado de una tienda de joyería', kitchen: 'Esquema dibujado de las pantallas de Kitchen Cabinet', zofloridane: 'Boceto de una tienda de comestibles con entrega a domicilio en Cuba', kanban: 'Tablero Kanban dibujado con notas de tareas' }[kind];
+  const label = { hero: 'Boceto a lápiz de una página web y una aplicación móvil', dky: 'Esquema dibujado de una tienda de joyería', kitchen: 'Esquema dibujado de las pantallas de Kitchen Cabinet', zofloridane: 'Boceto de una tienda de comestibles con entrega a domicilio en Cuba', glamour: 'Boceto de una web de reservas para un salón de uñas', kanban: 'Tablero Kanban dibujado con notas de tareas' }[kind];
   return <svg className={`sketch-art ${className}`} viewBox="0 0 520 440" role="img" aria-label={label}>
     <g className="sketch-lines" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
       {kind === 'hero' && <>
@@ -29,6 +29,15 @@ export default function Sketch({ kind = 'hero', className = '' }: Props) {
         <path className="pencil-draw" pathLength="1" d="M93 222h12v6l6 7v39H87v-39l6-7ZM87 248h24M181 240q20-9 42 0l-4 36h-34ZM187 240q15 7 30 0M285 230h34v44h-34ZM285 239h34M285 265h34M381 236h45l-4 38h-37ZM392 236v-8h23v8M66 289h38m56 0h40m61 0h38m62 0h40" />
         <path className="pencil-draw" pathLength="1" d="M48 401a13 13 0 1 0 26 0a13 13 0 1 0-26 0M48 401h26M61 388q-8 13 0 26q8-13 0-26M78 400q92 15 190 2t178-4M449 414v-17l14-11 14 11v17ZM459 414v-9h8v9M463 380q-5-6-9-2t1 9l8 6 8-6q5-5 1-9t-9 2Z" />
       </>}
+      {kind === 'glamour' && <>
+        <path className="pencil-draw" pathLength="1" d="m170 52 182-3 6 352-186 4Z" fill="var(--paper)" /><path className="pencil-draw" pathLength="1" d="m166 57 183-4 5 350-185 3Z" opacity=".3" />
+        <path className="pencil-draw" pathLength="1" d="m182 70 160-2 1 92-160 2ZM228 128q22-24 50-11t34-6M246 112l7-7m11 2 5-9M302 100l5 5 5-5-5-5Z" fill="var(--project-wash)" />
+        <path className="pencil-draw" pathLength="1" d="M184 184h70m6 0h44M184 200h118M188 214l140 1v18l-141-1Z" />
+        <path className="pencil-draw" pathLength="1" d="M182 252a8 8 0 1 0 .1 0M206 252a8 8 0 1 0 .1 0M230 252a8 8 0 1 0 .1 0M278 252a8 8 0 1 0 .1 0M302 252a8 8 0 1 0 .1 0M326 252a8 8 0 1 0 .1 0" />
+        <path className="pencil-draw" pathLength="1" d="M186 284h40v16h-40ZM236 284h40v16h-40ZM286 284h40v16h-40ZM186 308h40v16h-40ZM236 308h40v16h-40ZM286 308h40v16h-40ZM186 332h40v16h-40ZM236 332h40v16h-40Z" />
+        <path className="pencil-draw" pathLength="1" d="m188 362 144 1v22l-145-1ZM254 244a10 10 0 1 0 .1 0" fill="var(--highlight)" />
+        <path className="pencil-draw" pathLength="1" d="M404 250h28v52q0 10-14 10t-14-10ZM410 250v-18h16v18M412 232v-26h12v26M88 150l6-14 6 14-6 14ZM112 196l4-8 4 8-4 8ZM96 300q40 30 80-38m-14 6 14-6 2 15" />
+      </>}
       {kind === 'kitchen' && <>
         <path className="pencil-draw" pathLength="1" d="m78 72 150-3 4 286-154 5Z" fill="var(--paper)" /><path className="pencil-draw" pathLength="1" d="m75 75 151-4 5 286-151 6Z" opacity=".35" />
         <path className="pencil-draw" pathLength="1" d="m105 90 92-2M143 344h26M94 123h120m-119 20h67M96 163h114v57H96Z" fill="var(--project-wash)" />
@@ -48,6 +57,7 @@ export default function Sketch({ kind = 'hero', className = '' }: Props) {
     <g className="sketch-labels" fill="var(--pencil)">
       {kind === 'hero' && <><text x="57" y="43" transform="rotate(-4 57 43)">hacerlo claro ↓</text><text x="93" y="427" transform="rotate(-4 93 427)">de la idea a la pantalla</text></>}
       {kind === 'dky' && <><text x="64" y="39">una tienda que funciona</text><text x="243" y="408" transform="rotate(-3 243 408)">el producto, primero ↗</text></>}
+      {kind === 'glamour' && <><text x="150" y="36">reservar sin llamadas</text><text x="40" y="426" transform="rotate(-3 40 426)">su agenda, en orden ↗</text></>}
       {kind === 'zofloridane' && <><text x="64" y="39">comprar desde lejos, entregar cerca</text><text x="128" y="433" transform="rotate(-2 128 433)">del carrito a su puerta ↗</text></>}
       {kind === 'kitchen' && <><text x="64" y="43">recetas</text><text x="302" y="66">lista de la compra</text><text x="158" y="414" transform="rotate(-3 158 414)">un poco de orden para cocinar</text></>}
       {kind === 'kanban' && <><text x="45" y="40">Por hacer</text><text x="201" y="39">En marcha</text><text x="369" y="37">¡Hecho!</text><text x="70" y="412" transform="rotate(-3 70 412)">cada idea tiene su lugar.</text></>}

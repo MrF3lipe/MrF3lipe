@@ -68,15 +68,30 @@
 
   // ---- Measuring (before the wireframe hides colours) ----
   const W = innerWidth, H = innerHeight;
-  const onScreen = rect => rect.bottom > 0 && rect.top < H && rect.right > 0 && rect.left < W;
-  const box = element => element.getBoundingClientRect();
+  const onScreen = rect => rect.width > 0 && rect.bottom > 0 && rect.top < H && rect.right > 0 && rect.left < W;
+  // What can actually be seen of an element: clipped by every ancestor that hides its overflow.
+  const box = element => {
+    const rect = element.getBoundingClientRect();
+    let { left, top, right, bottom } = rect;
+    for (let node = element.parentElement; node && node !== document.body; node = node.parentElement) {
+      const style = getComputedStyle(node);
+      if (style.overflowX === 'visible' && style.overflowY === 'visible') continue;
+      const clip = node.getBoundingClientRect();
+      left = Math.max(left, clip.left); top = Math.max(top, clip.top);
+      right = Math.min(right, clip.right); bottom = Math.min(bottom, clip.bottom);
+    }
+    if (right <= left || bottom <= top) return { left, top, right: left, bottom: top, width: 0, height: 0 };
+    return { left, top, right, bottom, width: right - left, height: bottom - top };
+  };
   const visible = containers
     .map(element => ({ element, rect: box(element) }))
     .filter(({ rect }) => onScreen(rect) && rect.width > 30 && rect.height > 16)
     .sort((a, b) => a.rect.top - b.rect.top || a.rect.left - b.rect.left);
   // Colour starts at the top of the page and flows down.
   // Read every position first, then write, so the page is laid out only once.
-  const delays = [...document.querySelectorAll('body *')].map(element => [element, box(element)]).filter(([, rect]) => onScreen(rect));
+  // Raw rects are enough for colour timing and the palette, and much cheaper on big pages.
+  const raw = element => element.getBoundingClientRect();
+  const delays = [...document.querySelectorAll('body *')].map(element => [element, raw(element)]).filter(([, rect]) => onScreen(rect));
   delays.forEach(([element, rect]) => element.style.setProperty('--d', `${(Math.max(rect.top, 0) / H * 0.85).toFixed(2)}s`));
   // The page's own palette, weighted by painted area.
   const palette = (() => {
@@ -90,7 +105,7 @@
     add(getComputedStyle(document.body).backgroundColor, W * H);
     add(getComputedStyle(root).backgroundColor, W * H * 0.5);
     document.querySelectorAll('body *').forEach(element => {
-      const rect = box(element);
+      const rect = raw(element);
       if (!onScreen(rect)) return;
       const style = getComputedStyle(element);
       add(style.backgroundColor, rect.width * rect.height);
