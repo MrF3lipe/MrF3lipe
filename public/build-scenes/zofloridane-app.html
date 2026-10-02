@@ -25,6 +25,11 @@ html[data-scene-theme="dark"] body{--ink:#eadfcc;--pencil:#e8b58f;background:#26
 .phone{position:absolute;top:150px;left:50%;width:270px;height:561px;padding:10px;border-radius:42px;background:#1f1d1a;box-shadow:0 22px 40px rgba(40,30,20,.22),inset 0 0 0 2px #3a3631;transition:transform .7s cubic-bezier(.23,1,.32,1),filter .5s ease;cursor:pointer}
 .phone>.screen{position:relative;width:100%;height:100%;border-radius:33px;overflow:hidden;background:#fff}
 .phone>.screen>img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.phone>.screen.app-shot{display:flex;flex-direction:column}
+.phone>.screen.app-shot>img{flex:none;height:auto}
+.app-shot>.scroller{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+.app-shot>.scroller::-webkit-scrollbar{display:none}
+.app-shot>.scroller>img{display:block;width:100%;height:auto}
 .pos-center{transform:translateX(-50%) scale(1.08);z-index:3}
 .pos-left{transform:translateX(-50%) translateX(-290px) translateY(30px) rotate(-7deg) scale(.92);z-index:2;filter:saturate(.9)}
 .pos-right{transform:translateX(-50%) translateX(290px) translateY(30px) rotate(7deg) scale(.92);z-index:1;filter:saturate(.9)}
@@ -67,6 +72,7 @@ html[data-scene-theme="dark"] .app{--bg:#0d1613;--bar:#0a2a23;--ink2:#f1f5f3;--m
 </style>
 <!--assembly-css--><style>
 html{scroll-behavior:auto!important}
+html.scene-final,html.scene-final body{overflow:auto!important;height:auto!important}
 html[data-creation]{--paper:#fffdf8;--wire:#d9d6cc;--wire-strong:#b9b4a6;background:var(--paper)!important}
 html[data-creation][data-scene-theme="dark"]{--paper:#262420;--wire:#4a463d;--wire-strong:#6d675a}
 /* 01 · Structure: an empty wireframe; each block appears when the pencil reaches it. */
@@ -95,7 +101,7 @@ html[data-creation="2"] body *,html[data-creation="3"] body *{background-image:n
 <div class="desk">
   <header class="title" data-sketch="título"><img src="zofloridane-app/logo.png" data-dark="zofloridane-app/logo_dark.png" alt="ZoFloridane" width="162" height="54"><p>la tienda, en el bolsillo · Android e iOS</p></header>
   <p class="note top">toca un teléfono para verlo de cerca ↓</p>
-  <div class="phone pos-left" data-sketch="catálogo"><div class="screen"><img src="zofloridane-app/alimentos-light.jpg" data-dark="zofloridane-app/alimentos-dark.jpg" alt="Catálogo de alimentos en la app" width="390" height="844"></div></div>
+  <div class="phone pos-left" data-sketch="catálogo"><div class="screen app-shot"><img src="zofloridane-app/alimentos-top-light.jpg" data-dark="zofloridane-app/alimentos-top-dark.jpg" alt="" width="390" height="56"><div class="scroller"><img src="zofloridane-app/alimentos-body-light.jpg" data-dark="zofloridane-app/alimentos-body-dark.jpg" alt="Catálogo de alimentos en la app" width="390" height="2078"></div><img src="zofloridane-app/alimentos-nav-light.jpg" data-dark="zofloridane-app/alimentos-nav-dark.jpg" alt="" width="390" height="66"></div></div>
   <div class="phone pos-right" data-sketch="producto"><div class="screen"><img src="zofloridane-app/producto-light.jpg" data-dark="zofloridane-app/producto-dark.jpg" alt="Ficha de producto en la app" width="390" height="844"></div></div>
   <div class="phone pos-center" data-sketch="inicio"><div class="screen"><div class="app">
     <header class="bar" data-sketch="barra"><img src="zofloridane-app/logo.png" data-dark="zofloridane-app/logo_dark.png" alt="ZoFloridane" width="102" height="34"><span><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><svg viewBox="0 0 24 24"><path d="M6 7h12l1 14H5Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></span></header>
@@ -138,7 +144,8 @@ document.addEventListener('click', event => {
   if (!source) return;
   const params = new URLSearchParams(location.search);
   const dark = params.get('theme') === 'dark';
-  const instant = params.has('final') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const final = params.has('final');
+  const instant = final || matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
   const timers = [];
   let cancelled = false;
@@ -192,9 +199,11 @@ document.addEventListener('click', event => {
     mediaParts.forEach(([placeholder, media]) => placeholder.replaceWith(media));
     containers.forEach(element => element.classList.add('is-sketched'));
     root.classList.remove('creation-paint');
-    if (interactive) document.body.style.pointerEvents = '';
+    if (interactive || final) document.body.style.pointerEvents = '';
     emit(5);
   };
+  // Shown already built (zoomed in, or revisited): it can be scrolled and touched.
+  if (final) root.classList.add('scene-final');
   if (instant) { finish(); return; }
 
   // ---- Measuring (before the wireframe hides colours) ----

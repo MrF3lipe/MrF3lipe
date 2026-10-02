@@ -53,7 +53,7 @@
 .hero-art .build-invitation{top:4%;bottom:auto}.hero-art .build-caption{margin-top:5px}
 /* Reveal the live website itself behind the pencil drawing. */
 .real-canvas{position:relative;width:100%;aspect-ratio:520/440;overflow:hidden;border-radius:4px}.real-canvas .sketch-art{display:block;width:100%}.real-start{position:absolute;inset:0;width:100%;height:100%;padding:0;text-align:left;cursor:pointer}.real-start:focus-visible{outline-offset:-4px}.real-start .build-invitation{bottom:12%;z-index:3;font-size:21px}.hero-art .real-start .build-invitation{top:3%;bottom:auto}.real-site-reveal{position:absolute;inset:0;background:var(--sheet);overflow:hidden;clip-path:inset(0 0 100% 0);transition:clip-path 900ms cubic-bezier(.23,1,.32,1);pointer-events:none}.real-site-reveal iframe{display:block;border:0;transform-origin:top left;background:white;max-width:none}.real-build[data-stage="2"] .real-site-reveal{clip-path:inset(0 0 78% 0)}.real-build[data-stage="3"] .real-site-reveal{clip-path:inset(0 0 45% 0)}.real-build[data-stage="4"] .real-site-reveal{clip-path:inset(0 0 18% 0)}.real-build[data-stage="5"] .real-site-reveal{clip-path:inset(0);pointer-events:auto}.real-build[data-stage="5"] .build-drawing{opacity:0}.real-controls{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:12px 4px}.real-controls .text-link{font-size:11px;min-height:32px}.real-site-dialog{border:1px solid var(--line);border-radius:5px;background:var(--paper);padding:0;width:min(1250px,94vw);height:90vh;max-height:90vh;color:var(--ink)}.real-site-dialog::backdrop{background:#29251dcc}.real-site-dialog[open]{display:flex;flex-direction:column}.real-dialog-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;font-family:var(--hand);font-size:24px}.real-dialog-bar button{display:grid;place-items:center;width:44px;height:44px}.real-site-dialog>iframe{width:100%;flex:1;border:0;background:white}.real-site-dialog>p{font-size:12px;padding:12px 20px}.real-site-dialog>p a{text-decoration:underline}.hero-art:has(.real-build:not([data-stage="0"])) .hero-sticky{opacity:0}@media(max-width:640px){.real-start .build-invitation{font-size:18px;padding:10px}.real-controls{gap:8px}.real-dialog-bar{font-size:20px}}@media(prefers-reduced-motion:reduce){.real-site-reveal{transition:none}}
-.creation-workspace{position:absolute;inset:0;background:var(--sheet);overflow:hidden}.creation-workspace>iframe{display:block;border:0;transform-origin:top left;max-width:none;pointer-events:none}.creation-workspace>.creation-live{position:absolute;left:0;top:0;opacity:0;transition:opacity 250ms ease}.creation-workspace>.creation-live.is-ready{opacity:1;pointer-events:auto}.real-build[data-stage="1"] .real-canvas,.real-build[data-stage="2"] .real-canvas,.real-build[data-stage="3"] .real-canvas,.real-build[data-stage="4"] .real-canvas{border:1px solid var(--line)}@media(prefers-reduced-motion:reduce){.creation-workspace>.creation-live{transition:none}}
+.creation-workspace{position:absolute;inset:0;background:var(--sheet);overflow:hidden}.creation-workspace iframe{display:block;border:0;transform-origin:top left;max-width:none;pointer-events:none}.creation-workspace .creation-live{position:absolute;left:0;top:0;opacity:0;transition:opacity 250ms ease}.creation-workspace .creation-live.is-ready{opacity:1;pointer-events:auto}.real-build[data-stage="1"] .real-canvas,.real-build[data-stage="2"] .real-canvas,.real-build[data-stage="3"] .real-canvas,.real-build[data-stage="4"] .real-canvas{border:1px solid var(--line)}@media(prefers-reduced-motion:reduce){.creation-workspace .creation-live{transition:none}}
 /* Set by useNotebookMotion only on blocks still below the fold, until they scroll into view. */
 .reveal-pending{opacity:0}
 @media(prefers-reduced-motion:reduce){.reveal-pending{opacity:1}.hero .pencil-draw,.ink-revealed .pencil-draw,.hero .sketch-labels,.ink-revealed .sketch-labels{animation:none!important}}
@@ -66,7 +66,7 @@
 @keyframes theme-reveal{from{clip-path:circle(0 at var(--theme-x) var(--theme-y))}to{clip-path:circle(var(--theme-r) at var(--theme-x) var(--theme-y))}}
 @media(prefers-reduced-motion:reduce){.site-header,.theme-toggle{transition:none}.theme-icon{animation:none}}
 /* Apps without a live site end on their own scene, which can then be touched. */
-.creation-workspace.is-interactive>iframe{pointer-events:auto}
+.creation-workspace.is-interactive .scene-layer:not(.is-leaving) iframe{pointer-events:auto}
 .kitchen-logo{transition:opacity .3s ease}
 .project-art-sheet:has(.real-build:not([data-stage="0"])) .kitchen-logo{opacity:0}
 /* Small switch between a site's phone and desktop builds. */
@@ -74,3 +74,16 @@
 .variant-toggle:hover{transform:rotate(-3deg) translateY(-1px);background:var(--highlight);color:var(--ink)}
 .variant-toggle:active{transform:scale(.94)}
 @media(prefers-reduced-motion:reduce){.variant-toggle{transition:none}}
+/* Switching scenes: the old one softly recedes while the new one comes into focus. */
+.scene-layer{position:absolute;inset:0}
+.scene-layer.is-entering{animation:scene-in .75s cubic-bezier(.23,1,.32,1) both}
+.scene-layer.is-waiting{opacity:0}
+.scene-layer.is-holding{z-index:1;pointer-events:none}
+.scene-layer.is-leaving{z-index:1;pointer-events:none;animation:scene-out .6s cubic-bezier(.4,0,.2,1) both}
+.scene-layer.is-leaving iframe,.scene-layer.is-holding iframe{pointer-events:none!important}
+@keyframes scene-in{from{opacity:0;transform:scale(1.03);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+@keyframes scene-out{from{opacity:1}to{opacity:0;transform:scale(.97);filter:blur(5px)}}
+/* While a project is zoomed in, the wheel belongs to it, not to the page behind. */
+html:has(.real-site-dialog[open]){overflow:hidden}
+.real-site-dialog{overscroll-behavior:contain}
+@media(prefers-reduced-motion:reduce){.scene-layer.is-entering,.scene-layer.is-leaving{animation-duration:1ms}}

@@ -7,7 +7,8 @@
   if (!source) return;
   const params = new URLSearchParams(location.search);
   const dark = params.get('theme') === 'dark';
-  const instant = params.has('final') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const final = params.has('final');
+  const instant = final || matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
   const timers = [];
   let cancelled = false;
@@ -61,9 +62,11 @@
     mediaParts.forEach(([placeholder, media]) => placeholder.replaceWith(media));
     containers.forEach(element => element.classList.add('is-sketched'));
     root.classList.remove('creation-paint');
-    if (interactive) document.body.style.pointerEvents = '';
+    if (interactive || final) document.body.style.pointerEvents = '';
     emit(5);
   };
+  // Shown already built (zoomed in, or revisited): it can be scrolled and touched.
+  if (final) root.classList.add('scene-final');
   if (instant) { finish(); return; }
 
   // ---- Measuring (before the wireframe hides colours) ----

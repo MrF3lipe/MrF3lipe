@@ -1627,6 +1627,7 @@ body { line-height: 1.6; }
 </style>
 <!--assembly-css--><style>
 html{scroll-behavior:auto!important}
+html.scene-final,html.scene-final body{overflow:auto!important;height:auto!important}
 html[data-creation]{--paper:#fffdf8;--wire:#d9d6cc;--wire-strong:#b9b4a6;background:var(--paper)!important}
 html[data-creation][data-scene-theme="dark"]{--paper:#262420;--wire:#4a463d;--wire-strong:#6d675a}
 /* 01 · Structure: an empty wireframe; each block appears when the pencil reaches it. */
@@ -1774,7 +1775,8 @@ html[data-creation="2"] body *,html[data-creation="3"] body *{background-image:n
   if (!source) return;
   const params = new URLSearchParams(location.search);
   const dark = params.get('theme') === 'dark';
-  const instant = params.has('final') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const final = params.has('final');
+  const instant = final || matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
   const timers = [];
   let cancelled = false;
@@ -1828,9 +1830,11 @@ html[data-creation="2"] body *,html[data-creation="3"] body *{background-image:n
     mediaParts.forEach(([placeholder, media]) => placeholder.replaceWith(media));
     containers.forEach(element => element.classList.add('is-sketched'));
     root.classList.remove('creation-paint');
-    if (interactive) document.body.style.pointerEvents = '';
+    if (interactive || final) document.body.style.pointerEvents = '';
     emit(5);
   };
+  // Shown already built (zoomed in, or revisited): it can be scrolled and touched.
+  if (final) root.classList.add('scene-final');
   if (instant) { finish(); return; }
 
   // ---- Measuring (before the wireframe hides colours) ----

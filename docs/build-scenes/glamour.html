@@ -27,6 +27,9 @@ html[data-scene-theme="dark"] body{--ink:#eadfcc;--pencil:#e8b58f;background:#26
 .phone{position:absolute;top:150px;left:50%;width:270px;height:561px;padding:10px;border-radius:42px;background:#1f1d1a;box-shadow:0 22px 40px rgba(40,30,20,.22),inset 0 0 0 2px #3a3631;transition:transform .7s cubic-bezier(.23,1,.32,1),filter .5s ease;cursor:pointer}
 .phone>.screen{position:relative;width:100%;height:100%;border-radius:33px;overflow:hidden;background:#fcf7f1}
 .phone>.screen>img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.phone>.screen.scroll{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+.phone>.screen.scroll::-webkit-scrollbar{display:none}
+.phone>.screen.scroll>img{height:auto}
 .pos-center{transform:translateX(-50%) scale(1.08);z-index:3}
 .pos-left{transform:translateX(-50%) translateX(-290px) translateY(30px) rotate(-7deg) scale(.92);z-index:2;filter:saturate(.9)}
 .pos-right{transform:translateX(-50%) translateX(290px) translateY(30px) rotate(7deg) scale(.92);z-index:1;filter:saturate(.9)}
@@ -54,6 +57,7 @@ html[data-scene-theme="dark"] body{--ink:#eadfcc;--pencil:#e8b58f;background:#26
 </style>
 <!--assembly-css--><style>
 html{scroll-behavior:auto!important}
+html.scene-final,html.scene-final body{overflow:auto!important;height:auto!important}
 html[data-creation]{--paper:#fffdf8;--wire:#d9d6cc;--wire-strong:#b9b4a6;background:var(--paper)!important}
 html[data-creation][data-scene-theme="dark"]{--paper:#262420;--wire:#4a463d;--wire-strong:#6d675a}
 /* 01 · Structure: an empty wireframe; each block appears when the pencil reaches it. */
@@ -82,8 +86,8 @@ html[data-creation="2"] body *,html[data-creation="3"] body *{background-image:n
 <div class="desk">
   <header class="title" data-sketch="título"><img src="glamour/icon.jpg" alt="" width="72" height="72"><div><h1>The Glamour</h1><p>reservas online para un salón de uñas</p></div></header>
   <p class="note top">toca un teléfono para verlo de cerca ↓</p>
-  <div class="phone pos-left" data-sketch="horario"><div class="screen"><img src="glamour/momento.jpg" alt="Elegir día y hora de la cita" width="390" height="844"></div></div>
-  <div class="phone pos-right" data-sketch="servicios"><div class="screen"><img src="glamour/services.jpg" alt="Lista de servicios con foto, precio y depósito" width="390" height="844"></div></div>
+  <div class="phone pos-left" data-sketch="horario"><div class="screen scroll"><img src="glamour/momento-tall.jpg" alt="Elegir día y hora de la cita" width="390" height="875"></div></div>
+  <div class="phone pos-right" data-sketch="servicios"><div class="screen scroll"><img src="glamour/services-tall.jpg" alt="Lista de servicios con foto, precio y depósito" width="390" height="1370"></div></div>
   <div class="phone pos-center" data-sketch="reservas"><div class="screen"><div class="site">
     <header class="cover" data-sketch="portada"><img class="cover-photo" src="glamour/cover.jpg" alt="" width="780" height="710"><div class="shade"></div><div class="cover-text"><img src="glamour/logo-blanco.png" alt="The Glamour · Nail Artist · Yanisbel" width="360" height="333"><p>Arte en cada detalle · Sarasota, FL</p></div></header>
     <section class="info" data-sketch="reserva">
@@ -119,7 +123,8 @@ document.addEventListener('click', event => {
   if (!source) return;
   const params = new URLSearchParams(location.search);
   const dark = params.get('theme') === 'dark';
-  const instant = params.has('final') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const final = params.has('final');
+  const instant = final || matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
   const timers = [];
   let cancelled = false;
@@ -173,9 +178,11 @@ document.addEventListener('click', event => {
     mediaParts.forEach(([placeholder, media]) => placeholder.replaceWith(media));
     containers.forEach(element => element.classList.add('is-sketched'));
     root.classList.remove('creation-paint');
-    if (interactive) document.body.style.pointerEvents = '';
+    if (interactive || final) document.body.style.pointerEvents = '';
     emit(5);
   };
+  // Shown already built (zoomed in, or revisited): it can be scrolled and touched.
+  if (final) root.classList.add('scene-final');
   if (instant) { finish(); return; }
 
   // ---- Measuring (before the wireframe hides colours) ----
