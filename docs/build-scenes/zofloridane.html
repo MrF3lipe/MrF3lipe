@@ -6871,6 +6871,7 @@ html[data-creation][data-scene-theme="dark"]{--paper:#262420;--wire:#4a463d;--wi
 /* 01 · Structure: an empty wireframe; each block appears when the pencil reaches it. */
 html[data-creation="1"] body *:not(style):not(script){background-image:none!important;background-color:transparent!important;box-shadow:none!important;color:transparent!important;border-color:var(--wire)!important;text-shadow:none!important}
 html[data-creation="1"] body{background:var(--paper)!important}
+html[data-creation="1"] body *::before,html[data-creation="1"] body *::after{background:none!important;box-shadow:none!important;color:transparent!important;border-color:var(--wire)!important}
 /* Placeholders are text too: they arrive with the other texts in step 03. */
 html[data-creation="1"] ::placeholder,html[data-creation="2"] ::placeholder{color:transparent!important}
 html[data-creation="1"] .creation-container{outline:1.5px dashed var(--wire-strong)!important;outline-offset:-2px;min-height:24px}
@@ -10408,15 +10409,23 @@ html[data-creation="2"] body *,html[data-creation="3"] body *{background-image:n
     containers.forEach(element => { if (!onScreen(box(element))) element.classList.add('is-sketched'); });
     pencil.style.transform = tip(W * 0.62, H + 60);
     // The biggest visible blocks get the pencil and a name; the rest just appear in reading order.
-    const featured = new Set([...visible].sort((a, b) => b.rect.width * b.rect.height - a.rect.width * a.rect.height).slice(0, 6).map(item => item.element));
+    // Big pages repaint slowly, so the pencil visits fewer blocks there.
+    const heavy = document.getElementsByTagName('*').length > 2500;
+    // Blocks the scene names itself come first, then the largest ones.
+    const area = ({ rect }) => rect.width * rect.height;
+    const named = ({ element }) => (element.dataset.sketch ? 1 : 0);
+    const featured = new Set([...visible].sort((a, b) => named(b) - named(a) || area(b) - area(a)).slice(0, heavy ? 5 : 7).map(item => item.element));
     const started = performance.now();
-    const named = new Map();
+    // Secondary blocks share at most 1.6 s, however many a page has.
+    const quietCount = visible.filter(({ element }) => !featured.has(element)).length;
+    const quietStep = Math.min(45, 1600 / Math.max(quietCount, 1));
+    const labelled = new Map();
     const placed = [];
     let quiet = 0;
     for (const { element, rect } of visible) {
       if (cancelled) return;
       if (!featured.has(element)) {
-        timers.push(setTimeout(() => { reveal(element); roughRect(rect, 'faint', 320); }, 120 + quiet++ * 45));
+        timers.push(setTimeout(() => { reveal(element); roughRect(rect, 'faint', 320); }, 120 + quiet++ * quietStep));
         continue;
       }
       // Wait on timers, not on animation promises: an off-screen iframe pauses its animations.
@@ -10427,14 +10436,16 @@ html[data-creation="2"] body *,html[data-creation="3"] body *{background-image:n
       reveal(element);
       const name = nameFor(element);
       const crowded = placed.some(([x, y]) => Math.abs(x - rect.left) < 170 && Math.abs(y - rect.top) < 60);
-      if (name && !crowded && (named.get(name) || 0) < 2) {
-        named.set(name, (named.get(name) || 0) + 1);
+      // Page-wide wrappers are obvious; their names would only crowd the corner.
+      const wrapper = rect.width * rect.height > W * H * 0.6;
+      if (name && !crowded && !wrapper && (labelled.get(name) || 0) < 2) {
+        labelled.set(name, (labelled.get(name) || 0) + 1);
         placed.push([rect.left, rect.top]);
         label(name, rect.left + 14, rect.top + 4);
       }
       await wait(280);
     }
-    await wait(Math.max(0, started + 120 + quiet * 45 + 320 - performance.now()));
+    await wait(Math.max(0, started + 120 + quiet * quietStep + 320 - performance.now()));
     containers.forEach(element => element.classList.add('is-sketched'));
     await wait(250);
 
