@@ -23,7 +23,7 @@ export const content = {
   },
   contact: {
     title: "Contacto",
-    email: "felipe.hdez.522@email.com",
+    email: "felipe.hdez.522@gmail.com",
     github: "MrF3lipe",
     githubUrl: "https://github.com/MrF3lipe",
     formspreeEndpoint: "https://formspree.io/f/mrejozkw",
