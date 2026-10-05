@@ -23,6 +23,26 @@ for (const file of readdirSync(dir).filter(name => name.endsWith('.html'))) {
   console.log(`scene ready: ${file}`);
 }
 
+// The hero scene is a snapshot of the notebook page, so it gets an English twin from the same copy.
+const copy = JSON.parse(readFileSync(new URL('../src/notebook/copy.json', import.meta.url), 'utf8'));
+const pairs = new Map();
+const collect = (es, en) => {
+  if (typeof es === 'string') { if (es !== en) pairs.set(es.trim(), en.trim()); return; }
+  for (const key of Object.keys(es)) collect(es[key], en[key]);
+};
+collect(copy.es, copy.en);
+let translated = 0;
+const hero = readFileSync(join(dir, 'hero.html'), 'utf8')
+  .replace('<html lang="es">', '<html lang="en">')
+  .replace(/>([^<>]+)</g, (match, text) => {
+    const english = pairs.get(text.trim());
+    if (!english) return match;
+    translated++;
+    return `>${text.replace(text.trim(), english)}<`;
+  });
+writeFileSync(join(dir, 'hero-en.html'), hero);
+console.log(`hero-en.html ready (${translated} texts in English)`);
+
 const notebook = readFileSync(new URL('../src/notebook/notebook.css', import.meta.url), 'utf8')
   .replace(/url\('\.\.\/\.\.\/node_modules\/@fontsource-variable\/(\w+)\/files\/([\w-]+\.woff2)'\)/g, "url('fonts/$2')");
 writeFileSync(join(dir, 'hero.css'), notebook);

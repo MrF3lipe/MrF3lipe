@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { ArrowUpRight, Check, Copy, Github, Mail, Send } from 'lucide-react';
 import { content } from '../data/content';
+import { useLang } from './i18n';
 
 export default function Contact() {
+  const { contact: t } = useLang().t;
   const [opportunity, setOpportunity] = useState('Proyecto freelance');
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle');
@@ -30,19 +32,19 @@ export default function Contact() {
     finally { clearTimeout(timeout); }
   }
   return <section className="contact-section" id="contact" aria-labelledby="contact-title"><div className="page-width contact-layout">
-    <div className="contact-copy"><span className="page-index">05 / la próxima página</span><h2 id="contact-title">¿Y si lo<br /><span className="hand-underline">hacemos realidad?</span></h2><p>Si tienes una idea, un proyecto o un equipo al que pueda aportar, cuéntame. La próxima página empieza con un «hola».</p>
-      <div className="contact-address"><Mail size={19} /><a href={`mailto:${content.contact.email}`}>{content.contact.email}</a><button type="button" className="copy-email" onClick={copyEmail} aria-label={copyState === 'copied' ? 'Correo copiado' : 'Copiar correo'}>{copyState === 'copied' ? <Check size={17} /> : <Copy size={17} />}</button></div>
-      <p className="copy-status" role="status">{copyState === 'copied' ? '¡Copiado! Ya puedes pegarlo en tu correo.' : copyState === 'error' ? 'Puedes seleccionar la dirección o abrir tu correo haciendo clic en ella.' : ''}</p><a className="text-link" href={content.contact.githubUrl} target="_blank" rel="noopener noreferrer"><Github size={17} /> También estoy en GitHub <ArrowUpRight size={16} /></a>
-      <div className="contact-scribble handwritten">No hace falta tener<br />todo resuelto para empezar. <span>↗</span></div>
+    <div className="contact-copy"><span className="page-index">{t.index}</span><h2 id="contact-title">{t.title}<br /><span className="hand-underline">{t.titleMark}</span></h2><p>{t.intro}</p>
+      <div className="contact-address"><Mail size={19} /><a href={`mailto:${content.contact.email}`}>{content.contact.email}</a><button type="button" className="copy-email" onClick={copyEmail} aria-label={copyState === 'copied' ? t.copied : t.copy}>{copyState === 'copied' ? <Check size={17} /> : <Copy size={17} />}</button></div>
+      <p className="copy-status" role="status">{copyState === 'copied' ? t.copiedStatus : copyState === 'error' ? t.copyError : ''}</p><a className="text-link" href={content.contact.githubUrl} target="_blank" rel="noopener noreferrer"><Github size={17} /> {t.github} <ArrowUpRight size={16} /></a>
+      <div className="contact-scribble handwritten">{t.scribble[0]}<br />{t.scribble[1]} <span>↗</span></div>
     </div>
-    <form className="contact-form paper-sheet" onSubmit={submit} aria-label="Enviar un mensaje a Felipe"><span className="sheet-tape" aria-hidden="true" /><div className="form-heading"><span>un apunte para Felipe</span><Send size={23} strokeWidth={1.2} /></div>
-      <fieldset className="opportunity-options"><legend>Te escribo por…</legend>{['Proyecto freelance', 'Oportunidad de empleo'].map(option => <label key={option} className={opportunity === option ? 'checked' : ''}><input type="radio" name="opportunity" value={option} checked={opportunity === option} onChange={() => setOpportunity(option)} />{option}</label>)}</fieldset>
-      <div className="form-row"><label htmlFor="contact-name">Tu nombre</label><input id="contact-name" name="name" autoComplete="name" placeholder="¿Cómo te llamas?" required maxLength={100} /></div>
-      <div className="form-row"><label htmlFor="contact-email">Tu correo</label><input id="contact-email" name="email" type="email" autoComplete="email" placeholder="Para poder responderte" required maxLength={254} /></div>
-      <div className="form-row"><label htmlFor="contact-message">Lo que tienes en mente</label><textarea id="contact-message" name="message" rows={4} placeholder="Una idea, una oportunidad, una pregunta…" required maxLength={5000} /></div>
-      <div className="honeypot" aria-hidden="true"><label>No completar<input name="_gotcha" tabIndex={-1} autoComplete="off" /></label></div>
-      <button className="sketch-button form-submit" type="submit" disabled={status === 'sending'}>{status === 'sending' ? 'Enviando tu apunte…' : 'Enviar este apunte'}{status !== 'sending' && <ArrowUpRight size={18} />}</button><p className="form-footnote">Tu mensaje llega a mi correo. Así de sencillo.</p>
-      {status === 'success' && <p className="form-feedback success" role="status"><Check size={18} />¡Apunte recibido! Gracias por escribirme.</p>}{status === 'error' && <p className="form-feedback error" role="alert">No pude enviar el mensaje. Revisa los campos y vuelve a intentarlo, o escríbeme por correo.</p>}
+    <form className="contact-form paper-sheet" onSubmit={submit} aria-label={t.form}><span className="sheet-tape" aria-hidden="true" /><div className="form-heading"><span>{t.formTitle}</span><Send size={23} strokeWidth={1.2} /></div>
+      <fieldset className="opportunity-options"><legend>{t.reason}</legend>{['Proyecto freelance', 'Oportunidad de empleo'].map((option, index) => <label key={option} className={opportunity === option ? 'checked' : ''}><input type="radio" name="opportunity" value={option} checked={opportunity === option} onChange={() => setOpportunity(option)} />{t.options[index]}</label>)}</fieldset>
+      <div className="form-row"><label htmlFor="contact-name">{t.name}</label><input id="contact-name" name="name" autoComplete="name" placeholder={t.namePlaceholder} required maxLength={100} /></div>
+      <div className="form-row"><label htmlFor="contact-email">{t.email}</label><input id="contact-email" name="email" type="email" autoComplete="email" placeholder={t.emailPlaceholder} required maxLength={254} /></div>
+      <div className="form-row"><label htmlFor="contact-message">{t.message}</label><textarea id="contact-message" name="message" rows={4} placeholder={t.messagePlaceholder} required maxLength={5000} /></div>
+      <div className="honeypot" aria-hidden="true"><label>{t.honeypot}<input name="_gotcha" tabIndex={-1} autoComplete="off" /></label></div>
+      <button className="sketch-button form-submit" type="submit" disabled={status === 'sending'}>{status === 'sending' ? t.sending : t.send}{status !== 'sending' && <ArrowUpRight size={18} />}</button><p className="form-footnote">{t.footnote}</p>
+      {status === 'success' && <p className="form-feedback success" role="status"><Check size={18} />{t.success}</p>}{status === 'error' && <p className="form-feedback error" role="alert">{t.error}</p>}
     </form>
   </div></section>;
 }

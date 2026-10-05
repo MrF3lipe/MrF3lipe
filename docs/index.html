@@ -15,6 +15,11 @@
         if (theme !== 'dark' && theme !== 'light') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         document.documentElement.dataset.theme = theme;
         if (theme === 'dark') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#1d1b17');
+        // Language: ?lang= in the link, else the visitor's saved choice, else Spanish only for Spanish-speaking browsers.
+        var lang = new URLSearchParams(location.search).get('lang');
+        if (lang !== 'es' && lang !== 'en') { try { lang = localStorage.getItem('notebook-lang'); } catch (e) {} }
+        if (lang !== 'es' && lang !== 'en') lang = (navigator.languages || [navigator.language]).some(function (l) { return /^es\b/i.test(l); }) ? 'es' : 'en';
+        document.documentElement.lang = lang;
       })();
     </script>
     <link rel="canonical" href="https://mrf3lipe.github.io/MrF3lipe/" />
@@ -28,10 +33,10 @@
     <meta name="twitter:title" content="El cuaderno de Felipe Hernández" />
     <meta name="twitter:description" content="Portfolio frontend, proyectos web y Android. Empleo y freelance." />
     <title>Felipe Hernández | Frontend, web y Android</title>
-    <script type="module" crossorigin src="./assets/index-BYu5yfYo.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-IWMzt0yr.css">
+    <script type="module" crossorigin src="./assets/index-C3LMll9o.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BpQUH5XG.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
   </body>
 </html>

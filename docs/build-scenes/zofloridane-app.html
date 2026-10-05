@@ -145,6 +145,10 @@ document.addEventListener('click', event => {
   const params = new URLSearchParams(location.search);
   const dark = params.get('theme') === 'dark';
   const final = params.has('final');
+  // The notebook's language: the names it writes on the blocks follow it (scenes are written in Spanish).
+  const english = params.get('lang') === 'en';
+  const words = { 'menú': 'menu', 'cabecera': 'header', 'pie': 'footer', 'portada': 'hero', 'tarjeta': 'card', 'sección': 'section', 'título': 'title', 'barra': 'bar', 'navegación': 'navigation', 'buscador': 'search', 'categorías': 'categories', 'catálogo': 'catalog', 'producto': 'product', 'inicio': 'home', 'pagos': 'payments', 'zona y moneda': 'area & currency', 'receta': 'recipe', 'explorador': 'explore', 'despensa': 'pantry', 'comunidad': 'community', 'servicios': 'services', 'reserva': 'booking', 'reservas': 'bookings', 'horario': 'hours', 'galería': 'gallery', 'contacto': 'contact', 'fotos': 'photos', 'paleta': 'palette', '¡listo!': 'done!', '¡lista!': 'done!' };
+  const say = word => (english && words[word]) || word;
   const instant = final || matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
   const timers = [];
@@ -331,7 +335,8 @@ document.addEventListener('click', event => {
     shadow.append(element);
     return element;
   };
-  const nameFor = element => {
+  const nameFor = element => say(spanishName(element));
+  const spanishName = element => {
     if (element.dataset.sketch) return element.dataset.sketch;
     const tag = element.tagName.toLowerCase(), cls = String(element.className);
     if (tag === 'nav') return 'menú';
@@ -399,7 +404,7 @@ document.addEventListener('click', event => {
     if (palette.length) {
       const note = document.createElement('div');
       note.className = 'note';
-      note.innerHTML = `paleta<div class="swatches">${palette.map((color, i) => `<i style="background:${color};animation-delay:${250 + i * 110}ms"></i>`).join('')}</div>`;
+      note.innerHTML = `${say('paleta')}<div class="swatches">${palette.map((color, i) => `<i style="background:${color};animation-delay:${250 + i * 110}ms"></i>`).join('')}</div>`;
       shadow.append(note);
       await wait(380);
       note.classList.add('show');
@@ -485,7 +490,7 @@ document.addEventListener('click', event => {
     tracePencil([[W - 250, H - 150], [W - 216, H - 110], [W - 138, H - 210]], 420);
     const done = document.createElement('div');
     done.className = 'done';
-    done.textContent = interactive ? '¡lista!' : '¡listo!';
+    done.textContent = say(interactive ? '¡lista!' : '¡listo!');
     done.style.left = `${W - 300}px`;
     done.style.top = `${H - 100}px`;
     shadow.append(done);

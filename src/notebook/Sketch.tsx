@@ -1,6 +1,9 @@
+import { useLang } from './i18n';
+
 type Props = { kind?: 'hero' | 'dky' | 'kitchen' | 'kanban' | 'zofloridane' | 'glamour'; className?: string };
 export default function Sketch({ kind = 'hero', className = '' }: Props) {
-  const label = { hero: 'Boceto a lápiz de una página web y una aplicación móvil', dky: 'Esquema dibujado de una tienda de joyería', kitchen: 'Esquema dibujado de las pantallas de Kitchen Cabinet', zofloridane: 'Boceto de una tienda de comestibles con entrega a domicilio en Cuba', glamour: 'Boceto de una web de reservas para un salón de uñas', kanban: 'Tablero Kanban dibujado con notas de tareas' }[kind];
+  const { sketch } = useLang().t;
+  const label = sketch.labels[kind];
   return <svg className={`sketch-art ${className}`} viewBox="0 0 520 440" role="img" aria-label={label}>
     <g className="sketch-lines" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
       {kind === 'hero' && <>
@@ -55,12 +58,12 @@ export default function Sketch({ kind = 'hero', className = '' }: Props) {
       </>}
     </g>
     <g className="sketch-labels" fill="var(--pencil)">
-      {kind === 'hero' && <><text x="57" y="43" transform="rotate(-4 57 43)">hacerlo claro ↓</text><text x="93" y="427" transform="rotate(-4 93 427)">de la idea a la pantalla</text></>}
-      {kind === 'dky' && <><text x="64" y="39">una tienda que funciona</text><text x="243" y="408" transform="rotate(-3 243 408)">el producto, primero ↗</text></>}
-      {kind === 'glamour' && <><text x="150" y="36">reservar sin llamadas</text><text x="40" y="426" transform="rotate(-3 40 426)">su agenda, en orden ↗</text></>}
-      {kind === 'zofloridane' && <><text x="64" y="39">comprar desde lejos, entregar cerca</text><text x="128" y="433" transform="rotate(-2 128 433)">del carrito a su puerta ↗</text></>}
-      {kind === 'kitchen' && <><text x="64" y="43">recetas</text><text x="302" y="66">lista de la compra</text><text x="158" y="414" transform="rotate(-3 158 414)">un poco de orden para cocinar</text></>}
-      {kind === 'kanban' && <><text x="45" y="40">Por hacer</text><text x="201" y="39">En marcha</text><text x="369" y="37">¡Hecho!</text><text x="70" y="412" transform="rotate(-3 70 412)">cada idea tiene su lugar.</text></>}
+      {kind === 'hero' && <><text x="57" y="43" transform="rotate(-4 57 43)">{sketch.hero[0]}</text><text x="93" y="427" transform="rotate(-4 93 427)">{sketch.hero[1]}</text></>}
+      {kind === 'dky' && <><text x="64" y="39">{sketch.dky[0]}</text><text x="243" y="408" transform="rotate(-3 243 408)">{sketch.dky[1]}</text></>}
+      {kind === 'glamour' && <><text x="150" y="36">{sketch.glamour[0]}</text><text x="40" y="426" transform="rotate(-3 40 426)">{sketch.glamour[1]}</text></>}
+      {kind === 'zofloridane' && <><text x="64" y="39">{sketch.zofloridane[0]}</text><text x="128" y="433" transform="rotate(-2 128 433)">{sketch.zofloridane[1]}</text></>}
+      {kind === 'kitchen' && <><text x="64" y="43">{sketch.kitchen[0]}</text><text x="302" y="66">{sketch.kitchen[1]}</text><text x="158" y="414" transform="rotate(-3 158 414)">{sketch.kitchen[2]}</text></>}
+      {kind === 'kanban' && <><text x="45" y="40">{sketch.kanban[0]}</text><text x="201" y="39">{sketch.kanban[1]}</text><text x="369" y="37">{sketch.kanban[2]}</text><text x="70" y="412" transform="rotate(-3 70 412)">{sketch.kanban[3]}</text></>}
     </g>
   </svg>;
 }
