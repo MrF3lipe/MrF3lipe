@@ -1,14 +1,13 @@
-## Hola, soy Felipe Hernández 👋
+## ¡Hola! Soy Felipe Hernández 👋
 
 ### 🧠 Sobre mí
 
-Desarrollador obsesionado con los detalles. Disfruto crear **tiendas online**, **dashboards** y **herramientas útiles** que resuelven problemas reales.
-Trabajando siempre con la filosofía de que: *"Si funciona, se puede mejorar"*.  
+Desarrollador con un nivel de obsesión por los detalles que roza lo sospechoso 🔍. Me encanta crear **tiendas online**, **dashboards** y **herramientas útiles** que resuelven problemas de verdad (y no solo en mi cabeza).
+Mi lema: *"Si funciona, se puede mejorar"*... y sí, siempre se puede 😅
 
 ---
 
-
-### 🛠️ Habilidades Técnicas
+### 🛠️ Mi caja de herramientas
 
 **Lenguajes:**  
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
@@ -31,40 +30,33 @@ Trabajando siempre con la filosofía de que: *"Si funciona, se puede mejorar"*.
 
 ### 📌 Proyectos Destacados
 
+#### 🌴 [Zofloridane](https://zofloridane.com)
+Mi tienda online estrella ⭐: compras desde cualquier parte del mundo y le llegan comida, combos y productos esenciales a tu familia en Florida, Camagüey, Cuba 🇨🇺. ¡Y ahora también puedes enviar remesas! 💸
+
+#### 💅 [The Glamour](https://theglamour.biz)
+Web para un estudio de uñas en Sarasota, FL ✨: "arte en cada detalle" y reservas de citas online, para que nadie se quede sin su manicura.
+
 #### 🍳 [Kitchen Gabinet](https://github.com/MrF3lipe/kitchen-gabinet)
 ![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![Capacitor](https://img.shields.io/badge/Capacitor-119EFF?style=flat-square&logo=capacitor&logoColor=white)
 
-Asistente de cocina todo en uno: recetario interactivo, planificador semanal y gestor de despensa. Desarrollado como aplicación móvil para Android.
+Tu asistente de cocina para Android 📱: recetario interactivo, planificador semanal y gestor de despensa. Adiós al eterno "¿y hoy qué cocinamos?" 🤔
 
 #### 💍 [DKY Jewelry](https://dkygold.com)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 
-Sitio web de comercio electrónico para tienda de joyería. Incluye catálogo de productos, carrito de compras funcional y panel de administración para gestionar el inventario.
-
-#### 📋 [Personal Kanban](https://github.com/MrF3lipe/Personal-Kanban)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-
-Tablero Kanban interactivo con arrastrar y soltar, múltiples proyectos, filtros y colaboración.
+Tienda online de joyería con catálogo, carrito de compras y panel de administración para el inventario. Brilla más que el oro (bueno, casi) ✨
 
 #### 💸 [Gastos Mini App](https://github.com/MrF3lipe/gastos-miniapp)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
 
-Mini App de Telegram para anotar gastos.
+Mini App de Telegram para anotar tus gastos y descubrir por fin a dónde se va el dinero 🕵️
 
 #### 🎮 [Primordio](https://github.com/MrF3lipe/primordio-descargas)
-Descargas del juego Primordio para PC y Android.
-
-#### 🤖 [Torneo de Subagentes](https://github.com/MrF3lipe/torneo-subagentes)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-
-Experimento donde 7 IAs compiten creando 70 páginas web con agentes autónomos.
-
-#### 🗂️ [Portfolio](https://mrf3lipe.github.io/MrF3lipe/)
-Mi portfolio personal con perfil profesional y proyectos.
+Mi juego Primordio, listo para descargar en PC y Android 🕹️. ¡Dale una partida!
 
 ---
 
 ### 📬 Contacto
 
 - 📧 felipe.hdez.522@gmail.com
-- 🌐 *Open to work* – Disponible para proyectos y colaboraciones.
+- 🌐 *Open to work*: ¿tienes un proyecto o una idea loca? ¡Escríbeme y lo hacemos realidad! 🚀
