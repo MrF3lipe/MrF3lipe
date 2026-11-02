@@ -1,34 +1,47 @@
-# Felipe Hernández — Conceptual Sketch
+## Hola, soy Felipe Hernández 👋
 
-Portfolio completo para oportunidades de empleo y proyectos freelance. React, TypeScript y Vite; diseño de cuaderno con bocetos SVG, papel cálido y tipografías locales.
+### 🧠 Sobre mí
 
-## Desarrollo
+Desarrollador obsesionado con los detalles. Disfruto crear **tiendas online**, **dashboards** y **herramientas útiles** que resuelven problemas reales.
+Trabajando siempre con la filosofía de que: *"Si funciona, se puede mejorar"*.  
 
-```sh
-npm ci
-npm run dev
-npm run build
-```
+---
 
-La compilación queda en `dist/`. `docs/` contiene la misma versión preparada para GitHub Pages desde la rama main, carpeta /docs. Versión publicada en GitHub Pages: https://mrf3lipe.github.io/MrF3lipe/.
 
-## Editar contenido
+### 🛠️ Habilidades Técnicas
 
-- `src/notebook/App.tsx`: portada, perfil, herramientas y proceso.
-- `src/notebook/projects.ts`: proyectos destacados y enlaces; incluye ZoFloridane.
-- `src/notebook/Sketch.tsx`: ilustraciones de los proyectos.
-- `src/notebook/notebook.css`: diseño y adaptación a móvil.
-- `src/notebook/Contact.tsx`: formulario y copia del correo.
-- `src/data/content.ts`: correo y endpoint original de Formspree.
+**Lenguajes:**  
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![GDScript](https://img.shields.io/badge/GDScript-478CBF?style=flat-square&logo=godot-engine&logoColor=white)
 
-El formulario conserva el servicio existente e incluye validación, tiempo límite y estados de éxito/error. La entrega real del correo requiere que ese endpoint siga activo; no se han enviado mensajes de prueba.
+**Frontend:**  
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 
-Kitchen Cabinet no enlaza a ningún repositorio: el código (kitchen-gabinet) es privado. En la tarjeta se ve su construcción con capturas reales de la app. No se muestran descargas de APK porque los repositorios revisados no tienen APK publicadas en Releases. Actualizar o firmar las APK sigue siendo un trabajo separado.
+**Backend y Móvil:**  
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
+![Capacitor](https://img.shields.io/badge/Capacitor-119EFF?style=flat-square&logo=capacitor&logoColor=white)
 
-Los bocetos son ilustraciones, no capturas de aplicaciones. No se incluyen métricas, clientes ni resultados inventados.
+---
 
-Los bocetos se construyen al tocarlos en cinco etapas y terminan en una vista ilustrada en color. El botón permite repetir; el enlace al sitio real se muestra por separado. Se retiró la sección Otros apuntes / Otras ideas.
+### 📌 Proyectos Destacados
 
-Corrección: la construcción ahora descubre el sitio web REAL en un iframe, no una composición ilustrada. Se carga tras tocar el boceto, se revela por etapas y permite interactuar, ampliar o abrir en otra pestaña. Kitchen Cabinet mantiene su boceto de aplicación Android. La incrustación depende de que el destino permita frames; se ofrece siempre enlace directo.
+#### 🍳 [Kitchen Gabinet](https://github.com/MrF3lipe/kitchen-gabinet)
+- **Stack:** ![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![Capacitor](https://img.shields.io/badge/Capacitor-119EFF?style=flat-square&logo=capacitor&logoColor=white)
+- **Descripción:** Asistente de cocina todo en uno: recetario interactivo, planificador semanal y gestor de despensa. Desarrollado como aplicación móvil para Android.
 
-La versión definitiva recrea la creación de la página: añade estructura HTML, aplica estilos reales, inserta textos e imágenes y finalmente conecta la web en vivo. Las escenas usan HTML público capturado en public/build-scenes; para reflejar cambios futuros de las webs hay que actualizar esas escenas.
+#### 💍 [DKY Jewelry](https://dkygold.com)
+- **Stack:** ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+- **Descripción:** Sitio web de comercio electrónico para tienda de joyería. Incluye catálogo de productos, carrito de compras funcional y panel de administración para gestionar el inventario.
+
+---
+
+### 📬 Contacto
+
+- 📧 felipe.hdez.522@email.com
+- 🌐 *Open to work* – Disponible para proyectos y colaboraciones.
