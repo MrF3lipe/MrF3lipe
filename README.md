@@ -39,9 +39,27 @@ Trabajando siempre con la filosofía de que: *"Si funciona, se puede mejorar"*.
 - **Stack:** ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
 - **Descripción:** Sitio web de comercio electrónico para tienda de joyería. Incluye catálogo de productos, carrito de compras funcional y panel de administración para gestionar el inventario.
 
+#### 📋 [Personal Kanban](https://github.com/MrF3lipe/Personal-Kanban)
+- **Stack:** ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+- **Descripción:** Tablero Kanban interactivo con arrastrar y soltar, múltiples proyectos, filtros y colaboración.
+
+#### 💸 [Gastos Mini App](https://github.com/MrF3lipe/gastos-miniapp)
+- **Stack:** ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+- **Descripción:** Mini App de Telegram para anotar gastos.
+
+#### 🎮 [Primordio](https://github.com/MrF3lipe/primordio-descargas)
+- **Descripción:** Descargas del juego Primordio para PC y Android.
+
+#### 🤖 [Torneo de Subagentes](https://github.com/MrF3lipe/torneo-subagentes)
+- **Stack:** ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+- **Descripción:** Experimento donde 7 IAs compiten creando 70 páginas web con agentes autónomos.
+
+#### 🗂️ [Portfolio](https://mrf3lipe.github.io/MrF3lipe/)
+- **Descripción:** Mi portfolio personal con perfil profesional y proyectos.
+
 ---
 
 ### 📬 Contacto
 
-- 📧 felipe.hdez.522@email.com
+- 📧 felipe.hdez.522@gmail.com
 - 🌐 *Open to work* – Disponible para proyectos y colaboraciones.
